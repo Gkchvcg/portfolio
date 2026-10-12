@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f8fafc;
+  --foreground: #090d16;
+  --card: #ffffff;
+  --card-foreground: #090d16;
+  --card-border: #e2e8f0;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #4f46e5;
+  --accent-light: #6366f1;
+  --accent-foreground: #ffffff;
+  --accent-subtle: #eef2ff;
+  --border: #e2e8f0;
+  --grid-line: rgba(100, 116, 139, 0.08);
+  --code-bg: #f1f5f9;
+}
+
+.dark {
+  --background: #08090d;
+  --foreground: #f1f5f9;
+  --card: #0f121a;
+  --card-foreground: #f8fafc;
+  --card-border: #1e2433;
+  --muted: #141926;
+  --muted-foreground: #94a3b8;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-foreground: #ffffff;
+  --accent-subtle: rgba(99, 102, 241, 0.12);
+  --border: #1e2433;
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --code-bg: #0b0e14;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light dark;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    min-height: 100vh;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+/* Technical grid patterns */
+.tech-grid {
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.tech-dots {
+  background-image: radial-gradient(var(--grid-line) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+/* Subtle glow effects */
+.accent-glow {
+  box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.2);
+}
+
+.card-hover-border {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover-border:hover {
+  border-color: var(--accent-light);
+  transform: translateY(-2px);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 4px;
+  border: 2px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
