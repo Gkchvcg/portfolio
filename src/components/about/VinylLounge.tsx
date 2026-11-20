@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Disc3, Play, Pause, SkipForward, SkipBack, Volume2, Sparkles, Music, Heart, Radio, Waves } from 'lucide-react';
+import { Disc3, Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Sparkles, Music, Heart, Radio, Waves } from 'lucide-react';
+import { sound } from './soundEngine';
 
 interface Track {
   id: string;
@@ -62,17 +63,79 @@ const TRACKS: Track[] = [
 
 export function VinylLounge() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const [liked, setLiked] = useState(true);
+  const [freqBars, setFreqBars] = useState<number[]>([35, 65, 45, 80, 50, 75, 90, 60, 85, 40, 70, 55, 65, 45, 75]);
 
   const track = TRACKS[currentTrackIndex];
 
+  // Stop music if component unmounts
+  useEffect(() => {
+    return () => {
+      sound.stopSong();
+    };
+  }, []);
+
+  // Real-time frequency analyzer connection for equalizer
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    let animId: number;
+    const updateSpectrum = () => {
+      if (sound.analyser) {
+        const buffer = new Uint8Array(sound.analyser.frequencyBinCount);
+        sound.analyser.getByteFrequencyData(buffer);
+        const sampled: number[] = [];
+        for (let i = 0; i < 15; i++) {
+          const idx = Math.floor((i / 15) * (buffer.length / 2));
+          const val = buffer[idx] || 0;
+          sampled.push(Math.max(12, Math.min(100, (val / 255) * 100)));
+        }
+        setFreqBars(sampled);
+      }
+      animId = requestAnimationFrame(updateSpectrum);
+    };
+
+    animId = requestAnimationFrame(updateSpectrum);
+    return () => cancelAnimationFrame(animId);
+  }, [isPlaying]);
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      sound.pauseSong();
+      setIsPlaying(false);
+    } else {
+      sound.playSong(track.id);
+      setIsPlaying(true);
+    }
+  };
+
   const handleNext = () => {
-    setCurrentTrackIndex((prev) => (prev + 1) % TRACKS.length);
+    const nextIdx = (currentTrackIndex + 1) % TRACKS.length;
+    setCurrentTrackIndex(nextIdx);
+    if (isPlaying) {
+      sound.playSong(TRACKS[nextIdx].id);
+    }
   };
 
   const handlePrev = () => {
-    setCurrentTrackIndex((prev) => (prev - 1 + TRACKS.length) % TRACKS.length);
+    const prevIdx = (currentTrackIndex - 1 + TRACKS.length) % TRACKS.length;
+    setCurrentTrackIndex(prevIdx);
+    if (isPlaying) {
+      sound.playSong(TRACKS[prevIdx].id);
+    }
+  };
+
+  const handleSelectTrack = (idx: number) => {
+    setCurrentTrackIndex(idx);
+    sound.playSong(TRACKS[idx].id);
+    setIsPlaying(true);
+  };
+
+  const toggleMute = () => {
+    const nextMuted = sound.toggleMute();
+    setIsMuted(nextMuted);
   };
 
   return (
@@ -86,7 +149,7 @@ export function VinylLounge() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-500/10 border border-blue-500/30 text-blue-400 mb-3">
             <Radio className="w-3.5 h-3.5" />
-            <span>ANALOG SOUL • ACOUSTIC FREQUENCIES</span>
+            <span>ANALOG SOUL • AUDIO FREQUENCIES</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
             The Vinyl Lounge
@@ -95,13 +158,23 @@ export function VinylLounge() {
             </span>
           </h3>
           <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed">
-            Music is emotional architecture. From the spiritual vortex of Nusrat Fateh Ali Khan to the vibrant melodies of Jass Manak and the poetic cadence of Parda, this is the soundtrack of my life.
+            Music is emotional architecture. Press Play to experience custom procedural arrangements of Nusrat Fateh Ali Khan, Jass Manak, and Parda with live frequency visualization.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 bg-zinc-900 px-3 py-2 rounded-xl border border-zinc-800 self-start md:self-auto">
-          <Waves className="w-4 h-4 text-blue-400 animate-pulse" />
-          <span>Interactive Visual Player (Silent)</span>
+        <div className="flex items-center gap-2 self-start md:self-auto">
+          <button
+            onClick={toggleMute}
+            className={`flex items-center gap-2 text-xs font-mono px-3.5 py-2 rounded-xl border transition-all ${
+              isMuted
+                ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                : 'bg-zinc-900 text-zinc-300 border-zinc-800 hover:text-white hover:border-zinc-700'
+            }`}
+            title={isMuted ? 'Unmute Sound' : 'Mute Sound'}
+          >
+            {isMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-emerald-400" />}
+            <span>{isMuted ? 'Muted' : 'Sound: ON'}</span>
+          </button>
         </div>
       </div>
 
@@ -120,11 +193,12 @@ export function VinylLounge() {
               animate={{ rotate: isPlaying ? 360 : 0 }}
               transition={{
                 repeat: isPlaying ? Infinity : 0,
-                duration: 6,
+                duration: 5,
                 ease: 'linear',
               }}
               className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-zinc-950 via-zinc-900 to-zinc-950 shadow-2xl flex items-center justify-center cursor-pointer border border-zinc-800 group"
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={togglePlay}
+              title={isPlaying ? 'Click to pause turntable' : 'Click to drop needle and play'}
             >
               {/* Vinyl Microgrooves */}
               <div className="absolute inset-3 rounded-full border border-zinc-800/80 pointer-events-none" />
@@ -166,7 +240,7 @@ export function VinylLounge() {
 
           <p className="text-xs font-mono text-zinc-400 mt-4 flex items-center gap-1.5">
             <span className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-emerald-400 animate-ping' : 'bg-zinc-600'}`} />
-            {isPlaying ? 'Turntable spinning at 33⅓ RPM' : 'Turntable paused (Click disc to spin)'}
+            {isPlaying ? 'Now Playing: Sound active (Click disc to pause)' : 'Turntable idle • Click disc or Play button to listen'}
           </p>
         </div>
 
@@ -222,21 +296,20 @@ export function VinylLounge() {
               ))}
             </div>
 
-            {/* Equalizer Visualizer Bars */}
+            {/* Live Equalizer Visualizer Bars */}
             <div className="pt-4 border-t border-zinc-800 flex items-center justify-between gap-4">
-              <div className="flex items-end gap-1.5 h-8">
-                {[45, 80, 60, 95, 40, 75, 100, 65, 85, 50, 90, 70, 80, 60, 95].map((height, i) => (
+              <div className="flex items-end gap-1.5 h-10 w-48 sm:w-64">
+                {freqBars.map((height, i) => (
                   <motion.div
                     key={i}
                     animate={{
-                      height: isPlaying ? [`${Math.max(15, height * 0.3)}%`, `${height}%`, `${Math.max(10, height * 0.4)}%`] : '15%',
+                      height: isPlaying ? `${height}%` : '8%',
                     }}
                     transition={{
-                      repeat: isPlaying ? Infinity : 0,
-                      duration: 0.6 + (i % 5) * 0.15,
-                      ease: 'easeInOut',
+                      duration: 0.08,
+                      ease: 'linear',
                     }}
-                    className="w-1.5 rounded-full bg-gradient-to-t from-blue-600 via-indigo-500 to-cyan-400"
+                    className="flex-1 rounded-full bg-gradient-to-t from-blue-600 via-indigo-500 to-cyan-400"
                     style={{ minHeight: '4px' }}
                   />
                 ))}
@@ -244,7 +317,7 @@ export function VinylLounge() {
 
               <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
                 <Volume2 className="w-4 h-4 text-blue-400" />
-                <span>Lossless 96kHz / 24-bit</span>
+                <span>Web Audio Live DSP</span>
               </div>
             </div>
 
@@ -259,9 +332,9 @@ export function VinylLounge() {
               </button>
 
               <button
-                onClick={() => setIsPlaying(!isPlaying)}
+                onClick={togglePlay}
                 className="p-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-transform active:scale-95"
-                title={isPlaying ? 'Pause' : 'Play'}
+                title={isPlaying ? 'Pause Playback' : 'Play Music'}
               >
                 {isPlaying ? <Pause className="w-6 h-6 fill-white" /> : <Play className="w-6 h-6 fill-white ml-0.5" />}
               </button>
@@ -281,18 +354,18 @@ export function VinylLounge() {
             {TRACKS.map((t, idx) => (
               <button
                 key={t.id}
-                onClick={() => {
-                  setCurrentTrackIndex(idx);
-                  setIsPlaying(true);
-                }}
+                onClick={() => handleSelectTrack(idx)}
                 className={`p-3 rounded-xl border text-left transition-all ${
                   currentTrackIndex === idx
                     ? 'bg-blue-600/20 border-blue-500 text-white shadow-md'
                     : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                 }`}
               >
-                <div className="text-[10px] font-mono uppercase text-blue-400">
-                  Track 0{idx + 1}
+                <div className="text-[10px] font-mono uppercase text-blue-400 flex items-center justify-between">
+                  <span>Track 0{idx + 1}</span>
+                  {currentTrackIndex === idx && isPlaying && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  )}
                 </div>
                 <div className="text-xs font-bold truncate mt-1 text-white">
                   {t.title}

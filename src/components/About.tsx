@@ -13,7 +13,10 @@ import {
   Flower2,
   Moon,
   Layers,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
+import { sound } from './about/soundEngine';
 
 import { JournalIntro } from './about/JournalIntro';
 import { FavoriteCards } from './about/FavoriteCards';
@@ -57,6 +60,12 @@ const NAV_ITEMS: NavItem[] = [
 
 export function About() {
   const [activeTab, setActiveTab] = useState<JournalTab>('all');
+  const [isAudioMuted, setIsAudioMuted] = useState(false);
+
+  const toggleSound = () => {
+    const nextMuted = sound.toggleMute();
+    setIsAudioMuted(nextMuted);
+  };
 
   return (
     <section
@@ -84,10 +93,26 @@ export function About() {
               </p>
             </div>
 
-            {/* Quick Summary Pill */}
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900/90 px-4 py-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm self-start md:self-auto">
-              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-              <span>Interactive 60 FPS Digital Scrapbook</span>
+            {/* Quick Summary Pill & Global Audio Control */}
+            <div className="flex flex-wrap items-center gap-3 self-start md:self-auto">
+              <button
+                type="button"
+                onClick={toggleSound}
+                className={`flex items-center gap-2 text-xs font-mono px-3.5 py-2 rounded-2xl border transition-all ${
+                  isAudioMuted
+                    ? 'bg-rose-500/10 text-rose-500 border-rose-500/30'
+                    : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                }`}
+                title={isAudioMuted ? 'Unmute Sound Effects' : 'Mute Sound Effects'}
+              >
+                {isAudioMuted ? <VolumeX className="w-3.5 h-3.5 text-rose-500" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-500" />}
+                <span>{isAudioMuted ? 'Audio Muted' : 'Audio Active'}</span>
+              </button>
+
+              <div className="flex items-center gap-2 text-xs font-mono text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900/90 px-4 py-2 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                <span>Interactive 60 FPS Digital Scrapbook</span>
+              </div>
             </div>
           </div>
         </div>
@@ -102,7 +127,10 @@ export function About() {
               return (
                 <button
                   key={item.id}
-                  onClick={() => setActiveTab(item.id)}
+                  onClick={() => {
+                    sound.playUiClick();
+                    setActiveTab(item.id);
+                  }}
                   className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'

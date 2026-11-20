@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Film, Sparkles, Heart, Moon, Wind, Music, Play, Layers, Eye } from 'lucide-react';
+import { Film, Sparkles, Heart, Moon, Wind, Music, Play, Layers, Eye, Volume2 } from 'lucide-react';
 import { SakuraPetals } from './SakuraPetals';
+import { sound, PIANO_FREQUENCIES } from './soundEngine';
 
 export function AnimeCinemaSection() {
   const [activeTab, setActiveTab] = useState<'ylia' | 'noir' | 'cinema'>('ylia');
@@ -12,22 +13,53 @@ export function AnimeCinemaSection() {
 
   // Piano keys for the interactive Your Lie in April footer motif
   const pianoKeys = [
-    { note: 'C', isBlack: false },
-    { note: 'C#', isBlack: true },
-    { note: 'D', isBlack: false },
-    { note: 'D#', isBlack: true },
-    { note: 'E', isBlack: false },
-    { note: 'F', isBlack: false },
-    { note: 'F#', isBlack: true },
-    { note: 'G', isBlack: false },
-    { note: 'G#', isBlack: true },
-    { note: 'A', isBlack: false },
-    { note: 'A#', isBlack: true },
-    { note: 'B', isBlack: false },
-    { note: 'C2', isBlack: false },
-    { note: 'C#2', isBlack: true },
-    { note: 'D2', isBlack: false },
+    { note: 'C', keyChar: 'A', isBlack: false },
+    { note: 'C#', keyChar: 'W', isBlack: true },
+    { note: 'D', keyChar: 'S', isBlack: false },
+    { note: 'D#', keyChar: 'E', isBlack: true },
+    { note: 'E', keyChar: 'D', isBlack: false },
+    { note: 'F', keyChar: 'F', isBlack: false },
+    { note: 'F#', keyChar: 'T', isBlack: true },
+    { note: 'G', keyChar: 'G', isBlack: false },
+    { note: 'G#', keyChar: 'Y', isBlack: true },
+    { note: 'A', keyChar: 'H', isBlack: false },
+    { note: 'A#', keyChar: 'U', isBlack: true },
+    { note: 'B', keyChar: 'J', isBlack: false },
+    { note: 'C2', keyChar: 'K', isBlack: false },
+    { note: 'C#2', keyChar: 'O', isBlack: true },
+    { note: 'D2', keyChar: 'L', isBlack: false },
   ];
+
+  const handlePlayKey = (note: string, idx: number) => {
+    setActiveKey(idx);
+    const freq = PIANO_FREQUENCIES[note];
+    if (freq) {
+      sound.playPiano(freq);
+    }
+    setTimeout(() => {
+      setActiveKey((prev) => (prev === idx ? null : prev));
+    }, 250);
+  };
+
+  // Keyboard shortcut listener for piano keys
+  useEffect(() => {
+    if (activeTab !== 'ylia') return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
+
+      const char = e.key.toUpperCase();
+      const foundIdx = pianoKeys.findIndex((k) => k.keyChar === char);
+      if (foundIdx !== -1) {
+        e.preventDefault();
+        handlePlayKey(pianoKeys[foundIdx].note, foundIdx);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeTab]);
 
   return (
     <div className="relative rounded-3xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-950 text-white p-6 sm:p-10 shadow-2xl">
@@ -177,47 +209,70 @@ export function AnimeCinemaSection() {
 
           {/* Interactive Piano Keys Strip */}
           <div className="pt-6 border-t border-zinc-800/80">
-            <div className="flex items-center justify-between mb-3 text-xs font-mono text-zinc-400">
-              <span className="flex items-center gap-1.5">
-                <Music className="w-3.5 h-3.5 text-sky-400" />
-                <span>Interactive Piano Motif (Hover / Tap keys)</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 text-xs font-mono text-zinc-400">
+              <span className="flex items-center gap-2 text-sky-300 font-semibold">
+                <Volume2 className="w-4 h-4 text-sky-400 animate-pulse" />
+                <span>Interactive Piano Soundboard (Click keys or press keyboard keys A-L)</span>
               </span>
-              <span>Chopin • Saint-Saëns • Kreisler</span>
+              <span className="text-[11px] text-zinc-500">Chopin Ballade No. 1 • Saint-Saëns • Kreisler</span>
             </div>
 
-            <div className="relative flex justify-center bg-zinc-900/80 p-3 rounded-2xl border border-zinc-800 shadow-inner overflow-x-auto">
-              <div className="flex relative h-28 sm:h-32">
+            <div className="relative flex justify-center bg-zinc-900/90 p-4 rounded-2xl border border-zinc-800 shadow-inner overflow-x-auto">
+              <div className="flex relative h-32 sm:h-36 select-none">
                 {pianoKeys.map((k, idx) => {
                   if (k.isBlack) {
                     return (
-                      <motion.div
+                      <motion.button
                         key={idx}
+                        type="button"
                         whileHover={{ y: 2 }}
-                        onMouseEnter={() => setActiveKey(idx)}
-                        onMouseLeave={() => setActiveKey(null)}
-                        className={`absolute w-5 sm:w-6 h-16 sm:h-20 bg-zinc-900 border border-zinc-700 rounded-b-md z-20 cursor-pointer shadow-lg transition-colors ${
-                          activeKey === idx ? 'bg-sky-500 border-sky-400 shadow-sky-500/50' : 'hover:bg-zinc-800'
+                        whileTap={{ y: 4, scale: 0.98 }}
+                        onClick={() => handlePlayKey(k.note, idx)}
+                        onTouchStart={(e) => {
+                          e.preventDefault();
+                          handlePlayKey(k.note, idx);
+                        }}
+                        className={`absolute w-6 sm:w-7 h-20 sm:h-22 border border-zinc-700 rounded-b-md z-20 cursor-pointer shadow-lg transition-all flex flex-col justify-end items-center pb-1 ${
+                          activeKey === idx
+                            ? 'bg-sky-400 border-sky-300 shadow-sky-400/80 shadow-md ring-2 ring-sky-300'
+                            : 'bg-zinc-900 hover:bg-zinc-800 text-zinc-400'
                         }`}
                         style={{
-                          left: `${idx * 24 - 12}px`,
+                          left: `${idx * 26 - 13}px`,
                         }}
-                      />
+                        title={`Play note ${k.note} (Press ${k.keyChar})`}
+                      >
+                        <span className="text-[9px] font-mono font-bold text-zinc-300">
+                          {k.keyChar}
+                        </span>
+                      </motion.button>
                     );
                   }
                   return (
-                    <motion.div
+                    <motion.button
                       key={idx}
+                      type="button"
                       whileHover={{ y: 2 }}
-                      onMouseEnter={() => setActiveKey(idx)}
-                      onMouseLeave={() => setActiveKey(null)}
-                      className={`w-8 sm:w-10 h-full bg-zinc-100 dark:bg-zinc-200 border border-zinc-400 rounded-b-lg cursor-pointer shadow-md transition-colors relative flex items-end justify-center pb-2 ${
-                        activeKey === idx ? 'bg-sky-200 dark:bg-sky-100' : 'hover:bg-zinc-50'
+                      whileTap={{ y: 4, scale: 0.98 }}
+                      onClick={() => handlePlayKey(k.note, idx)}
+                      onTouchStart={(e) => {
+                        e.preventDefault();
+                        handlePlayKey(k.note, idx);
+                      }}
+                      className={`w-9 sm:w-11 h-full border border-zinc-400 rounded-b-lg cursor-pointer shadow-md transition-all relative flex flex-col items-center justify-end pb-2 ${
+                        activeKey === idx
+                          ? 'bg-sky-300 border-sky-400 shadow-sky-400/40 ring-2 ring-sky-300'
+                          : 'bg-gradient-to-b from-zinc-100 to-zinc-200 hover:from-white hover:to-zinc-100 text-zinc-800'
                       }`}
+                      title={`Play note ${k.note} (Press ${k.keyChar})`}
                     >
-                      <span className="text-[10px] font-mono text-zinc-700 font-bold select-none">
+                      <span className="text-[11px] font-mono font-bold select-none text-zinc-900">
                         {k.note}
                       </span>
-                    </motion.div>
+                      <span className="text-[9px] font-mono text-zinc-500 font-medium">
+                        [{k.keyChar}]
+                      </span>
+                    </motion.button>
                   );
                 })}
               </div>

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, X, Heart, ExternalLink, Compass, Eye } from 'lucide-react';
+import { sound } from './soundEngine';
 
 export interface FavoriteItem {
   id: string;
@@ -195,7 +196,10 @@ export function FavoriteCards() {
             key={item.id}
             item={item}
             index={idx}
-            onSelect={() => setActiveItem(item)}
+            onSelect={() => {
+              sound.playChime();
+              setActiveItem(item);
+            }}
           />
         ))}
       </div>

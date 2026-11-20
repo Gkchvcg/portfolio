@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Flame, Compass, ChevronRight, ChevronLeft, Zap, Sparkles, X, Shield, Activity, Target } from 'lucide-react';
+import { sound } from './soundEngine';
 
 interface PlayerCard {
   id: string;
@@ -168,7 +169,10 @@ export function FootballSection() {
                   key={player.id}
                   whileHover={{ y: -6, scale: 1.01 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  onClick={() => setActivePlayer(player)}
+                  onClick={() => {
+                    sound.playFootballKick();
+                    setActivePlayer(player);
+                  }}
                   className={`group relative rounded-2xl p-6 border transition-all cursor-pointer overflow-hidden flex flex-col justify-between min-h-[380px] bg-gradient-to-b ${player.accentColor}`}
                 >
                   {/* Subtle watermarked jersey number */}
@@ -342,7 +346,10 @@ export function FootballSection() {
                 {/* Messi (False 9 / Right Half-Space) */}
                 <motion.div
                   whileHover={{ scale: 1.15 }}
-                  onClick={() => setActivePlayer(PLAYERS[0])}
+                  onClick={() => {
+                    sound.playFootballKick();
+                    setActivePlayer(PLAYERS[0]);
+                  }}
                   className="absolute left-[65%] top-[55%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
                 >
                   <div className="relative flex flex-col items-center">
@@ -358,7 +365,10 @@ export function FootballSection() {
                 {/* Neymar (Left Winger / Iso 1v1 Zone) */}
                 <motion.div
                   whileHover={{ scale: 1.15 }}
-                  onClick={() => setActivePlayer(PLAYERS[1])}
+                  onClick={() => {
+                    sound.playFootballKick();
+                    setActivePlayer(PLAYERS[1]);
+                  }}
                   className="absolute left-[70%] top-[15%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
                 >
                   <div className="relative flex flex-col items-center">
@@ -374,7 +384,10 @@ export function FootballSection() {
                 {/* Bellingham (Box-to-Box #8/#10 Midfield Engine) */}
                 <motion.div
                   whileHover={{ scale: 1.15 }}
-                  onClick={() => setActivePlayer(PLAYERS[2])}
+                  onClick={() => {
+                    sound.playFootballKick();
+                    setActivePlayer(PLAYERS[2]);
+                  }}
                   className="absolute left-[45%] top-[35%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
                 >
                   <div className="relative flex flex-col items-center">
