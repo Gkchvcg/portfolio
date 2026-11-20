@@ -53,7 +53,7 @@ export function GothamMusicWidget() {
 
       {/* Track Label on Desktop */}
       <span className="hidden xl:inline text-[10px] font-mono font-medium text-[#8B95A5] select-none pr-1">
-        GOTHAM AUDIO
+        SAJAN SAJAN
       </span>
 
       {/* Volume Button & Hover Slider */}

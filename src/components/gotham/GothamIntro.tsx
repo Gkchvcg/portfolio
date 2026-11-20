@@ -27,9 +27,10 @@ export function GothamIntro() {
     await startSoundtrackFromIntro();
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     sessionStorage.setItem('gotham_entered', 'true');
     setShowIntro(false);
+    await startSoundtrackFromIntro();
   };
 
   if (!mounted || !showIntro) return null;
@@ -138,9 +139,9 @@ export function GothamIntro() {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
 
-            <span className="text-[11px] font-mono text-[#8B95A5] flex items-center gap-1.5">
+            <span className="text-[11px] font-mono text-[#D4A338] flex items-center gap-1.5">
               <Volume2 className="w-3.5 h-3.5 text-[#D4A338]" />
-              <span>Activates Signature Gotham City Soundtrack</span>
+              <span>Activates Signature &quot;Sajan Sajan&quot; Gotham Soundtrack</span>
             </span>
           </motion.div>
         </div>
