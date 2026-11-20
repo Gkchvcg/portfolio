@@ -7,6 +7,8 @@ import { Menu, X, Download, Eye, FileText, ChevronRight } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
 import { ThemeToggle } from './ThemeToggle';
 import { ResumeModal } from './ResumeModal';
+import { GothamMusicWidget } from './gotham/GothamMusicWidget';
+import { BatIcon } from './gotham/BatIcon';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -42,7 +44,7 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
           scrolled
-            ? 'bg-white/85 dark:bg-[#08090d]/85 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-xs'
+            ? 'bg-[#06080c]/90 dark:bg-[#06080c]/90 backdrop-blur-md border-b border-zinc-800/80 shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
@@ -51,17 +53,20 @@ export function Navbar() {
             {/* Brand / Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 group focus:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg p-1"
+              className="flex items-center gap-2.5 group focus:outline-hidden focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-1"
             >
-              <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 flex items-center justify-center font-bold text-base tracking-tight shadow-sm group-hover:scale-105 transition-transform duration-200">
-                MH
+              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-zinc-800 to-zinc-950 border border-zinc-700/80 text-white flex items-center justify-center font-bold text-base tracking-tight shadow-md group-hover:border-sky-500/50 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all duration-200 overflow-hidden">
+                <BatIcon className="w-5 h-auto text-sky-400 group-hover:scale-110 transition-transform" />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-sm sm:text-base text-zinc-900 dark:text-white tracking-tight leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                <span className="font-semibold text-sm sm:text-base text-white tracking-tight leading-tight group-hover:text-sky-400 transition-colors flex items-center gap-1.5">
                   {PERSONAL_INFO.name}
+                  <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-sky-950/60 border border-sky-500/30 text-sky-400 hidden sm:inline">
+                    GOTHAM
+                  </span>
                 </span>
-                <span className="text-[11px] text-zinc-500 dark:text-zinc-400 font-mono leading-tight">
-                  SDE Aspirant
+                <span className="text-[11px] text-zinc-400 font-mono leading-tight">
+                  Wayne Applied Sciences • SDE
                 </span>
               </div>
             </Link>
@@ -76,10 +81,10 @@ export function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       isActive
-                        ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-950/40'
-                        : 'text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
+                        ? 'text-sky-300 bg-sky-950/50 border border-sky-500/30 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                        : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60 hover:border-zinc-700/60'
                     }`}
                   >
                     {link.name}
@@ -88,8 +93,11 @@ export function Navbar() {
               })}
             </nav>
 
-            {/* Actions: Resume + Theme + Mobile Burger */}
+            {/* Actions: Soundtrack Player + Resume + Theme + Mobile Burger */}
             <div className="flex items-center gap-2 sm:gap-3">
+              {/* Minimal Gotham Soundtrack Controller */}
+              <GothamMusicWidget />
+
               <ThemeToggle />
 
               {/* Resume download / preview buttons */}
@@ -97,18 +105,18 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => setResumeModalOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/90 text-zinc-300 hover:text-white transition-colors"
                   title="Preview resume document"
                   id="nav-preview-resume-btn"
                 >
-                  <Eye className="w-3.5 h-3.5 text-indigo-500" />
+                  <Eye className="w-3.5 h-3.5 text-sky-400" />
                   <span>Preview CV</span>
                 </button>
 
                 <a
                   href={PERSONAL_INFO.resumePath}
                   download={PERSONAL_INFO.resumeFilename}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition-colors shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold transition-all shadow-[0_0_15px_rgba(56,189,248,0.25)] hover:shadow-[0_0_20px_rgba(56,189,248,0.4)]"
                   id="nav-download-resume-btn"
                   title="Download verified resume PDF"
                 >

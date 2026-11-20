@@ -4,6 +4,9 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
+import { GothamSoundtrackProvider } from '@/components/gotham/GothamSoundtrackContext';
+import { GothamIntro } from '@/components/gotham/GothamIntro';
+import { GothamAtmosphere } from '@/components/gotham/GothamAtmosphere';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -83,11 +86,15 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
     >
-      <body className="min-h-screen flex flex-col bg-[#f8fafc] dark:bg-[#08090d] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
+      <body className="min-h-screen flex flex-col bg-[#040507] text-zinc-100 transition-colors duration-200 selection:bg-sky-500 selection:text-black">
         <ThemeProvider>
-          <Navbar />
-          <div className="flex-1">{children}</div>
-          <Footer />
+          <GothamSoundtrackProvider>
+            <GothamAtmosphere />
+            <GothamIntro />
+            <Navbar />
+            <div className="flex-1 relative z-10">{children}</div>
+            <Footer />
+          </GothamSoundtrackProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -10,30 +10,30 @@
   --card-border: #e2e8f0;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --accent: #4f46e5;
-  --accent-light: #6366f1;
+  --accent: #0284c7;
+  --accent-light: #38bdf8;
   --accent-foreground: #ffffff;
-  --accent-subtle: #eef2ff;
+  --accent-subtle: #f0f9ff;
   --border: #e2e8f0;
-  --grid-line: rgba(100, 116, 139, 0.08);
+  --grid-line: rgba(56, 189, 248, 0.06);
   --code-bg: #f1f5f9;
 }
 
 .dark {
-  --background: #08090d;
+  --background: #040507;
   --foreground: #f1f5f9;
-  --card: #0f121a;
+  --card: #090b10;
   --card-foreground: #f8fafc;
-  --card-border: #1e2433;
-  --muted: #141926;
+  --card-border: #151a24;
+  --muted: #0d1017;
   --muted-foreground: #94a3b8;
-  --accent: #6366f1;
-  --accent-light: #818cf8;
-  --accent-foreground: #ffffff;
-  --accent-subtle: rgba(99, 102, 241, 0.12);
-  --border: #1e2433;
-  --grid-line: rgba(255, 255, 255, 0.04);
-  --code-bg: #0b0e14;
+  --accent: #38bdf8;
+  --accent-light: #60a5fa;
+  --accent-foreground: #040507;
+  --accent-subtle: rgba(56, 189, 248, 0.12);
+  --border: #151a24;
+  --grid-line: rgba(56, 189, 248, 0.035);
+  --code-bg: #07090e;
 }
 
 @layer base {
@@ -182,6 +182,64 @@
 .animate-tactical-dash {
   stroke-dasharray: 6 6;
   animation: tactical-dash 2s linear infinite;
+}
+
+/* Gotham City Searchlights */
+@keyframes searchlight {
+  0%, 100% {
+    transform: rotate(-18deg) scaleY(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: rotate(-4deg) scaleY(1.15);
+    opacity: 0.55;
+  }
+}
+
+@keyframes searchlight-delayed {
+  0%, 100% {
+    transform: rotate(14deg) scaleY(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: rotate(26deg) scaleY(1.1);
+    opacity: 0.5;
+  }
+}
+
+.animate-searchlight {
+  animation: searchlight 14s ease-in-out infinite;
+}
+
+.animate-searchlight-delayed {
+  animation: searchlight-delayed 18s ease-in-out infinite 3s;
+}
+
+/* Gotham Rain overlay */
+.gotham-rain-overlay {
+  background-image: 
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.22) 1px, transparent 1px);
+  background-size: 80px 22px;
+  animation: gotham-rain 1.4s linear infinite;
+}
+
+@keyframes gotham-rain {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -20px 220px;
+  }
+}
+
+/* Bat-Signal Glow utilities */
+.bat-glow {
+  box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.35);
+}
+
+.bat-border-glow:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.25);
 }
 
 /* Reduced motion support */

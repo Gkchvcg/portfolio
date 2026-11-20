@@ -15,6 +15,7 @@ import {
 import { GithubIcon, LinkedinIcon, LeetCodeIcon } from './icons/BrandIcons';
 import { PERSONAL_INFO } from '@/data/portfolioData';
 import { ResumeModal } from './ResumeModal';
+import { BatIcon } from './gotham/BatIcon';
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -75,8 +76,9 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Section Header */}
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
-            <span>06 // INQUIRIES & COLLABORATION</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-600 dark:text-sky-400 uppercase tracking-wider">
+            <BatIcon className="w-4 h-2 text-sky-400" />
+            <span>06 // SECURE COMMUNICATIONS • ENCRYPTED TRANSMISSION</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
             Get In Touch
@@ -90,10 +92,10 @@ export function ContactSection() {
           {/* Direct Contact Cards */}
           <div className="lg:col-span-5 space-y-4">
             {/* Email Card */}
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-[#090b12]/90 shadow-sm hover:border-sky-500/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.12)] transition-all space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-900/60">
+                  <div className="p-2.5 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
@@ -102,7 +104,7 @@ export function ContactSection() {
                     </h3>
                     <a
                       href={`mailto:${PERSONAL_INFO.email}`}
-                      className="text-sm sm:text-base font-semibold text-zinc-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                      className="text-sm sm:text-base font-semibold text-zinc-900 dark:text-white hover:text-sky-400 transition-colors"
                       id="contact-email-link"
                     >
                       {PERSONAL_INFO.email}
@@ -132,7 +134,7 @@ export function ContactSection() {
             </div>
 
             {/* Phone Card */}
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-[#090b12]/90 shadow-sm hover:border-emerald-500/40 transition-all">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">
                   <Phone className="w-5 h-5" />
@@ -153,9 +155,9 @@ export function ContactSection() {
             </div>
 
             {/* Resume Download Direct Card */}
-            <div className="p-6 rounded-2xl border border-indigo-200/80 dark:border-indigo-900/60 bg-gradient-to-br from-indigo-50/50 via-white to-violet-50/30 dark:from-indigo-950/30 dark:via-zinc-900 dark:to-violet-950/20 shadow-sm space-y-4">
+            <div className="p-6 rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-950/20 via-[#090b12] to-zinc-900 shadow-[0_0_20px_rgba(56,189,248,0.08)] space-y-4">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-indigo-600 text-white">
+                <div className="p-2.5 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
@@ -172,7 +174,7 @@ export function ContactSection() {
                 <a
                   href={PERSONAL_INFO.resumePath}
                   download={PERSONAL_INFO.resumeFilename}
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition-colors shadow-xs"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-semibold transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                   id="contact-download-resume-btn"
                 >
                   <Download className="w-4 h-4" />
@@ -182,7 +184,7 @@ export function ContactSection() {
                 <button
                   type="button"
                   onClick={() => setResumeModalOpen(true)}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-sky-500/40 transition-colors"
                 >
                   <span>Preview</span>
                 </button>
@@ -190,12 +192,12 @@ export function ContactSection() {
             </div>
 
             {/* Verified Social Connects */}
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/50 flex items-center justify-around">
+            <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-[#07090e]/80 flex items-center justify-around">
               <a
                 href="https://github.com/Gkchvcg"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-white transition-colors"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub</span>
@@ -207,9 +209,9 @@ export function ContactSection() {
                 href="https://www.linkedin.com/in/maroof-husain-arima/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-sky-500 transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-sky-400 transition-colors"
               >
-                <LinkedinIcon className="w-4 h-4 text-sky-500" />
+                <LinkedinIcon className="w-4 h-4 text-sky-400" />
                 <span>LinkedIn</span>
               </a>
 
@@ -219,7 +221,7 @@ export function ContactSection() {
                 href="https://leetcode.com/u/MaroofHusain/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-amber-500 transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-amber-400 transition-colors"
               >
                 <span>LeetCode</span>
               </a>
@@ -228,7 +230,8 @@ export function ContactSection() {
 
           {/* Contact Message Form */}
           <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+            <div className="p-6 sm:p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-[#090b12]/90 shadow-sm relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 blur-2xl pointer-events-none" />
               <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-1">
                 Send a Direct Message
               </h3>
@@ -260,10 +263,10 @@ export function ContactSection() {
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       placeholder="e.g. Jane Doe"
-                      className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 ${
+                      className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-[#07090e] text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-sky-500 ${
                         errors.name
                           ? 'border-rose-500'
-                          : 'border-zinc-200 dark:border-zinc-800'
+                          : 'border-zinc-200 dark:border-zinc-800 focus:border-sky-500'
                       }`}
                     />
                     {errors.name && (
@@ -281,10 +284,10 @@ export function ContactSection() {
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                       placeholder="name@company.com"
-                      className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 ${
+                      className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-[#07090e] text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-sky-500 ${
                         errors.email
                           ? 'border-rose-500'
-                          : 'border-zinc-200 dark:border-zinc-800'
+                          : 'border-zinc-200 dark:border-zinc-800 focus:border-sky-500'
                       }`}
                     />
                     {errors.email && (
@@ -303,10 +306,10 @@ export function ContactSection() {
                     value={formState.subject}
                     onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
                     placeholder="e.g. SDE Opportunity / Technical Interview"
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-[#07090e] text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-sky-500 ${
                       errors.subject
                         ? 'border-rose-500'
-                        : 'border-zinc-200 dark:border-zinc-800'
+                        : 'border-zinc-200 dark:border-zinc-800 focus:border-sky-500'
                     }`}
                   />
                   {errors.subject && (
@@ -324,10 +327,10 @@ export function ContactSection() {
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     placeholder="Hello Maroof, I reviewed your portfolio and would like to connect regarding..."
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm bg-zinc-50 dark:bg-[#07090e] text-zinc-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-sky-500 ${
                       errors.message
                         ? 'border-rose-500'
-                        : 'border-zinc-200 dark:border-zinc-800'
+                        : 'border-zinc-200 dark:border-zinc-800 focus:border-sky-500'
                     }`}
                   />
                   {errors.message && (
@@ -337,7 +340,7 @@ export function ContactSection() {
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold transition-colors shadow-xs"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)]"
                   id="contact-submit-btn"
                 >
                   <Send className="w-4 h-4" />

@@ -27,6 +27,7 @@ import { PhilosophyLiterature } from './about/PhilosophyLiterature';
 import { LikesDislikesSection } from './about/LikesDislikesSection';
 import { OsakaSpringSection } from './about/OsakaSpringSection';
 import { LittleMysterySection } from './about/LittleMysterySection';
+import { BatIcon } from './gotham/BatIcon';
 
 type JournalTab =
   | 'all'
@@ -78,9 +79,9 @@ export function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Section Header */}
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>01 // DIGITAL JOURNAL & PERSONAL UNIVERSE</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-sky-500/10 border border-sky-500/20 text-sky-400">
+            <BatIcon className="w-4 h-2 text-sky-400" />
+            <span>01 // GOTHAM ARCHIVES • DIGITAL JOURNAL & DOSSIER</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">

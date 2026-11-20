@@ -21,13 +21,13 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl h-[88vh] flex flex-col bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
+        className="relative w-full max-w-4xl h-[88vh] flex flex-col bg-[#090b12] border border-zinc-800 rounded-2xl shadow-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-zinc-950/80">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-[#07090e]">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <div className="p-2 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
               <FileText className="w-5 h-5" />
             </div>
             <div>
@@ -44,7 +44,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             <a
               href={PERSONAL_INFO.resumePath}
               download={PERSONAL_INFO.resumeFilename}
-              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white transition-all shadow-[0_0_15px_rgba(56,189,248,0.25)]"
               id="resume-modal-download-btn"
             >
               <Download className="w-3.5 h-3.5" />
@@ -82,12 +82,12 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
         </div>
 
         {/* Footer info */}
-        <div className="px-6 py-3 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-xs text-zinc-400">
+        <div className="px-6 py-3 border-t border-zinc-800 bg-[#07090e] flex items-center justify-between text-xs text-zinc-400">
           <span>Format: Standard Verified PDF (719 KB)</span>
           <a
             href={PERSONAL_INFO.resumePath}
             download={PERSONAL_INFO.resumeFilename}
-            className="text-indigo-400 hover:text-indigo-300 font-medium underline underline-offset-4"
+            className="text-sky-400 hover:text-sky-300 font-medium underline underline-offset-4"
           >
             Direct download link
           </a>

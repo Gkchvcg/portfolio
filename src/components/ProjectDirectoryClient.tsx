@@ -130,7 +130,7 @@ export function ProjectDirectoryClient() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by project name, description, or technology (e.g. Next.js, XGBoost)..."
-            className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 shadow-2xs"
+            className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#07090e] text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden focus:ring-2 focus:ring-sky-500 shadow-2xs"
             id="projects-search-input"
           />
           {searchQuery && (
@@ -194,17 +194,17 @@ export function ProjectDirectoryClient() {
               key={category}
               type="button"
               onClick={() => setSelectedCategory(category)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
                 isSelected
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800'
+                  ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-[0_0_15px_rgba(56,189,248,0.25)]'
+                  : 'bg-white dark:bg-[#090b12] text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 hover:border-sky-500/40'
               }`}
             >
               <span>{category}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
                   isSelected
-                    ? 'bg-indigo-700 text-indigo-100'
+                    ? 'bg-sky-700/60 text-sky-100'
                     : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
                 }`}
               >
@@ -237,8 +237,8 @@ export function ProjectDirectoryClient() {
               onClick={() => setSelectedTech(selectedTech === tech ? 'All' : tech)}
               className={`px-2.5 py-1 rounded-lg font-mono text-[11px] shrink-0 transition-colors border ${
                 selectedTech === tech
-                  ? 'bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border-indigo-300 dark:border-indigo-700 font-bold'
-                  : 'border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-700'
+                  ? 'bg-sky-50 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 border-sky-400 dark:border-sky-500/60 font-bold'
+                  : 'border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-sky-500/40'
               }`}
             >
               {tech}

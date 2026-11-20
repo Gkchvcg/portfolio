@@ -19,6 +19,7 @@ import { ALL_PROJECTS } from '@/data/portfolioData';
 import { ProjectCard } from './ProjectCard';
 import { ProjectModal } from './ProjectModal';
 import { Project } from '@/types';
+import { BatIcon } from './gotham/BatIcon';
 
 export function FeaturedProjects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -36,20 +37,21 @@ export function FeaturedProjects() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
-              <span>02 // ARCHITECTURE & CASE STUDIES</span>
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
+              <BatIcon className="w-3.5 h-auto text-sky-400" />
+              <span>02 // WAYNE ENTERPRISES APPLIED ARCHITECTURE</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
               Featured Software Systems
             </h2>
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl">
+            <p className="text-sm sm:text-base text-zinc-400 max-w-2xl">
               End-to-end full-stack architectures, AI data analysis pipelines, and machine learning models built and deployed to production.
             </p>
           </div>
 
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors group"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors group"
           >
             <span>View All 15 Repositories</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -59,24 +61,24 @@ export function FeaturedProjects() {
         {/* ============================================================ */}
         {/* SPOTLIGHT 1: DataKart (Flagship Decentralized Marketplace)  */}
         {/* ============================================================ */}
-        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 overflow-hidden shadow-xl">
+        <div className="rounded-3xl border border-zinc-800 bg-[#090b12]/95 overflow-hidden shadow-2xl bat-border-glow">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-12">
             <div className="lg:col-span-7 space-y-6">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/80">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-950/60 text-sky-400 border border-sky-500/40">
                   FLAGSHIP ARCHITECTURE
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-900/60">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   <span>Live Deployed</span>
                 </span>
               </div>
 
               <div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white">
                   DataKart — Decentralized Data Aggregation Marketplace
                 </h3>
-                <p className="text-xs sm:text-sm font-mono text-indigo-600 dark:text-indigo-400 mt-1">
+                <p className="text-xs sm:text-sm font-mono text-sky-400 mt-1">
                   Next.js 14 · Solidity Smart Contracts · Llama-3 AI · BLIP Vision · Polygon Amoy
                 </p>
               </div>

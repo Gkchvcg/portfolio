@@ -10,20 +10,22 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { EDUCATION_DATA, CERTIFICATIONS_DATA } from '@/data/portfolioData';
+import { BatIcon } from './gotham/BatIcon';
 
 export function EducationCertifications() {
   return (
-    <section id="education" className="py-20 lg:py-28 border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/40">
+    <section id="education" className="py-20 lg:py-28 border-t border-zinc-800/80 bg-[#07090e]/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Section Header */}
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
+            <BatIcon className="w-3.5 h-auto text-sky-400" />
             <span>05 // ACADEMICS & CREDENTIALS</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
             Education & Certifications
           </h2>
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl">
+          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl">
             Formal university engineering training supplemented by industry-recognized simulations and specialized certifications.
           </p>
         </div>
@@ -33,25 +35,25 @@ export function EducationCertifications() {
           {/* Education Column */}
           {/* ======================================================== */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="flex items-center gap-2 pb-2 border-b border-zinc-200 dark:border-zinc-800">
-              <GraduationCap className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+            <div className="flex items-center gap-2 pb-2 border-b border-zinc-800">
+              <GraduationCap className="w-5 h-5 text-sky-400" />
+              <h3 className="text-lg font-bold text-white">
                 Formal Academic Education
               </h3>
             </div>
 
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 shadow-sm space-y-5">
+            <div className="p-6 rounded-2xl border border-zinc-800 bg-[#090b12]/90 shadow-md space-y-5 bat-border-glow">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <h4 className="text-lg font-bold text-zinc-900 dark:text-white">
+                  <h4 className="text-lg font-bold text-white">
                     {EDUCATION_DATA.degree}
                   </h4>
-                  <div className="text-sm text-zinc-600 dark:text-zinc-300 font-medium mt-0.5">
+                  <div className="text-sm text-zinc-300 font-medium mt-0.5">
                     {EDUCATION_DATA.institution}
                   </div>
                 </div>
 
-                <div className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/60">
+                <div className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-950/60 text-emerald-400 border border-emerald-900/60">
                   CGPA: {EDUCATION_DATA.cgpa}
                 </div>
               </div>

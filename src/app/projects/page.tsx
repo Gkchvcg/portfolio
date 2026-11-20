@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Terminal, Sparkles } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/BrandIcons';
 import { ProjectDirectoryClient } from '@/components/ProjectDirectoryClient';
+import { BatIcon } from '@/components/gotham/BatIcon';
 
 export const metadata: Metadata = {
   title: 'All Projects & Repositories | Maroof Husain — Software Development Engineer',
@@ -43,8 +44,9 @@ export default function ProjectsPage() {
 
         {/* Directory Header */}
         <div className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
-            <span>COMPLETE REPOSITORY INVENTORY</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
+            <BatIcon className="w-4 h-2 text-sky-400" />
+            <span>WAYNE R&D // COMPLETE REPOSITORY INVENTORY</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white">
             Engineering Projects Directory

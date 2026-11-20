@@ -13,7 +13,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, onSelect, compact = false }: ProjectCardProps) {
   return (
-    <div className="group relative flex flex-col justify-between p-5 sm:p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 hover:border-indigo-500/50 dark:hover:border-indigo-500/40 transition-all duration-200 shadow-xs hover:shadow-lg hover:-translate-y-1">
+    <div className="group relative flex flex-col justify-between p-5 sm:p-6 rounded-2xl border border-zinc-800 bg-[#090b12]/90 hover:border-sky-500/50 transition-all duration-200 shadow-md hover:shadow-[0_0_25px_rgba(56,189,248,0.2)] hover:-translate-y-1">
       {/* Top Meta */}
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-2">
@@ -21,7 +21,7 @@ export function ProjectCard({ project, onSelect, compact = false }: ProjectCardP
             {project.categories.slice(0, 2).map((cat) => (
               <span
                 key={cat}
-                className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700/60"
+                className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-zinc-900 text-sky-300 border border-zinc-800"
               >
                 {cat}
               </span>
@@ -29,7 +29,7 @@ export function ProjectCard({ project, onSelect, compact = false }: ProjectCardP
           </div>
 
           {project.liveDemoUrl ? (
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-900/60">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>Live Demo</span>
             </span>
@@ -42,25 +42,25 @@ export function ProjectCard({ project, onSelect, compact = false }: ProjectCardP
 
         {/* Title */}
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors flex items-center justify-between">
+          <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-sky-400 transition-colors flex items-center justify-between">
             <span>{project.title}</span>
             <button
               type="button"
               onClick={() => onSelect(project)}
-              className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-zinc-400 hover:text-indigo-500"
+              className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-zinc-400 hover:text-sky-400"
               title="Expand Case Study"
               aria-label={`View details for ${project.title}`}
             >
               <ArrowUpRight className="w-4 h-4" />
             </button>
           </h3>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 font-mono mt-0.5 line-clamp-1">
+          <p className="text-xs text-zinc-400 font-mono mt-0.5 line-clamp-1">
             {project.subtitle}
           </p>
         </div>
 
         {/* Description */}
-        <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed line-clamp-3">
+        <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed line-clamp-3">
           {project.description}
         </p>
       </div>
