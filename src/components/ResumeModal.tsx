@@ -83,7 +83,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
 
         {/* Footer info */}
         <div className="px-6 py-3 border-t border-zinc-800 bg-[#07090e] flex items-center justify-between text-xs text-zinc-400">
-          <span>Format: Standard Verified PDF (719 KB)</span>
+          <span>Format: Standard Verified PDF (787 KB)</span>
           <a
             href={PERSONAL_INFO.resumePath}
             download={PERSONAL_INFO.resumeFilename}
