@@ -1,63 +1,81 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Disc3, Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Sparkles, Music, Heart, Radio, Waves } from 'lucide-react';
+import {
+  Disc3,
+  Play,
+  Pause,
+  SkipForward,
+  SkipBack,
+  Volume2,
+  VolumeX,
+  Sparkles,
+  Music,
+  Heart,
+  Radio,
+  Waves,
+  Repeat,
+} from 'lucide-react';
 import { sound } from './soundEngine';
 
-interface Track {
+export interface Track {
   id: string;
   title: string;
   artist: string;
   genre: string;
   album: string;
   year: string;
-  duration: string;
+  durationFormatted: string;
+  audioSrc: string;
   accentColor: string;
   quote: string;
   whyILoveIt: string;
   vibes: string[];
 }
 
-const TRACKS: Track[] = [
+export const TRACKS: Track[] = [
   {
-    id: 'nusrat',
-    title: 'Yeh Jo Halka Halka Suroor Hai',
-    artist: 'Ustad Nusrat Fateh Ali Khan',
-    genre: 'Sufi Qawwali / Spiritual Ecstasy',
-    album: 'En Concert à Paris',
-    year: '1988',
-    duration: '24:18',
-    accentColor: 'from-amber-500/20 via-orange-500/10 to-amber-950/40 border-amber-500/40 text-amber-300',
-    quote: '"Saaki ki har nigaah pe bal khaa ke pee gaya... Lehra ke pee gaya, kabhi balkha ke pee gaya."',
-    whyILoveIt: 'The Shahenshah-e-Qawwali. Nusrat sahib’s transcendental improvisations (sargam) and unyielding vocal intensity create a hypnotic spiritual trance. It is my ultimate companion for late-night deep architecture work where code meets flow state.',
-    vibes: ['Transcendental', 'Sufi Ecstasy', 'Hypnotic Harmonium', 'Infinite Sargam'],
-  },
-  {
-    id: 'jass-manak',
-    title: 'Prada & Lehanga Anthems',
+    id: 'tera-mera-viah',
+    title: 'Tera Mera Viah',
     artist: 'Jass Manak',
-    genre: 'Contemporary Punjabi Pop / Melodic Hooks',
-    album: 'Age 19 / No Competition',
-    year: '2019–2021',
-    duration: '3:45',
+    genre: 'Punjabi Pop Romance',
+    album: 'Age 19 / Geet MP3',
+    year: '2019',
+    durationFormatted: '03:40',
+    audioSrc: '/audio/tera-mera-viah-jass-manak.mp3',
     accentColor: 'from-pink-500/20 via-purple-500/10 to-indigo-950/40 border-pink-500/40 text-pink-300',
-    quote: '"Tera mukhda chand da tukda ni, dil tere naal judeya ae..."',
-    whyILoveIt: 'Incredible melodic ear, infectious cadence, and effortless lyrical rhythm. Jass Manak represents modern Punjabi pop culture with pure acoustic charm and catchy production that lifts any mood instantly.',
-    vibes: ['Vibrant Melodies', 'Punjabi Pop', 'Acoustic Guitar Hooks', 'Upbeat Euphoria'],
+    quote: '"Ve main taan tere utte senti hoyi baahli firdi... Sara pind dekhu khad ke, huna jis din tera mera vyaah sohneya..."',
+    whyILoveIt: 'One of Jass Manak\'s most infectious and heartfelt melodic compositions. Catchy acoustic groove, playful romantic cadence, and unmatched energetic charm that brightens any mood instantly.',
+    vibes: ['Punjabi Romance', 'Jass Manak Hit', 'Upbeat Melodies', 'Feel-Good Energy'],
   },
   {
-    id: 'parda',
-    title: 'Parda (The Mystical Veil)',
-    artist: 'Soulful Sufi Composition & Acoustic Poetry',
-    genre: 'Sufi Classical / Poetic Soul',
-    album: 'Timeless Mystics',
+    id: 'sanso-ki-mala',
+    title: 'Sanso Ki Mala Pe',
+    artist: 'Ustad Nusrat Fateh Ali Khan',
+    genre: 'Sufi Devotional / Qawwali Masterpiece',
+    album: 'Mirzapur / Timeless Classics',
+    year: 'Classic Edition',
+    durationFormatted: '03:02',
+    audioSrc: '/audio/sanso-ki-mala-nusrat-fateh-ali-khan.mp3',
+    accentColor: 'from-amber-500/20 via-orange-500/10 to-amber-950/40 border-amber-500/40 text-amber-300',
+    quote: '"Preetam ka kuch dosh nahi hai, wo to hai nirdosh... Saanson ki maala pe simrun main pi ka naam..."',
+    whyILoveIt: 'The pinnacle of Sufi devotion. Ustad Nusrat Fateh Ali Khan weaves divine love into every single breath. A transcendent anthem connecting mortal yearning to spiritual ecstasy.',
+    vibes: ['Spiritual Ecstasy', 'Shahenshah-e-Qawwali', 'Transcendent Breath', 'Deep Devotion'],
+  },
+  {
+    id: 'apne-kandhon-pe',
+    title: 'Apne Kandhon Pe Ab Mere Qatil',
+    artist: 'Ustad Nusrat Fateh Ali Khan',
+    genre: 'Soulful Sufi Ghazal / Poetic Tragedy',
+    album: 'Live & Timeless Mehfil',
     year: 'Classic',
-    duration: '6:12',
+    durationFormatted: '04:17',
+    audioSrc: '/audio/apne-kandhon-pe-nusrat-fateh-ali-khan.mp3',
     accentColor: 'from-blue-500/20 via-cyan-500/10 to-blue-950/40 border-blue-500/40 text-blue-300',
-    quote: '"Parda hai parda, parda nashi se parda... Jab parda uthega toh jalwa nazar aayega."',
-    whyILoveIt: 'A meditation on mystery, modesty, and divine beauty. The metaphor of the veil ("Parda") explores the delicate boundary between the seen and the unseen, the spoken and the whispered—a theme deeply woven into my creative world.',
-    vibes: ['Deep Acoustic', 'Urdu Poetry', 'Subtle Mysticism', 'Contemplative'],
+    quote: '"Meri mehfil mein karke andhere, apni mehfil sajaye huye hain... Apne haathon se khanjar chala kar, itna masoom chehra bana kar, apne kaandhon pe ab mere qatil meri mayyat uthaye huye hain..."',
+    whyILoveIt: 'Heartbreakingly profound Urdu poetry set to Nusrat sahib\'s raw, emotive vocal delivery. It explores the cruel irony of love, betrayal, and quiet philosophical acceptance.',
+    vibes: ['Poetic Tragedy', 'Ghazal Mastery', 'Urdu Shayari', 'Soul-Stirring'],
   },
 ];
 
@@ -65,17 +83,52 @@ export function VinylLounge() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
   const [liked, setLiked] = useState(true);
-  const [freqBars, setFreqBars] = useState<number[]>([35, 65, 45, 80, 50, 75, 90, 60, 85, 40, 70, 55, 65, 45, 75]);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [freqBars, setFreqBars] = useState<number[]>([25, 45, 60, 80, 50, 70, 90, 65, 85, 40, 75, 50, 65, 45, 70]);
 
   const track = TRACKS[currentTrackIndex];
+  const scrubberRef = useRef<HTMLDivElement>(null);
 
-  // Stop music if component unmounts
+  // Setup audio listeners
   useEffect(() => {
-    return () => {
-      sound.stopSong();
+    const audio = sound.initAudioElement();
+    if (!audio) return;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+      if (audio.duration && !isNaN(audio.duration)) {
+        setDuration(audio.duration);
+      }
     };
-  }, []);
+
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration || 0);
+    };
+
+    const handleEnded = () => {
+      if (isLooping) {
+        audio.currentTime = 0;
+        audio.play().catch(console.warn);
+      } else {
+        // Auto next track
+        handleNext();
+      }
+    };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener('ended', handleEnded);
+      sound.stopTrack();
+    };
+  }, [currentTrackIndex, isLooping]);
 
   // Real-time frequency analyzer connection for equalizer
   useEffect(() => {
@@ -103,10 +156,10 @@ export function VinylLounge() {
 
   const togglePlay = () => {
     if (isPlaying) {
-      sound.pauseSong();
+      sound.pauseTrack();
       setIsPlaying(false);
     } else {
-      sound.playSong(track.id);
+      sound.playTrack(track.audioSrc, handleNext);
       setIsPlaying(true);
     }
   };
@@ -114,22 +167,20 @@ export function VinylLounge() {
   const handleNext = () => {
     const nextIdx = (currentTrackIndex + 1) % TRACKS.length;
     setCurrentTrackIndex(nextIdx);
-    if (isPlaying) {
-      sound.playSong(TRACKS[nextIdx].id);
-    }
+    sound.playTrack(TRACKS[nextIdx].audioSrc, handleNext);
+    setIsPlaying(true);
   };
 
   const handlePrev = () => {
     const prevIdx = (currentTrackIndex - 1 + TRACKS.length) % TRACKS.length;
     setCurrentTrackIndex(prevIdx);
-    if (isPlaying) {
-      sound.playSong(TRACKS[prevIdx].id);
-    }
+    sound.playTrack(TRACKS[prevIdx].audioSrc, handleNext);
+    setIsPlaying(true);
   };
 
   const handleSelectTrack = (idx: number) => {
     setCurrentTrackIndex(idx);
-    sound.playSong(TRACKS[idx].id);
+    sound.playTrack(TRACKS[idx].audioSrc, handleNext);
     setIsPlaying(true);
   };
 
@@ -137,6 +188,25 @@ export function VinylLounge() {
     const nextMuted = sound.toggleMute();
     setIsMuted(nextMuted);
   };
+
+  const formatSeconds = (sec: number) => {
+    if (!sec || isNaN(sec)) return '00:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const handleScrubberClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrubberRef.current || !duration) return;
+    const rect = scrubberRef.current.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+    const targetSeconds = ratio * duration;
+    sound.seekTrack(targetSeconds);
+    setCurrentTime(targetSeconds);
+  };
+
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
     <div className="relative rounded-3xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-950 text-white p-6 sm:p-10 shadow-2xl">
@@ -149,7 +219,7 @@ export function VinylLounge() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-500/10 border border-blue-500/30 text-blue-400 mb-3">
             <Radio className="w-3.5 h-3.5" />
-            <span>ANALOG SOUL • AUDIO FREQUENCIES</span>
+            <span>ANALOG SOUL • HIGH-FIDELITY AUDIO</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
             The Vinyl Lounge
@@ -158,12 +228,26 @@ export function VinylLounge() {
             </span>
           </h3>
           <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed">
-            Music is emotional architecture. Press Play to experience custom procedural arrangements of Nusrat Fateh Ali Khan, Jass Manak, and Parda with live frequency visualization.
+            Listen to my real hand-picked favorites in high fidelity: Jass Manak&apos;s romantic pop anthem <span className="text-pink-300 font-medium">Tera Mera Viah</span>, and Ustad Nusrat Fateh Ali Khan&apos;s transcendent masterpieces <span className="text-amber-300 font-medium">Sanso Ki Mala Pe</span> and <span className="text-blue-300 font-medium">Apne Kandhon Pe Ab Mere Qatil</span>.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 self-start md:self-auto">
+        <div className="flex items-center gap-3 self-start md:self-auto">
           <button
+            type="button"
+            onClick={() => setIsLooping(!isLooping)}
+            className={`p-2 rounded-xl border transition-all ${
+              isLooping
+                ? 'bg-blue-500/20 text-blue-300 border-blue-500/40'
+                : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-white'
+            }`}
+            title={isLooping ? 'Loop: ON' : 'Loop: OFF'}
+          >
+            <Repeat className="w-4 h-4" />
+          </button>
+
+          <button
+            type="button"
             onClick={toggleMute}
             className={`flex items-center gap-2 text-xs font-mono px-3.5 py-2 rounded-xl border transition-all ${
               isMuted
@@ -240,7 +324,7 @@ export function VinylLounge() {
 
           <p className="text-xs font-mono text-zinc-400 mt-4 flex items-center gap-1.5">
             <span className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-emerald-400 animate-ping' : 'bg-zinc-600'}`} />
-            {isPlaying ? 'Now Playing: Sound active (Click disc to pause)' : 'Turntable idle • Click disc or Play button to listen'}
+            {isPlaying ? 'Now Playing: Real audio active (Click disc to pause)' : 'Turntable ready • Click disc or Play button'}
           </p>
         </div>
 
@@ -257,11 +341,12 @@ export function VinylLounge() {
                   {track.title}
                 </h4>
                 <p className="text-sm font-medium text-blue-400">
-                  {track.artist}
+                  {track.artist} • <span className="text-xs text-zinc-400">{track.album}</span>
                 </p>
               </div>
 
               <button
+                type="button"
                 onClick={() => setLiked(!liked)}
                 className={`p-3 rounded-full border transition-all ${
                   liked
@@ -285,7 +370,7 @@ export function VinylLounge() {
             </p>
 
             {/* Vibe Tags */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-2 pt-1">
               {track.vibes.map((vibe) => (
                 <span
                   key={vibe}
@@ -296,8 +381,27 @@ export function VinylLounge() {
               ))}
             </div>
 
+            {/* Scrubber / Progress Bar */}
+            <div className="space-y-1.5 pt-2">
+              <div
+                ref={scrubberRef}
+                onClick={handleScrubberClick}
+                className="relative w-full h-2 rounded-full bg-zinc-800 cursor-pointer overflow-hidden group"
+              >
+                <div
+                  className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400 rounded-full relative transition-all"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+
+              <div className="flex justify-between text-[11px] font-mono text-zinc-400">
+                <span>{formatSeconds(currentTime)}</span>
+                <span>{duration > 0 ? formatSeconds(duration) : track.durationFormatted}</span>
+              </div>
+            </div>
+
             {/* Live Equalizer Visualizer Bars */}
-            <div className="pt-4 border-t border-zinc-800 flex items-center justify-between gap-4">
+            <div className="pt-2 border-t border-zinc-800 flex items-center justify-between gap-4">
               <div className="flex items-end gap-1.5 h-10 w-48 sm:w-64">
                 {freqBars.map((height, i) => (
                   <motion.div
@@ -317,31 +421,34 @@ export function VinylLounge() {
 
               <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
                 <Volume2 className="w-4 h-4 text-blue-400" />
-                <span>Web Audio Live DSP</span>
+                <span>Web Audio Live Spectrum</span>
               </div>
             </div>
 
             {/* Playback Controls */}
             <div className="pt-2 flex items-center justify-center gap-6">
               <button
+                type="button"
                 onClick={handlePrev}
-                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors"
+                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors active:scale-95"
                 title="Previous Track"
               >
                 <SkipBack className="w-5 h-5" />
               </button>
 
               <button
+                type="button"
                 onClick={togglePlay}
                 className="p-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-transform active:scale-95"
-                title={isPlaying ? 'Pause Playback' : 'Play Music'}
+                title={isPlaying ? 'Pause' : 'Play'}
               >
                 {isPlaying ? <Pause className="w-6 h-6 fill-white" /> : <Play className="w-6 h-6 fill-white ml-0.5" />}
               </button>
 
               <button
+                type="button"
                 onClick={handleNext}
-                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors"
+                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors active:scale-95"
                 title="Next Track"
               >
                 <SkipForward className="w-5 h-5" />
@@ -354,8 +461,9 @@ export function VinylLounge() {
             {TRACKS.map((t, idx) => (
               <button
                 key={t.id}
+                type="button"
                 onClick={() => handleSelectTrack(idx)}
-                className={`p-3 rounded-xl border text-left transition-all ${
+                className={`p-3.5 rounded-xl border text-left transition-all ${
                   currentTrackIndex === idx
                     ? 'bg-blue-600/20 border-blue-500 text-white shadow-md'
                     : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
@@ -364,7 +472,7 @@ export function VinylLounge() {
                 <div className="text-[10px] font-mono uppercase text-blue-400 flex items-center justify-between">
                   <span>Track 0{idx + 1}</span>
                   {currentTrackIndex === idx && isPlaying && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                   )}
                 </div>
                 <div className="text-xs font-bold truncate mt-1 text-white">

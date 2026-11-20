@@ -1,28 +1,28 @@
-// Web Audio API Sound Engine for Portfolio Digital Journal
-// Zero external dependencies, 100% reliable, zero broken links, works fully offline.
+// Web Audio API Sound Engine with Real Audio Streaming & Synthesizer
+// Handles real MP3 playback with live AnalyserNode FFT visualization + Piano Synthesizer + Sound Effects.
 
 class SoundEngine {
   private ctx: AudioContext | null = null;
   private masterGain: GainNode | null = null;
   public analyser: AnalyserNode | null = null;
   private isMuted: boolean = false;
-  private currentSongId: string | null = null;
-  private songTimer: NodeJS.Timeout | null = null;
-  private songStep: number = 0;
   private isPlayingSong: boolean = false;
-  private droneOscillators: OscillatorNode[] = [];
-  private droneGains: GainNode[] = [];
+  private audioElement: HTMLAudioElement | null = null;
+  private mediaSource: MediaElementAudioSourceNode | null = null;
+  private currentSrc: string | null = null;
 
-  private getContext(): AudioContext | null {
+  public getContext(): AudioContext | null {
     if (typeof window === 'undefined') return null;
     if (!this.ctx) {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (!AudioCtx) return null;
       this.ctx = new AudioCtx();
 
       // Master Gain
       this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.7, this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.8, this.ctx.currentTime);
 
       // Analyser Node for real-time visualizer
       this.analyser = this.ctx.createAnalyser();
@@ -39,10 +39,32 @@ class SoundEngine {
     return this.ctx;
   }
 
+  public initAudioElement(): HTMLAudioElement | null {
+    if (typeof window === 'undefined') return null;
+    if (!this.audioElement) {
+      this.audioElement = new Audio();
+      this.audioElement.preload = 'auto';
+
+      const ctx = this.getContext();
+      if (ctx && this.masterGain) {
+        try {
+          this.mediaSource = ctx.createMediaElementSource(this.audioElement);
+          this.mediaSource.connect(this.masterGain);
+        } catch (err) {
+          console.warn('MediaElementAudioSource fallback:', err);
+        }
+      }
+    }
+    return this.audioElement;
+  }
+
   public setMuted(muted: boolean): boolean {
     this.isMuted = muted;
+    if (this.audioElement) {
+      this.audioElement.muted = muted;
+    }
     if (this.masterGain && this.ctx) {
-      this.masterGain.gain.setValueAtTime(muted ? 0 : 0.7, this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(muted ? 0 : 0.8, this.ctx.currentTime);
     }
     return this.isMuted;
   }
@@ -53,6 +75,74 @@ class SoundEngine {
 
   public getIsMuted(): boolean {
     return this.isMuted;
+  }
+
+  // ----------------------------------------------------
+  // REAL AUDIO TRACK PLAYBACK (MP3)
+  // ----------------------------------------------------
+  public playTrack(src: string, onEnded?: () => void) {
+    const audio = this.initAudioElement();
+    if (!audio) return;
+    this.getContext(); // Ensure AudioContext is active
+
+    // Sound effect: needle drop
+    this.playNeedleDrop();
+
+    if (this.currentSrc !== src) {
+      this.currentSrc = src;
+      audio.src = src;
+      audio.load();
+    }
+
+    if (onEnded) {
+      audio.onended = onEnded;
+    }
+
+    audio
+      .play()
+      .then(() => {
+        this.isPlayingSong = true;
+      })
+      .catch((err) => {
+        console.warn('Audio play prevented or interrupted:', err);
+      });
+  }
+
+  public pauseTrack() {
+    if (this.audioElement) {
+      this.audioElement.pause();
+    }
+    this.isPlayingSong = false;
+  }
+
+  public resumeTrack() {
+    if (this.audioElement && this.currentSrc) {
+      this.getContext();
+      this.audioElement.play().catch((err) => console.warn(err));
+      this.isPlayingSong = true;
+    }
+  }
+
+  public seekTrack(seconds: number) {
+    if (this.audioElement) {
+      this.audioElement.currentTime = seconds;
+    }
+  }
+
+  public stopTrack() {
+    if (this.audioElement) {
+      this.audioElement.pause();
+      this.audioElement.currentTime = 0;
+    }
+    this.isPlayingSong = false;
+  }
+
+  public getAudioElement(): HTMLAudioElement | null {
+    return this.audioElement;
+  }
+
+  public getIsPlayingSong(): boolean {
+    return this.isPlayingSong;
   }
 
   // ----------------------------------------------------
@@ -203,17 +293,15 @@ class SoundEngine {
     const gain = ctx.createGain();
 
     if (isLove) {
-      // Upward bright pleasant chime
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(523.25, now); // C5
-      osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.08); // G5
+      osc.frequency.setValueAtTime(523.25, now);
+      osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.08);
       gain.gain.setValueAtTime(0.2, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
     } else {
-      // Downward subtle low tone
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(440, now); // A4
-      osc.frequency.exponentialRampToValueAtTime(220, now + 0.08); // A3
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(220, now + 0.08);
       gain.gain.setValueAtTime(0.18, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
     }
@@ -249,7 +337,7 @@ class SoundEngine {
     if (!ctx || !this.masterGain || this.isMuted) return;
 
     const now = ctx.currentTime;
-    const notes = [659.25, 880, 1046.5]; // E5, A5, C6 crystalline chord
+    const notes = [659.25, 880, 1046.5];
 
     notes.forEach((freq, idx) => {
       const osc = ctx.createOscillator();
@@ -266,349 +354,6 @@ class SoundEngine {
       osc.start(now + idx * 0.06);
       osc.stop(now + idx * 0.06 + 1.3);
     });
-  }
-
-  // ----------------------------------------------------
-  // VINYL LOUNGE: PROCEDURAL SONG ARRANGEMENTS
-  // Real melodic compositions for Nusrat, Jass Manak, and Parda
-  // ----------------------------------------------------
-
-  private stopDrones() {
-    this.droneOscillators.forEach((osc) => {
-      try {
-        osc.stop();
-        osc.disconnect();
-      } catch (_) {}
-    });
-    this.droneOscillators = [];
-    this.droneGains = [];
-  }
-
-  public playSong(trackId: string) {
-    this.stopSong();
-    this.currentSongId = trackId;
-    this.isPlayingSong = true;
-    this.songStep = 0;
-
-    // First, play needle drop sound
-    this.playNeedleDrop();
-
-    const ctx = this.getContext();
-    if (!ctx) return;
-
-    if (trackId === 'nusrat') {
-      this.startNusratLoop();
-    } else if (trackId === 'jass-manak') {
-      this.startJassManakLoop();
-    } else if (trackId === 'parda') {
-      this.startPardaLoop();
-    }
-  }
-
-  public pauseSong() {
-    this.isPlayingSong = false;
-    if (this.songTimer) {
-      clearInterval(this.songTimer);
-      this.songTimer = null;
-    }
-    this.stopDrones();
-  }
-
-  public resumeSong() {
-    if (this.currentSongId) {
-      this.playSong(this.currentSongId);
-    }
-  }
-
-  public stopSong() {
-    this.pauseSong();
-    this.currentSongId = null;
-    this.songStep = 0;
-  }
-
-  public getCurrentSong(): string | null {
-    return this.currentSongId;
-  }
-
-  public getIsPlayingSong(): boolean {
-    return this.isPlayingSong;
-  }
-
-  // 1. NUSRAT FATEH ALI KHAN: "Yeh Jo Halka Halka Suroor Hai"
-  // Harmonium lead + Sufi drone (Sa-Pa) + Tabla rhythmic thumps
-  private startNusratLoop() {
-    const ctx = this.getContext();
-    if (!ctx || !this.masterGain) return;
-
-    // Continuous Sufi Harmonium Drone (C3: 130.81 Hz + G3: 196.00 Hz)
-    const droneFreqs = [130.81, 196.0];
-    droneFreqs.forEach((freq) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(450, ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.06, ctx.currentTime);
-
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(this.masterGain!);
-
-      osc.start();
-      this.droneOscillators.push(osc);
-      this.droneGains.push(gain);
-    });
-
-    // Iconic vocal/harmonium melody sequence of "Yeh Jo Halka Halka Suroor Hai"
-    // G3, C4, D4, Eb4, D4, C4, G3, Bb3, C4, D4, C4, Bb3, G3, C4, Eb4, G4...
-    const melody = [
-      { note: 196.0, dur: 0.35, isTabla: true }, // G3
-      { note: 261.63, dur: 0.35, isTabla: false }, // C4
-      { note: 293.66, dur: 0.35, isTabla: true }, // D4
-      { note: 311.13, dur: 0.55, isTabla: false }, // Eb4
-      { note: 293.66, dur: 0.35, isTabla: true }, // D4
-      { note: 261.63, dur: 0.45, isTabla: false }, // C4
-      { note: 233.08, dur: 0.35, isTabla: true }, // Bb3
-      { note: 261.63, dur: 0.7, isTabla: true }, // C4 (held)
-      { note: 293.66, dur: 0.35, isTabla: true }, // D4
-      { note: 311.13, dur: 0.35, isTabla: false }, // Eb4
-      { note: 392.0, dur: 0.6, isTabla: true }, // G4 (soaring sargam high note)
-      { note: 349.23, dur: 0.35, isTabla: false }, // F4
-      { note: 311.13, dur: 0.35, isTabla: true }, // Eb4
-      { note: 293.66, dur: 0.45, isTabla: false }, // D4
-      { note: 261.63, dur: 0.8, isTabla: true }, // C4
-    ];
-
-    const stepDuration = 320; // ~94 BPM step
-    this.songTimer = setInterval(() => {
-      if (!this.isPlayingSong || !this.ctx || this.isMuted) return;
-
-      const item = melody[this.songStep % melody.length];
-      const now = this.ctx.currentTime;
-
-      // Play Harmonium Reed Voice
-      const harmOsc1 = this.ctx.createOscillator();
-      const harmOsc2 = this.ctx.createOscillator();
-      const harmGain = this.ctx.createGain();
-      const harmFilter = this.ctx.createBiquadFilter();
-
-      harmOsc1.type = 'sawtooth';
-      harmOsc2.type = 'square';
-      harmOsc1.frequency.setValueAtTime(item.note, now);
-      harmOsc2.frequency.setValueAtTime(item.note * 1.004, now); // 6 cents chorus
-
-      harmFilter.type = 'bandpass';
-      harmFilter.frequency.setValueAtTime(800, now);
-      harmFilter.Q.setValueAtTime(1.8, now);
-
-      harmGain.gain.setValueAtTime(0, now);
-      harmGain.gain.linearRampToValueAtTime(0.25, now + 0.04);
-      harmGain.gain.exponentialRampToValueAtTime(0.001, now + item.dur);
-
-      harmOsc1.connect(harmFilter);
-      harmOsc2.connect(harmFilter);
-      harmFilter.connect(harmGain);
-      harmGain.connect(this.masterGain!);
-
-      harmOsc1.start(now);
-      harmOsc2.start(now);
-      harmOsc1.stop(now + item.dur + 0.05);
-      harmOsc2.stop(now + item.dur + 0.05);
-
-      // Tabla Bayan / Dagga pulse on key rhythm beats
-      if (item.isTabla) {
-        const tablaOsc = this.ctx.createOscillator();
-        const tablaGain = this.ctx.createGain();
-        tablaOsc.frequency.setValueAtTime(110, now);
-        tablaOsc.frequency.exponentialRampToValueAtTime(55, now + 0.14);
-        tablaGain.gain.setValueAtTime(0.3, now);
-        tablaGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-
-        tablaOsc.connect(tablaGain);
-        tablaGain.connect(this.masterGain!);
-        tablaOsc.start(now);
-        tablaOsc.stop(now + 0.16);
-      }
-
-      this.songStep++;
-    }, stepDuration);
-  }
-
-  // 2. JASS MANAK: "Prada / Lehanga"
-  // Upbeat modern Punjabi pop rhythm + acoustic pluck melody + punchy 808 bass
-  private startJassManakLoop() {
-    const ctx = this.getContext();
-    if (!ctx || !this.masterGain) return;
-
-    // Upbeat Punjabi Pop Hook (D minor: D4, F4, G4, A4, C5...)
-    const melody = [
-      { note: 440.0, bass: 146.83, drum: 'kick' }, // A4, D3 bass
-      { note: 440.0, bass: 146.83, drum: 'none' }, // A4
-      { note: 392.0, bass: 146.83, drum: 'snare' }, // G4
-      { note: 349.23, bass: 146.83, drum: 'none' }, // F4
-      { note: 392.0, bass: 116.54, drum: 'kick' }, // G4, Bb2 bass
-      { note: 440.0, bass: 116.54, drum: 'none' }, // A4
-      { note: 349.23, bass: 116.54, drum: 'snare' }, // F4
-      { note: 293.66, bass: 116.54, drum: 'none' }, // D4
-      { note: 523.25, bass: 130.81, drum: 'kick' }, // C5, C3 bass
-      { note: 440.0, bass: 130.81, drum: 'none' }, // A4
-      { note: 392.0, bass: 130.81, drum: 'snare' }, // G4
-      { note: 349.23, bass: 130.81, drum: 'none' }, // F4
-      { note: 392.0, bass: 110.0, drum: 'kick' }, // G4, A2 bass
-      { note: 440.0, bass: 110.0, drum: 'none' }, // A4
-      { note: 349.23, bass: 110.0, drum: 'snare' }, // F4
-      { note: 293.66, bass: 110.0, drum: 'kick' }, // D4
-    ];
-
-    const stepDuration = 220; // 136 BPM energetic cadence
-    this.songTimer = setInterval(() => {
-      if (!this.isPlayingSong || !this.ctx || this.isMuted) return;
-
-      const item = melody[this.songStep % melody.length];
-      const now = this.ctx.currentTime;
-
-      // Pop Pluck Lead
-      const pluckOsc = this.ctx.createOscillator();
-      const pluckGain = this.ctx.createGain();
-      pluckOsc.type = 'triangle';
-      pluckOsc.frequency.setValueAtTime(item.note, now);
-
-      pluckGain.gain.setValueAtTime(0.3, now);
-      pluckGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
-
-      pluckOsc.connect(pluckGain);
-      pluckGain.connect(this.masterGain!);
-      pluckOsc.start(now);
-      pluckOsc.stop(now + 0.23);
-
-      // Bassline note
-      const bassOsc = this.ctx.createOscillator();
-      const bassGain = this.ctx.createGain();
-      bassOsc.type = 'sine';
-      bassOsc.frequency.setValueAtTime(item.bass, now);
-      bassGain.gain.setValueAtTime(0.35, now);
-      bassGain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-
-      bassOsc.connect(bassGain);
-      bassGain.connect(this.masterGain!);
-      bassOsc.start(now);
-      bassOsc.stop(now + 0.3);
-
-      // Drums
-      if (item.drum === 'kick') {
-        const kickOsc = this.ctx.createOscillator();
-        const kickGain = this.ctx.createGain();
-        kickOsc.frequency.setValueAtTime(150, now);
-        kickOsc.frequency.exponentialRampToValueAtTime(45, now + 0.08);
-        kickGain.gain.setValueAtTime(0.45, now);
-        kickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-
-        kickOsc.connect(kickGain);
-        kickGain.connect(this.masterGain!);
-        kickOsc.start(now);
-        kickOsc.stop(now + 0.1);
-      } else if (item.drum === 'snare') {
-        // Crisp pop snap / clap
-        const snapOsc = this.ctx.createOscillator();
-        const snapGain = this.ctx.createGain();
-        snapOsc.type = 'triangle';
-        snapOsc.frequency.setValueAtTime(600, now);
-        snapOsc.frequency.exponentialRampToValueAtTime(180, now + 0.05);
-        snapGain.gain.setValueAtTime(0.2, now);
-        snapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-
-        snapOsc.connect(snapGain);
-        snapGain.connect(this.masterGain!);
-        snapOsc.start(now);
-        snapOsc.stop(now + 0.07);
-      }
-
-      this.songStep++;
-    }, stepDuration);
-  }
-
-  // 3. PARDA: "The Mystical Veil"
-  // Meditative acoustic Sufi strings / santur pluck + warm atmospheric pad
-  private startPardaLoop() {
-    const ctx = this.getContext();
-    if (!ctx || !this.masterGain) return;
-
-    // Atmospheric warm pad (E minor: E3 + B3)
-    const padFreqs = [164.81, 246.94];
-    padFreqs.forEach((freq) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.05, ctx.currentTime);
-
-      osc.connect(gain);
-      gain.connect(this.masterGain!);
-
-      osc.start();
-      this.droneOscillators.push(osc);
-      this.droneGains.push(gain);
-    });
-
-    // Meditative Sufi acoustic melody
-    // E4, G4, B4, A4, G4, F#4, E4, D4, E4...
-    const melody = [
-      { note: 329.63, dur: 0.6 }, // E4
-      { note: 392.0, dur: 0.5 }, // G4
-      { note: 493.88, dur: 0.9 }, // B4 (mystic pinnacle)
-      { note: 440.0, dur: 0.6 }, // A4
-      { note: 392.0, dur: 0.5 }, // G4
-      { note: 369.99, dur: 0.6 }, // F#4
-      { note: 329.63, dur: 0.8 }, // E4
-      { note: 293.66, dur: 0.5 }, // D4
-      { note: 329.63, dur: 1.1 }, // E4
-      { note: 246.94, dur: 0.6 }, // B3
-      { note: 293.66, dur: 0.6 }, // D4
-      { note: 329.63, dur: 1.2 }, // E4
-    ];
-
-    const stepDuration = 450; // Slow, poetic 70 BPM
-    this.songTimer = setInterval(() => {
-      if (!this.isPlayingSong || !this.ctx || this.isMuted) return;
-
-      const item = melody[this.songStep % melody.length];
-      const now = this.ctx.currentTime;
-
-      // Plucked Acoustic String (Karplus / multi-harmonic pluck)
-      const pluck1 = this.ctx.createOscillator();
-      const pluck2 = this.ctx.createOscillator();
-      const pluckGain = this.ctx.createGain();
-      const filter = this.ctx.createBiquadFilter();
-
-      pluck1.type = 'triangle';
-      pluck2.type = 'sine';
-      pluck1.frequency.setValueAtTime(item.note, now);
-      pluck2.frequency.setValueAtTime(item.note * 2, now);
-
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(2200, now);
-      filter.frequency.exponentialRampToValueAtTime(300, now + item.dur);
-
-      pluckGain.gain.setValueAtTime(0.28, now);
-      pluckGain.gain.exponentialRampToValueAtTime(0.001, now + item.dur);
-
-      pluck1.connect(filter);
-      pluck2.connect(filter);
-      filter.connect(pluckGain);
-      pluckGain.connect(this.masterGain!);
-
-      pluck1.start(now);
-      pluck2.start(now);
-      pluck1.stop(now + item.dur + 0.05);
-      pluck2.stop(now + item.dur + 0.05);
-
-      this.songStep++;
-    }, stepDuration);
   }
 }
 
