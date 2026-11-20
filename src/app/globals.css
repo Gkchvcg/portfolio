@@ -3,37 +3,59 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #030407;
-  --foreground: #f1f5f9;
-  --card: #080a0f;
-  --card-foreground: #f8fafc;
-  --card-border: #141a26;
-  --muted: #0d121c;
-  --muted-foreground: #94a3b8;
+  --bg-void: #050608;
+  --bg-charcoal: #0B0D11;
+  --bg-graphite: #13171F;
+  --surface-steel: #1E2430;
+  --accent-midnight: #1B2A4A;
+  --accent-silver: #8E9BAE;
+  --accent-amber: #D4A338;
+  --text-primary: #E6ECF5;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --background: var(--bg-void);
+  --foreground: var(--text-primary);
+  --card: var(--bg-charcoal);
+  --card-foreground: var(--text-primary);
+  --card-border: var(--surface-steel);
+  --muted: var(--bg-graphite);
+  --muted-foreground: var(--text-secondary);
   --accent: #38bdf8;
-  --accent-light: #60a5fa;
-  --accent-foreground: #020305;
+  --accent-light: #7dd3fc;
+  --accent-foreground: var(--bg-void);
   --accent-subtle: rgba(56, 189, 248, 0.12);
-  --border: #141a26;
-  --grid-line: rgba(56, 189, 248, 0.035);
-  --code-bg: #06080d;
+  --border: var(--surface-steel);
+  --grid-line: rgba(142, 155, 174, 0.04);
+  --code-bg: #07090f;
 }
 
 .dark {
-  --background: #020305;
-  --foreground: #f1f5f9;
-  --card: #080a0f;
-  --card-foreground: #f8fafc;
-  --card-border: #141a26;
-  --muted: #0d121c;
-  --muted-foreground: #94a3b8;
+  --bg-void: #050608;
+  --bg-charcoal: #0B0D11;
+  --bg-graphite: #13171F;
+  --surface-steel: #1E2430;
+  --accent-midnight: #1B2A4A;
+  --accent-silver: #8E9BAE;
+  --accent-amber: #D4A338;
+  --text-primary: #E6ECF5;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --background: var(--bg-void);
+  --foreground: var(--text-primary);
+  --card: var(--bg-charcoal);
+  --card-foreground: var(--text-primary);
+  --card-border: var(--surface-steel);
+  --muted: var(--bg-graphite);
+  --muted-foreground: var(--text-secondary);
   --accent: #38bdf8;
-  --accent-light: #60a5fa;
-  --accent-foreground: #020305;
+  --accent-light: #7dd3fc;
+  --accent-foreground: var(--bg-void);
   --accent-subtle: rgba(56, 189, 248, 0.12);
-  --border: #141a26;
-  --grid-line: rgba(56, 189, 248, 0.035);
-  --code-bg: #06080d;
+  --border: var(--surface-steel);
+  --grid-line: rgba(142, 155, 174, 0.04);
+  --code-bg: #07090f;
 }
 
 @layer base {
@@ -253,8 +275,8 @@
   left: 0;
   width: 12px;
   height: 12px;
-  border-top: 2px solid rgba(56, 189, 248, 0.6);
-  border-left: 2px solid rgba(56, 189, 248, 0.6);
+  border-top: 2px solid rgba(142, 155, 174, 0.6);
+  border-left: 2px solid rgba(142, 155, 174, 0.6);
   pointer-events: none;
   z-index: 10;
 }
@@ -265,10 +287,94 @@
   right: 0;
   width: 12px;
   height: 12px;
-  border-bottom: 2px solid rgba(56, 189, 248, 0.6);
-  border-right: 2px solid rgba(56, 189, 248, 0.6);
+  border-bottom: 2px solid rgba(142, 155, 174, 0.6);
+  border-right: 2px solid rgba(142, 155, 174, 0.6);
   pointer-events: none;
   z-index: 10;
+}
+
+/* Corner Crosshairs (+) */
+.corner-crosshairs {
+  position: relative;
+}
+.corner-crosshairs::before {
+  content: '+';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--accent-silver);
+  opacity: 0.7;
+  pointer-events: none;
+  line-height: 1;
+}
+.corner-crosshairs::after {
+  content: '+';
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--accent-silver);
+  opacity: 0.7;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Chamfered Polygon Corners */
+.chamfer-card {
+  clip-path: polygon(
+    0 12px,
+    12px 0,
+    100% 0,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%
+  );
+}
+
+/* Brushed Titanium 1px Border & Sheen */
+.titanium-border {
+  border: 1px solid var(--surface-steel);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.titanium-border:hover {
+  border-color: rgba(142, 155, 174, 0.4);
+  box-shadow: 0 0 20px -4px rgba(27, 42, 74, 0.6);
+}
+
+/* Diagonal Sheen Reflection on Hover */
+.titanium-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.titanium-sheen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+.titanium-sheen:hover::after {
+  transform: translateX(100%);
+}
+
+/* Laser Scroll Progress Bar */
+.laser-progress-bar {
+  height: 2px;
+  background: linear-gradient(90deg, #38bdf8 0%, #d4a338 50%, #38bdf8 100%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 4px rgba(212, 163, 56, 0.6);
 }
 
 /* Subtle Batcomputer Scanline */

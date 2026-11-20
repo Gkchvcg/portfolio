@@ -93,9 +93,25 @@ export function GothamSoundtrackProvider({ children }: { children: React.ReactNo
     try {
       audioRef.current.currentTime = 0;
       audioRef.current.muted = false;
-      audioRef.current.volume = volume;
+      audioRef.current.volume = 0;
       await audioRef.current.play();
       setIsPlaying(true);
+
+      // Smooth 2-second volume ramp up to target volume
+      const targetVolume = isMuted ? 0 : volume;
+      const durationMs = 2000;
+      const startTime = performance.now();
+
+      const ramp = (currentTime: number) => {
+        if (!audioRef.current || audioRef.current.paused) return;
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(1, elapsed / durationMs);
+        audioRef.current.volume = progress * targetVolume;
+        if (progress < 1) {
+          requestAnimationFrame(ramp);
+        }
+      };
+      requestAnimationFrame(ramp);
     } catch (err) {
       console.warn('Autoplay blocked:', err);
     }

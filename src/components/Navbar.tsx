@@ -14,13 +14,19 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress(Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100)));
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -30,13 +36,13 @@ export function Navbar() {
   }, [pathname]);
 
   const navLinks = [
-    { name: 'About', href: '/#about' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Skills', href: '/#skills' },
-    { name: 'Coding Profiles', href: '/#coding-profiles' },
-    { name: 'Education', href: '/#education' },
-    { name: 'Certifications', href: '/#certifications' },
-    { name: 'Contact', href: '/#contact' },
+    { code: '01', name: 'About', href: '/#about' },
+    { code: '02', name: 'Projects', href: '/projects' },
+    { code: '03', name: 'Skills', href: '/#skills' },
+    { code: '04', name: 'Profiles', href: '/#coding-profiles' },
+    { code: '05', name: 'Education', href: '/#education' },
+    { code: '06', name: 'Certs', href: '/#certifications' },
+    { code: '07', name: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -44,7 +50,7 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
           scrolled
-            ? 'bg-[#06080c]/90 dark:bg-[#06080c]/90 backdrop-blur-md border-b border-zinc-800/80 shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
+            ? 'bg-[#050608]/92 dark:bg-[#050608]/92 backdrop-blur-md border-b border-[#1E2430] shadow-[0_4px_30px_rgba(0,0,0,0.8)]'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
@@ -72,7 +78,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
               {navLinks.map((link) => {
                 const isActive =
                   link.href === pathname ||
@@ -81,13 +87,14 @@ export function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    className={`px-2.5 py-1.5 rounded-md text-[11px] font-mono tracking-wider transition-all duration-150 ${
                       isActive
-                        ? 'text-sky-300 bg-sky-950/50 border border-sky-500/30 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                        : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60 hover:border-zinc-700/60'
+                        ? 'text-sky-300 bg-sky-950/60 border border-sky-500/40 shadow-[0_0_12px_rgba(56,189,248,0.25)] font-semibold'
+                        : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/80 hover:border-zinc-700/60 border border-transparent'
                     }`}
                   >
-                    {link.name}
+                    <span className="text-zinc-500 mr-1 text-[10px]">{link.code} //</span>
+                    {isActive ? `[ ${link.name.toUpperCase()} ]` : link.name.toUpperCase()}
                   </Link>
                 );
               })}
@@ -141,30 +148,33 @@ export function Navbar() {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-b border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-[#08090d]/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top duration-200">
+          <div className="lg:hidden border-b border-zinc-800 bg-[#08090d]/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top duration-200">
             <div className="flex flex-col space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition-colors"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono text-zinc-300 hover:text-sky-300 hover:bg-zinc-900/80 transition-colors"
                 >
-                  <span>{link.name}</span>
-                  <ChevronRight className="w-4 h-4 text-zinc-400" />
+                  <span className="flex items-center gap-2">
+                    <span className="text-zinc-500 font-medium">{link.code} //</span>
+                    <span>{link.name.toUpperCase()}</span>
+                  </span>
+                  <ChevronRight className="w-4 h-4 text-zinc-500" />
                 </Link>
               ))}
             </div>
 
-            <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-2">
+            <div className="pt-3 border-t border-zinc-800 flex flex-col gap-2">
               <a
                 href={PERSONAL_INFO.resumePath}
                 download={PERSONAL_INFO.resumeFilename}
-                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 transition-colors shadow-xs"
+                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 text-xs font-mono font-semibold rounded-lg bg-sky-500 text-zinc-950 hover:bg-sky-400 transition-colors shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                 id="mobile-nav-download-resume-btn"
               >
                 <Download className="w-4 h-4" />
-                <span>Download Resume (PDF)</span>
+                <span>DOWNLOAD RESUME (PDF)</span>
               </a>
 
               <button
@@ -173,14 +183,20 @@ export function Navbar() {
                   setMobileMenuOpen(false);
                   setResumeModalOpen(true);
                 }}
-                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 text-sm font-medium rounded-lg border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 text-xs font-mono font-medium rounded-lg border border-zinc-800 bg-zinc-900/90 text-zinc-200 hover:text-white hover:bg-zinc-800 transition-colors"
               >
-                <FileText className="w-4 h-4 text-indigo-400" />
-                <span>Preview Resume In-Browser</span>
+                <FileText className="w-4 h-4 text-sky-400" />
+                <span>PREVIEW RESUME IN-BROWSER</span>
               </button>
             </div>
           </div>
         )}
+
+        {/* Tactical Laser Scroll Progress Bar */}
+        <div
+          className="absolute bottom-0 left-0 h-[2px] laser-progress-bar transition-[width] duration-75 ease-out pointer-events-none"
+          style={{ width: `${scrollProgress}%` }}
+        />
       </header>
 
       {/* Resume modal */}

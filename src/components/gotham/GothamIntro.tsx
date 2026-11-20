@@ -37,44 +37,68 @@ export function GothamIntro() {
   return (
     <AnimatePresence>
       <motion.div
+        key="gotham-intro-container"
         initial={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 1.05 }}
+        exit={{ opacity: 0 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-0 z-50 flex flex-col justify-between bg-[#040507] text-white overflow-hidden select-none"
+        className="fixed inset-0 z-50 flex flex-col justify-between bg-[#050608] text-white overflow-hidden select-none"
       >
-        {/* Skip button top right */}
-        <div className="relative z-20 flex justify-between items-center px-6 py-6 sm:px-12">
-          <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
-            <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
-            <span>GOTHAM SECTOR 04 // LAT 40.7128° N</span>
+        {/* Cinematic Shutter Blast Doors (Vertical split reveal) */}
+        <motion.div
+          exit={{ y: '-100%' }}
+          transition={{ duration: 0.85, ease: [0.77, 0, 0.175, 1] }}
+          className="absolute top-0 left-0 right-0 h-1/2 bg-[#050608] border-b border-[#1E2430] z-10 pointer-events-none"
+        />
+        <motion.div
+          exit={{ y: '100%' }}
+          transition={{ duration: 0.85, ease: [0.77, 0, 0.175, 1] }}
+          className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#050608] border-t border-[#1E2430] z-10 pointer-events-none"
+        />
+
+        {/* Inner Content Wrapper */}
+        <motion.div
+          exit={{ opacity: 0, scale: 0.96 }}
+          transition={{ duration: 0.45 }}
+          className="relative z-20 w-full h-full flex flex-col justify-between"
+        >
+          {/* Skip button top right */}
+          <div className="flex justify-between items-center px-6 py-6 sm:px-12">
+            <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
+              <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
+              <span>GOTHAM SECTOR 04 // LAT 40.7128° N // CLEARANCE: LEVEL 5</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleSkip}
+              className="px-3.5 py-1.5 rounded-full text-xs font-mono text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/60 backdrop-blur-md transition-all cursor-pointer"
+            >
+              Skip Intro →
+            </button>
           </div>
 
-          <button
-            type="button"
-            onClick={handleSkip}
-            className="px-3.5 py-1.5 rounded-full text-xs font-mono text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/60 backdrop-blur-md transition-all"
-          >
-            Skip Intro →
-          </button>
-        </div>
+          {/* Center: Bat-Signal, Skyline & Enter Gotham CTA */}
+          <div className="max-w-4xl mx-auto px-6 text-center space-y-8 my-auto">
+            {/* Bat-Signal Projection in the Clouds with Sonar Rings */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.4, ease: 'easeOut' }}
+              className="relative flex items-center justify-center mx-auto"
+            >
+              {/* Cone of searchlight beam */}
+              <div className="absolute -top-32 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-sky-400/25 via-sky-600/10 to-transparent blur-3xl pointer-events-none" />
 
-        {/* Center: Bat-Signal, Skyline & Enter Gotham CTA */}
-        <div className="relative z-20 max-w-4xl mx-auto px-6 text-center space-y-8 my-auto">
-          {/* Bat-Signal Projection in the Clouds */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.4, ease: 'easeOut' }}
-            className="relative flex items-center justify-center mx-auto"
-          >
-            {/* Cone of searchlight beam */}
-            <div className="absolute -top-32 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-sky-400/25 via-sky-600/10 to-transparent blur-3xl pointer-events-none" />
+              {/* Sonar / Radar pulse rings */}
+              <div className="absolute w-44 h-44 sm:w-56 sm:h-56 rounded-full border border-sky-500/20 animate-ping pointer-events-none" style={{ animationDuration: '3s' }} />
+              <div className="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-sky-400/10 pointer-events-none" />
+              <div className="absolute w-80 h-80 sm:w-96 sm:h-96 rounded-full border border-sky-400/5 pointer-events-none" />
 
-            {/* Glowing Searchlight Ring with Bat Emblem */}
-            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-sky-400/30 bg-radial from-sky-400/20 via-[#070b14]/80 to-transparent p-5 sm:p-7 shadow-[0_0_50px_rgba(56,189,248,0.25)] flex items-center justify-center backdrop-blur-md">
-              <BatIcon className="w-full h-auto text-sky-300 drop-shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
-            </div>
-          </motion.div>
+              {/* Glowing Searchlight Ring with Bat Emblem */}
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-sky-400/30 bg-radial from-sky-400/20 via-[#070b14]/80 to-transparent p-5 sm:p-7 shadow-[0_0_50px_rgba(56,189,248,0.25)] flex items-center justify-center backdrop-blur-md">
+                <BatIcon className="w-full h-auto text-sky-300 drop-shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
+              </div>
+            </motion.div>
 
           {/* Typography */}
           <motion.div
@@ -143,8 +167,9 @@ export function GothamIntro() {
           </svg>
         </div>
 
-        {/* Ambient atmospheric fog & rain streaks */}
-        <div className="absolute inset-0 bg-radial from-transparent via-transparent to-black pointer-events-none" />
+          {/* Ambient atmospheric fog & rain streaks */}
+          <div className="absolute inset-0 bg-radial from-transparent via-transparent to-black pointer-events-none" />
+        </motion.div>
       </motion.div>
     </AnimatePresence>
   );
