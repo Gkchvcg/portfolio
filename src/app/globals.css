@@ -73,6 +73,10 @@
   box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.2);
 }
 
+.blue-ambient-glow {
+  box-shadow: 0 0 60px -15px rgba(59, 130, 246, 0.35);
+}
+
 .card-hover-border {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -80,6 +84,104 @@
 .card-hover-border:hover {
   border-color: var(--accent-light);
   transform: translateY(-2px);
+}
+
+/* 3D and Perspective utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Vinyl animation */
+@keyframes spin-vinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-vinyl {
+  animation: spin-vinyl 4s linear infinite;
+}
+
+.paused-animation {
+  animation-play-state: paused !important;
+}
+
+/* Equalizer Bars */
+@keyframes equalizer-bounce {
+  0%, 100% {
+    transform: scaleY(0.2);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-equalizer-1 {
+  animation: equalizer-bounce 0.8s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.animate-equalizer-2 {
+  animation: equalizer-bounce 1.1s ease-in-out infinite 0.15s;
+  transform-origin: bottom;
+}
+.animate-equalizer-3 {
+  animation: equalizer-bounce 0.7s ease-in-out infinite 0.3s;
+  transform-origin: bottom;
+}
+.animate-equalizer-4 {
+  animation: equalizer-bounce 1.3s ease-in-out infinite 0.1s;
+  transform-origin: bottom;
+}
+.animate-equalizer-5 {
+  animation: equalizer-bounce 0.9s ease-in-out infinite 0.25s;
+  transform-origin: bottom;
+}
+
+/* Sakura Petals Animation */
+@keyframes sakura-fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, -10px) rotate(0deg) scale(0.8);
+  }
+  15% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(80px, 450px) rotate(360deg) scale(1);
+  }
+}
+
+.sakura-petal {
+  position: absolute;
+  pointer-events: none;
+  animation: sakura-fall linear infinite;
+}
+
+/* Tactical football dash animation */
+@keyframes tactical-dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-tactical-dash {
+  stroke-dasharray: 6 6;
+  animation: tactical-dash 2s linear infinite;
 }
 
 /* Reduced motion support */
