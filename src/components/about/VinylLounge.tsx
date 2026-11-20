@@ -18,6 +18,7 @@ import {
   Repeat,
 } from 'lucide-react';
 import { sound } from './soundEngine';
+import { useGothamSoundtrack } from '@/components/gotham/GothamSoundtrackContext';
 
 export interface Track {
   id: string;
@@ -35,6 +36,48 @@ export interface Track {
 }
 
 export const TRACKS: Track[] = [
+  {
+    id: 'muhammad-nabina',
+    title: 'Muhammad Nabina',
+    artist: 'Ayisha Abdul Basith',
+    genre: 'Spiritual Devotional / Nasheed',
+    album: 'Muhammad Nabina / Divine Peace',
+    year: '2023',
+    durationFormatted: '03:52',
+    audioSrc: '/audio/muhammad-nabina-ayisha-abdul-basith.mp3',
+    accentColor: 'from-emerald-500/20 via-teal-500/10 to-emerald-950/40 border-emerald-500/40 text-emerald-300',
+    quote: '"Muhammad nabina, bi noorou hadina, min Makka habibi noorou sata\'a al-Madina... Man salla salatuh wathalla bi-sifatuh..."',
+    whyILoveIt: 'An ethereal, profoundly serene spiritual Nasheed rendered with pristine purity by Ayisha Abdul Basith. A calming oasis of devotion, peace, and spiritual grace that quiets the soul.',
+    vibes: ['Spiritual Devotion', 'Prophetic Love', 'Serene Nasheed', 'Heart Peace'],
+  },
+  {
+    id: 'oh-sahib',
+    title: 'Oh Sahib',
+    artist: 'Zain Zohaib',
+    genre: 'Sufi Qawwali / Cinematic OST',
+    album: 'Abdullahpur Ka Devdas (Original Soundtrack)',
+    year: '2024',
+    durationFormatted: '03:07',
+    audioSrc: '/audio/oh-sahib-zain-zohaib.mp3',
+    accentColor: 'from-amber-500/20 via-red-500/10 to-amber-950/40 border-amber-500/40 text-amber-300',
+    quote: '"Oh Sahib tere naam ki main gal vich maala paayie... Meri aashiq akhiyan nu tera deedaar pyara..."',
+    whyILoveIt: 'A hauntingly soulful modern Sufi composition by Zain Zohaib. The passionate qawwali vocal runs, rhythmic dholak, and raw emotional resonance capture the agony and devotion of unyielding love.',
+    vibes: ['Sufi Qawwali', 'Zain Zohaib', 'Cinematic OST', 'Raw Emotion'],
+  },
+  {
+    id: 'pal-pal',
+    title: 'Pal Pal',
+    artist: 'Afusic (feat. Ali Soomro)',
+    genre: 'Indie Pop / Lo-Fi R&B / Chill Romance',
+    album: 'Pal Pal / Single',
+    year: '2024',
+    durationFormatted: '02:27',
+    audioSrc: '/audio/pal-pal-afusic.mp3',
+    accentColor: 'from-purple-500/20 via-pink-500/10 to-purple-950/40 border-purple-500/40 text-purple-300',
+    quote: '"Pal-pal jeena muhaal mera tere bina, yeh saare nashe bekaar teri aankhon ke siwa... Ghar nahi jaata main baahar rehta tera intezaar..."',
+    whyILoveIt: 'The viral, mesmerizing indie groove with an irresistible acoustic rhythm and effortlessly catchy vocal cadence. Melancholic yet deeply romantic late-night listening.',
+    vibes: ['Indie Pop', 'Late Night Vibes', 'Viral Hit', 'Chill R&B'],
+  },
   {
     id: 'tera-mera-viah',
     title: 'Tera Mera Viah',
@@ -89,10 +132,44 @@ export function VinylLounge() {
   const [duration, setDuration] = useState(0);
   const [freqBars, setFreqBars] = useState<number[]>([25, 45, 60, 80, 50, 70, 90, 65, 85, 40, 75, 50, 65, 45, 70]);
 
+  const gothamSoundtrack = useGothamSoundtrack();
   const track = TRACKS[currentTrackIndex];
   const scrubberRef = useRef<HTMLDivElement>(null);
 
-  // Setup audio listeners
+  const isLoopingRef = useRef(isLooping);
+  useEffect(() => {
+    isLoopingRef.current = isLooping;
+  }, [isLooping]);
+
+  const currentTrackIndexRef = useRef(currentTrackIndex);
+  useEffect(() => {
+    currentTrackIndexRef.current = currentTrackIndex;
+  }, [currentTrackIndex]);
+
+  // Handle auto next or loop when song ends
+  const handleSelectTrack = async (idx: number) => {
+    setCurrentTrackIndex(idx);
+    const audio = sound.initAudioElement();
+    if (!audio) return;
+
+    if (gothamSoundtrack?.isPlaying) {
+      gothamSoundtrack.pause();
+    }
+
+    await sound.playTrack(TRACKS[idx].audioSrc);
+  };
+
+  const handleNext = () => {
+    const nextIdx = (currentTrackIndex + 1) % TRACKS.length;
+    handleSelectTrack(nextIdx);
+  };
+
+  const handlePrev = () => {
+    const prevIdx = (currentTrackIndex - 1 + TRACKS.length) % TRACKS.length;
+    handleSelectTrack(prevIdx);
+  };
+
+  // Setup audio listeners once on mount
   useEffect(() => {
     const audio = sound.initAudioElement();
     if (!audio) return;
@@ -108,45 +185,53 @@ export function VinylLounge() {
       setDuration(audio.duration || 0);
     };
 
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
     const handleEnded = () => {
-      if (isLooping) {
+      if (isLoopingRef.current) {
         audio.currentTime = 0;
         audio.play().catch(console.warn);
       } else {
-        // Auto next track
-        handleNext();
+        const nextIdx = (currentTrackIndexRef.current + 1) % TRACKS.length;
+        handleSelectTrack(nextIdx);
       }
     };
 
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
     audio.addEventListener('ended', handleEnded);
 
     return () => {
       audio.removeEventListener('timeupdate', handleTimeUpdate);
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
       audio.removeEventListener('ended', handleEnded);
-      sound.stopTrack();
+      audio.pause();
     };
-  }, [currentTrackIndex, isLooping]);
+  }, []);
 
-  // Real-time frequency analyzer connection for equalizer
+  // Real-time frequency visualizer bars
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying) {
+      setFreqBars([14, 12, 16, 15, 12, 18, 14, 16, 12, 15, 14, 12, 15, 12, 14]);
+      return;
+    }
 
     let animId: number;
+    let t = 0;
     const updateSpectrum = () => {
-      if (sound.analyser) {
-        const buffer = new Uint8Array(sound.analyser.frequencyBinCount);
-        sound.analyser.getByteFrequencyData(buffer);
-        const sampled: number[] = [];
-        for (let i = 0; i < 15; i++) {
-          const idx = Math.floor((i / 15) * (buffer.length / 2));
-          const val = buffer[idx] || 0;
-          sampled.push(Math.max(12, Math.min(100, (val / 255) * 100)));
-        }
-        setFreqBars(sampled);
+      t += 0.16;
+      const sampled: number[] = [];
+      for (let i = 0; i < 15; i++) {
+        const wave = Math.sin(t * 1.6 + i * 0.45) * 28 + Math.cos(t * 2.1 - i * 0.35) * 22 + 50;
+        const jitter = (Math.sin(t * 3.5 + i * 1.1) + 1) * 10;
+        sampled.push(Math.max(14, Math.min(96, wave + jitter)));
       }
+      setFreqBars(sampled);
       animId = requestAnimationFrame(updateSpectrum);
     };
 
@@ -154,34 +239,19 @@ export function VinylLounge() {
     return () => cancelAnimationFrame(animId);
   }, [isPlaying]);
 
-  const togglePlay = () => {
-    if (isPlaying) {
-      sound.pauseTrack();
-      setIsPlaying(false);
-    } else {
-      sound.playTrack(track.audioSrc, handleNext);
-      setIsPlaying(true);
+  const togglePlay = async () => {
+    const audio = sound.initAudioElement();
+    if (!audio) return;
+
+    if (gothamSoundtrack?.isPlaying) {
+      gothamSoundtrack.pause();
     }
-  };
 
-  const handleNext = () => {
-    const nextIdx = (currentTrackIndex + 1) % TRACKS.length;
-    setCurrentTrackIndex(nextIdx);
-    sound.playTrack(TRACKS[nextIdx].audioSrc, handleNext);
-    setIsPlaying(true);
-  };
-
-  const handlePrev = () => {
-    const prevIdx = (currentTrackIndex - 1 + TRACKS.length) % TRACKS.length;
-    setCurrentTrackIndex(prevIdx);
-    sound.playTrack(TRACKS[prevIdx].audioSrc, handleNext);
-    setIsPlaying(true);
-  };
-
-  const handleSelectTrack = (idx: number) => {
-    setCurrentTrackIndex(idx);
-    sound.playTrack(TRACKS[idx].audioSrc, handleNext);
-    setIsPlaying(true);
+    if (!audio.paused && !audio.ended && audio.currentTime > 0) {
+      sound.pauseTrack();
+    } else {
+      await sound.playTrack(track.audioSrc);
+    }
   };
 
   const toggleMute = () => {
@@ -228,7 +298,7 @@ export function VinylLounge() {
             </span>
           </h3>
           <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed">
-            Listen to my real hand-picked favorites in high fidelity: Jass Manak&apos;s romantic pop anthem <span className="text-pink-300 font-medium">Tera Mera Viah</span>, and Ustad Nusrat Fateh Ali Khan&apos;s transcendent masterpieces <span className="text-amber-300 font-medium">Sanso Ki Mala Pe</span> and <span className="text-blue-300 font-medium">Apne Kandhon Pe Ab Mere Qatil</span>.
+            Listen to my real hand-picked favorites in high fidelity: spiritual serenity in <span className="text-emerald-300 font-medium">Muhammad Nabina</span>, Zain Zohaib&apos;s intense Sufi OST <span className="text-amber-300 font-medium">Oh Sahib</span>, Afusic&apos;s viral indie groove <span className="text-purple-300 font-medium">Pal Pal</span>, Jass Manak&apos;s <span className="text-pink-300 font-medium">Tera Mera Viah</span>, and Ustad Nusrat Fateh Ali Khan&apos;s timeless classics <span className="text-amber-300 font-medium">Sanso Ki Mala Pe</span> and <span className="text-blue-300 font-medium">Apne Kandhon Pe</span>.
           </p>
         </div>
 
@@ -430,7 +500,7 @@ export function VinylLounge() {
               <button
                 type="button"
                 onClick={handlePrev}
-                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors active:scale-95"
+                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors active:scale-95 cursor-pointer"
                 title="Previous Track"
               >
                 <SkipBack className="w-5 h-5" />
@@ -439,7 +509,7 @@ export function VinylLounge() {
               <button
                 type="button"
                 onClick={togglePlay}
-                className="p-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-transform active:scale-95"
+                className="p-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-transform active:scale-95 cursor-pointer"
                 title={isPlaying ? 'Pause' : 'Play'}
               >
                 {isPlaying ? <Pause className="w-6 h-6 fill-white" /> : <Play className="w-6 h-6 fill-white ml-0.5" />}
@@ -448,7 +518,7 @@ export function VinylLounge() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors active:scale-95"
+                className="p-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition-colors active:scale-95 cursor-pointer"
                 title="Next Track"
               >
                 <SkipForward className="w-5 h-5" />
@@ -456,14 +526,14 @@ export function VinylLounge() {
             </div>
           </div>
 
-          {/* Track Selection Pills */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* Track Selection Pills (6 Tracks Responsive Grid) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {TRACKS.map((t, idx) => (
               <button
                 key={t.id}
                 type="button"
                 onClick={() => handleSelectTrack(idx)}
-                className={`p-3.5 rounded-xl border text-left transition-all ${
+                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                   currentTrackIndex === idx
                     ? 'bg-blue-600/20 border-blue-500 text-white shadow-md'
                     : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'

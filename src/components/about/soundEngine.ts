@@ -44,16 +44,8 @@ class SoundEngine {
     if (!this.audioElement) {
       this.audioElement = new Audio();
       this.audioElement.preload = 'auto';
-
-      const ctx = this.getContext();
-      if (ctx && this.masterGain) {
-        try {
-          this.mediaSource = ctx.createMediaElementSource(this.audioElement);
-          this.mediaSource.connect(this.masterGain);
-        } catch (err) {
-          console.warn('MediaElementAudioSource fallback:', err);
-        }
-      }
+      this.audioElement.volume = this.isMuted ? 0 : 0.85;
+      this.audioElement.muted = this.isMuted;
     }
     return this.audioElement;
   }
@@ -62,6 +54,7 @@ class SoundEngine {
     this.isMuted = muted;
     if (this.audioElement) {
       this.audioElement.muted = muted;
+      this.audioElement.volume = muted ? 0 : 0.85;
     }
     if (this.masterGain && this.ctx) {
       this.masterGain.gain.setValueAtTime(muted ? 0 : 0.8, this.ctx.currentTime);
@@ -78,17 +71,20 @@ class SoundEngine {
   }
 
   // ----------------------------------------------------
-  // REAL AUDIO TRACK PLAYBACK (MP3)
+  // REAL AUDIO TRACK PLAYBACK (MP3 / M4A)
   // ----------------------------------------------------
-  public playTrack(src: string, onEnded?: () => void) {
+  public async playTrack(src: string, onEnded?: () => void): Promise<boolean> {
     const audio = this.initAudioElement();
-    if (!audio) return;
-    this.getContext(); // Ensure AudioContext is active
+    if (!audio) return false;
 
-    // Sound effect: needle drop
-    this.playNeedleDrop();
+    // Trigger subtle needle drop sound via Web Audio if available
+    try {
+      this.playNeedleDrop();
+    } catch {
+      // ignore
+    }
 
-    if (this.currentSrc !== src) {
+    if (this.currentSrc !== src || !audio.src.endsWith(src)) {
       this.currentSrc = src;
       audio.src = src;
       audio.load();
@@ -98,14 +94,17 @@ class SoundEngine {
       audio.onended = onEnded;
     }
 
-    audio
-      .play()
-      .then(() => {
-        this.isPlayingSong = true;
-      })
-      .catch((err) => {
-        console.warn('Audio play prevented or interrupted:', err);
-      });
+    try {
+      audio.volume = this.isMuted ? 0 : 0.85;
+      audio.muted = this.isMuted;
+      await audio.play();
+      this.isPlayingSong = true;
+      return true;
+    } catch (err) {
+      console.warn('Audio play prevented or interrupted:', err);
+      this.isPlayingSong = false;
+      return false;
+    }
   }
 
   public pauseTrack() {
@@ -115,12 +114,11 @@ class SoundEngine {
     this.isPlayingSong = false;
   }
 
-  public resumeTrack() {
+  public resumeTrack(): Promise<boolean> {
     if (this.audioElement && this.currentSrc) {
-      this.getContext();
-      this.audioElement.play().catch((err) => console.warn(err));
-      this.isPlayingSong = true;
+      return this.playTrack(this.currentSrc);
     }
+    return Promise.resolve(false);
   }
 
   public seekTrack(seconds: number) {
