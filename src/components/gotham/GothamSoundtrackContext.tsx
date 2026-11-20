@@ -26,11 +26,19 @@ export function GothamSoundtrackProvider({ children }: { children: React.ReactNo
   const hasStartedRef = useRef(false);
 
   const play = useCallback(async () => {
-    if (!audioRef.current) return;
+    let audio = audioRef.current;
+    if (!audio && typeof window !== 'undefined') {
+      audio = new Audio(SOUNDTRACK_SRC);
+      audio.loop = true;
+      audio.preload = 'auto';
+      audio.setAttribute('playsinline', 'true');
+      audioRef.current = audio;
+    }
+    if (!audio) return;
     try {
-      audioRef.current.muted = isMuted;
-      audioRef.current.volume = isMuted ? 0 : volume;
-      await audioRef.current.play();
+      audio.muted = isMuted;
+      audio.volume = isMuted ? 0 : volume;
+      await audio.play();
       setIsPlaying(true);
       hasStartedRef.current = true;
     } catch (err) {
@@ -73,16 +81,26 @@ export function GothamSoundtrackProvider({ children }: { children: React.ReactNo
   }, [volume]);
 
   const startSoundtrackFromIntro = useCallback(async () => {
-    if (!audioRef.current) return;
+    let audio = audioRef.current;
+    if (!audio && typeof window !== 'undefined') {
+      audio = new Audio(SOUNDTRACK_SRC);
+      audio.loop = true;
+      audio.preload = 'auto';
+      audio.setAttribute('playsinline', 'true');
+      audioRef.current = audio;
+    }
+    if (!audio) return;
     try {
-      audioRef.current.muted = false;
-      audioRef.current.volume = 0;
-      await audioRef.current.play();
+      audio.muted = false;
+      if (audio.paused) {
+        audio.volume = 0;
+        await audio.play();
+      }
       setIsPlaying(true);
       hasStartedRef.current = true;
 
       // Smooth 1.5-second volume ramp up to target volume
-      const targetVolume = isMuted ? 0 : volume;
+      const targetVolume = isMuted ? 0 : (volume || 0.7);
       const durationMs = 1500;
       const startTime = performance.now();
 
