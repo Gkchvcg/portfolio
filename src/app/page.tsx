@@ -2,6 +2,7 @@ import React from 'react';
 import { Hero } from '@/components/Hero';
 import { About } from '@/components/About';
 import { FeaturedProjects } from '@/components/FeaturedProjects';
+import { SubstackSection } from '@/components/SubstackSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { CodingProfiles } from '@/components/CodingProfiles';
 import { EducationCertifications } from '@/components/EducationCertifications';
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Hero />
       <About />
       <FeaturedProjects />
+      <SubstackSection />
       <SkillsSection />
       <CodingProfiles />
       <EducationCertifications />

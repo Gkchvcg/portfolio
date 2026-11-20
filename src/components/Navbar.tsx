@@ -38,10 +38,10 @@ export function Navbar() {
   const navLinks = [
     { code: '01', name: 'About', href: '/#about' },
     { code: '02', name: 'Projects', href: '/projects' },
-    { code: '03', name: 'Skills', href: '/#skills' },
-    { code: '04', name: 'Profiles', href: '/#coding-profiles' },
-    { code: '05', name: 'Education', href: '/#education' },
-    { code: '06', name: 'Certs', href: '/#certifications' },
+    { code: '03', name: 'Writing', href: '/#writing' },
+    { code: '04', name: 'Skills', href: '/#skills' },
+    { code: '05', name: 'Profiles', href: '/#coding-profiles' },
+    { code: '06', name: 'Education', href: '/#education' },
     { code: '07', name: 'Contact', href: '/#contact' },
   ];
 

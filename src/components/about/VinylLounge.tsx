@@ -116,6 +116,20 @@ export const TRACKS: Track[] = [
     whyILoveIt: 'A masterclass in Urdu poetic metaphor and acoustic depth. Explores the paradoxical nature of existence, love, and spiritual mystery.',
     vibes: ['Urdu Ghazal', 'Poetic Metaphor', 'Acoustic Depth', 'Mystic Parda'],
   },
+  {
+    id: 'hikaru-nara',
+    title: 'Hikaru Nara (光るなら)',
+    artist: 'Goose house',
+    genre: 'J-Pop / Anime OST Masterpiece',
+    album: 'Shigatsu wa Kimi no Uso (Original Soundtrack)',
+    year: '2014',
+    durationFormatted: '02:03',
+    audioSrc: '/audio/hikaru-nara-your-lie-in-april.mp3',
+    accentColor: 'border-[#F5C518]/40 text-[#F5C518]',
+    quote: '"Niji no saki ni wa... kimi ga iru kara. It was you, you were the one who made me realize: even darkness will shine like the night sky full of stars."',
+    whyILoveIt: 'The radiant, tear-tinged anthem of Your Lie in April. Celebrates the fleeting beauty of youth, color, and music that lingers long after spring has passed.',
+    vibes: ['Your Lie in April', 'Goose house', 'Spring Sakura', 'Radiant OST'],
+  },
 ];
 
 export function VinylLounge() {

@@ -1,16 +1,85 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Film, Moon, Music, Layers, Volume2 } from 'lucide-react';
+import { Film, Moon, Music, Layers, Volume2, Play, Pause } from 'lucide-react';
 import { SakuraPetals } from './SakuraPetals';
 import { BatIcon } from '../gotham/BatIcon';
 import { sound, PIANO_FREQUENCIES } from './soundEngine';
+import { useGothamSoundtrack } from '@/components/gotham/GothamSoundtrackContext';
 
 export function AnimeCinemaSection() {
   const [activeTab, setActiveTab] = useState<'ylia' | 'noir' | 'cinema'>('ylia');
   const [activeKey, setActiveKey] = useState<number | null>(null);
+
+  // Audio player state for Your Lie in April theme: Hikaru Nara by Goose house
+  const [isThemePlaying, setIsThemePlaying] = useState(false);
+  const [themeDuration, setThemeDuration] = useState(0);
+  const [themeCurrentTime, setThemeCurrentTime] = useState(0);
+  const themeAudioRef = useRef<HTMLAudioElement | null>(null);
+  const gothamSoundtrack = useGothamSoundtrack();
+
+  useEffect(() => {
+    const audio = new Audio('/audio/hikaru-nara-your-lie-in-april.mp3');
+    audio.preload = 'metadata';
+    audio.volume = 0.85;
+
+    const onTimeUpdate = () => setThemeCurrentTime(audio.currentTime);
+    const onLoadedMetadata = () => setThemeDuration(audio.duration || 0);
+    const onEnded = () => setIsThemePlaying(false);
+    const onPause = () => setIsThemePlaying(false);
+    const onPlay = () => setIsThemePlaying(true);
+
+    audio.addEventListener('timeupdate', onTimeUpdate);
+    audio.addEventListener('loadedmetadata', onLoadedMetadata);
+    audio.addEventListener('ended', onEnded);
+    audio.addEventListener('pause', onPause);
+    audio.addEventListener('play', onPlay);
+
+    themeAudioRef.current = audio;
+
+    return () => {
+      audio.pause();
+      audio.removeEventListener('timeupdate', onTimeUpdate);
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
+      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('pause', onPause);
+      audio.removeEventListener('play', onPlay);
+    };
+  }, []);
+
+  const toggleThemePlay = async () => {
+    if (!themeAudioRef.current) return;
+    if (themeAudioRef.current.paused) {
+      if (gothamSoundtrack?.isPlaying) {
+        gothamSoundtrack.pause();
+      }
+      try {
+        await themeAudioRef.current.play();
+      } catch (e) {
+        console.warn('Playback error:', e);
+      }
+    } else {
+      themeAudioRef.current.pause();
+    }
+  };
+
+  const handleThemeScrub = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!themeAudioRef.current || !themeDuration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const target = ratio * themeDuration;
+    themeAudioRef.current.currentTime = target;
+    setThemeCurrentTime(target);
+  };
+
+  const formatSeconds = (sec: number) => {
+    if (!sec || isNaN(sec)) return '00:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
 
   // Piano keys for the interactive Your Lie in April footer motif
   const pianoKeys = [
@@ -203,6 +272,92 @@ export function AnimeCinemaSection() {
                   />
                   <div className="absolute inset-0 bg-black/20 hover:bg-transparent transition-colors" />
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Your Lie in April Original Soundtrack Player: Hikaru Nara */}
+          <div className="pt-4 border-t border-[#232A38]">
+            <div className="p-4 sm:p-5 rounded-sm bg-[#12161F] border border-[#232A38] relative overflow-hidden group shadow-lg">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4A338]/5 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                {/* Track Details */}
+                <div className="flex items-center gap-3.5">
+                  <button
+                    type="button"
+                    onClick={toggleThemePlay}
+                    className="w-12 h-12 rounded-full bg-[#D4A338] hover:bg-[#E5BE58] text-[#050608] flex items-center justify-center shadow-[0_0_20px_rgba(212,163,56,0.4)] hover:shadow-[0_0_30px_rgba(212,163,56,0.7)] transition-all cursor-pointer shrink-0"
+                    title={isThemePlaying ? 'Pause Hikaru Nara' : 'Play Hikaru Nara'}
+                    aria-label={isThemePlaying ? 'Pause Hikaru Nara' : 'Play Hikaru Nara'}
+                  >
+                    {isThemePlaying ? (
+                      <Pause className="w-5 h-5 fill-current" />
+                    ) : (
+                      <Play className="w-5 h-5 fill-current ml-0.5" />
+                    )}
+                  </button>
+
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#0B0E14] text-[#D4A338] border border-[#D4A338]/30 font-semibold">
+                        ORIGINAL SOUNDTRACK
+                      </span>
+                      <span className="text-xs font-mono text-[#8B95A5]">OP 1 • 2014</span>
+                    </div>
+                    <h5 className="font-display text-base sm:text-lg font-bold text-[#E2E8F0] tracking-wide">
+                      Hikaru Nara (光るなら) — Goose house
+                    </h5>
+                    <p className="text-xs font-mono text-[#8B95A5]">
+                      &quot;Even the darkest night shines like a sky full of stars.&quot;
+                    </p>
+                  </div>
+                </div>
+
+                {/* Equalizer & Audio Progress */}
+                <div className="flex items-center gap-3 self-end sm:self-center">
+                  {/* Frequency Waveform */}
+                  <div className="flex items-end gap-1 h-5 px-2">
+                    {[35, 70, 95, 50, 85, 40].map((h, i) => (
+                      <motion.div
+                        key={i}
+                        animate={{
+                          height: isThemePlaying
+                            ? [`${Math.max(20, h * 0.3)}%`, `${h}%`, `${Math.max(15, h * 0.4)}%`]
+                            : '25%',
+                        }}
+                        transition={{
+                          repeat: isThemePlaying ? Infinity : 0,
+                          duration: 0.4 + i * 0.1,
+                          ease: 'easeInOut',
+                        }}
+                        className={`w-1 rounded-full transition-colors ${
+                          isThemePlaying
+                            ? 'bg-[#D4A338] shadow-[0_0_8px_rgba(212,163,56,0.9)]'
+                            : 'bg-zinc-700'
+                        }`}
+                        style={{ minHeight: '4px' }}
+                      />
+                    ))}
+                  </div>
+
+                  <span className="text-xs font-mono text-[#8B95A5] min-w-[70px] text-right">
+                    {formatSeconds(themeCurrentTime)} / {formatSeconds(themeDuration || 123)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Scrubber Progress Bar */}
+              <div
+                onClick={handleThemeScrub}
+                className="mt-3 relative w-full h-1.5 bg-[#0B0E14] rounded-full cursor-pointer overflow-hidden border border-[#232A38]"
+              >
+                <div
+                  className="h-full bg-gradient-to-r from-[#D4A338] to-[#F5C518] shadow-[0_0_10px_rgba(212,163,56,0.6)] transition-all duration-100"
+                  style={{
+                    width: `${themeDuration > 0 ? (themeCurrentTime / themeDuration) * 100 : 0}%`,
+                  }}
+                />
               </div>
             </div>
           </div>
