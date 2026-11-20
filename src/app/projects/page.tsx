@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, Terminal, Sparkles } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/BrandIcons';
 import { ProjectDirectoryClient } from '@/components/ProjectDirectoryClient';
 import { BatIcon } from '@/components/gotham/BatIcon';
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen pt-28 pb-20 sm:pt-36 sm:pb-28">
+    <main className="min-h-screen pt-28 pb-20 sm:pt-36 sm:pb-28 bg-[#050608]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Back Link & Breadcrumb */}
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#8B95A5] hover:text-[#E2E8F0] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>← Back to Home Overview</span>
@@ -35,7 +35,7 @@ export default function ProjectsPage() {
             href="https://github.com/Gkchvcg"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-[#8B95A5] hover:text-[#D4A338] transition-colors"
           >
             <GithubIcon className="w-3.5 h-3.5" />
             <span>github.com/Gkchvcg</span>
@@ -44,14 +44,14 @@ export default function ProjectsPage() {
 
         {/* Directory Header */}
         <div className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
-            <BatIcon className="w-4 h-2 text-sky-400" />
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#D4A338] uppercase tracking-wider">
+            <BatIcon className="w-4 h-2 text-[#D4A338]" />
             <span>WAYNETECH APPLIED SCIENCES // CLASSIFIED OPERATIONS REGISTRY</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+          <h1 className="font-display text-3xl sm:text-5xl font-bold uppercase tracking-wider text-[#E2E8F0]">
             Engineering Projects Directory
           </h1>
-          <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
+          <p className="text-base sm:text-lg text-[#8B95A5] leading-relaxed">
             Every eligible public repository in my GitHub portfolio is enumerated below. Each project is documented with its verified purpose, actual technologies, system architecture, and repository links.
           </p>
         </div>

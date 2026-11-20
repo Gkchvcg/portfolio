@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Feather, Quote, Sparkles, Bookmark, Compass, ScrollText } from 'lucide-react';
+import { BookOpen, Feather, Quote, Bookmark } from 'lucide-react';
+import { BatIcon } from '../gotham/BatIcon';
 
 interface PhilosophyChapter {
   id: string;
@@ -81,35 +82,35 @@ export function PhilosophyLiterature() {
   const currentChapter = CHAPTERS[activeChapterIndex];
 
   return (
-    <div className="relative rounded-3xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-950 text-white p-6 sm:p-10 shadow-2xl">
+    <div className="relative rounded-sm overflow-hidden border border-[#232A38] bg-[#0B0E14] text-[#E2E8F0] p-6 sm:p-10 shadow-2xl batcomputer-scanlines">
       {/* Background Parchment and Floating Quotes */}
-      <div className="absolute top-0 right-10 text-zinc-900/40 dark:text-zinc-800/20 pointer-events-none select-none text-9xl font-serif">
+      <div className="absolute top-0 right-10 text-[#12161F]/60 pointer-events-none select-none text-9xl font-serif">
         &rdquo;
       </div>
-      <div className="absolute bottom-5 left-8 text-zinc-900/40 dark:text-zinc-800/20 pointer-events-none select-none text-9xl font-serif">
+      <div className="absolute bottom-5 left-8 text-[#12161F]/60 pointer-events-none select-none text-9xl font-serif">
         &ldquo;
       </div>
 
       {/* Header */}
-      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-zinc-800">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-[#232A38]">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-amber-500/10 border border-amber-500/30 text-amber-300 mb-3">
-            <BookOpen className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-mono font-medium bg-[#12161F] border border-[#232A38] text-[#D4A338] mb-3">
+            <BatIcon className="w-3.5 h-2 text-[#D4A338]" />
             <span>LITERARY JOURNAL • PHILOSOPHICAL FOUNDATIONS</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+          <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wider text-[#E2E8F0] flex items-center gap-3">
             Philosophy & Literature
-            <span className="text-xs font-mono py-1 px-2.5 rounded-full bg-zinc-800 text-zinc-300 font-normal">
+            <span className="text-xs font-mono py-0.5 px-2.5 rounded-sm bg-[#12161F] text-[#8B95A5] border border-[#232A38] font-normal">
               Marginalia & Inquiries
             </span>
           </h3>
-          <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed">
+          <p className="text-sm text-[#8B95A5] mt-2 max-w-2xl leading-relaxed">
             Code builds tools, but literature refines the mind that wields them. A collection of ideas, paradoxes, and marginalia that anchor my perspective.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-amber-400 bg-amber-500/10 px-3 py-2 rounded-xl border border-amber-500/20 self-start md:self-auto">
-          <Feather className="w-4 h-4" />
+        <div className="flex items-center gap-2 text-xs font-mono text-[#D4A338] bg-[#12161F] px-3 py-2 rounded-sm border border-[#232A38] self-start md:self-auto">
+          <Feather className="w-4 h-4 text-[#D4A338]" />
           <span>Interactive Reading Desk</span>
         </div>
       </div>
@@ -117,8 +118,8 @@ export function PhilosophyLiterature() {
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Chapters / Book Spines Index */}
         <div className="lg:col-span-4 space-y-3">
-          <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-1.5">
-            <Bookmark className="w-3.5 h-3.5 text-amber-400" />
+          <div className="text-xs font-mono uppercase tracking-wider text-[#8B95A5] mb-2 flex items-center gap-1.5">
+            <Bookmark className="w-3.5 h-3.5 text-[#D4A338]" />
             <span>Selected Treatises</span>
           </div>
 
@@ -126,27 +127,27 @@ export function PhilosophyLiterature() {
             <button
               key={ch.id}
               onClick={() => setActiveChapterIndex(idx)}
-              className={`w-full p-4 rounded-2xl border text-left transition-all flex items-center justify-between gap-3 ${
+              className={`w-full p-4 rounded-sm border text-left transition-all flex items-center justify-between gap-3 ${
                 activeChapterIndex === idx
-                  ? 'bg-amber-500/15 border-amber-500/40 text-white shadow-lg shadow-amber-500/5'
-                  : 'bg-zinc-900/60 border-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
+                  ? 'bg-[#1E2430] border-[#D4A338] text-[#E2E8F0] shadow-lg shadow-[#D4A338]/5'
+                  : 'bg-[#12161F] border-[#232A38] text-[#8B95A5] hover:text-[#E2E8F0] hover:border-[#8E9BAE]/40'
               }`}
             >
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#D4A338]">
                   Vol. 0{idx + 1} • {ch.school}
                 </span>
-                <h4 className="text-sm font-bold text-white mt-0.5">
+                <h4 className="font-display text-sm font-bold uppercase tracking-wider text-[#E2E8F0] mt-0.5">
                   {ch.title}
                 </h4>
-                <p className="text-xs text-zinc-400 mt-0.5">
+                <p className="text-xs text-[#8B95A5] mt-0.5">
                   {ch.author}
                 </p>
               </div>
 
               <div
-                className={`w-2.5 h-2.5 rounded-full ${
-                  activeChapterIndex === idx ? 'bg-amber-400 ring-4 ring-amber-400/20' : 'bg-zinc-700'
+                className={`w-2 h-2 rounded-full ${
+                  activeChapterIndex === idx ? 'bg-[#D4A338] ring-4 ring-[#D4A338]/20' : 'bg-[#232A38]'
                 }`}
               />
             </button>
@@ -162,27 +163,27 @@ export function PhilosophyLiterature() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -15 }}
               transition={{ duration: 0.35 }}
-              className="rounded-2xl p-6 sm:p-8 border border-zinc-800 bg-gradient-to-b from-zinc-900 via-zinc-900/90 to-zinc-950 space-y-6 shadow-xl relative"
+              className="rounded-sm p-6 sm:p-8 border border-[#232A38] bg-[#12161F] space-y-6 shadow-xl relative batcomputer-scanlines"
             >
               {/* Treatise Metadata */}
-              <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-zinc-800">
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-[#232A38]">
+                <span className="px-3 py-1 rounded-sm text-xs font-mono font-medium bg-[#0B0E14] text-[#D4A338] border border-[#232A38]">
                   {currentChapter.school}
                 </span>
-                <span className="text-xs font-mono text-zinc-400">
-                  Author: <strong className="text-white">{currentChapter.author}</strong>
+                <span className="text-xs font-mono text-[#8B95A5]">
+                  Author: <strong className="text-[#E2E8F0]">{currentChapter.author}</strong>
                 </span>
               </div>
 
               {/* Typewriter Aphorism */}
-              <div className="p-5 rounded-2xl bg-black/60 border border-zinc-800 relative">
-                <Quote className="absolute top-3 left-3 w-5 h-5 text-amber-400/40" />
+              <div className="p-5 rounded-sm bg-[#0B0E14] border border-[#232A38] relative">
+                <Quote className="absolute top-3 left-3 w-5 h-5 text-[#D4A338]/40" />
                 <div className="pl-6 pt-1">
-                  <div className="text-base sm:text-lg font-serif text-amber-200 leading-relaxed min-h-[56px]">
+                  <div className="text-base sm:text-lg font-serif text-[#E2E8F0] leading-relaxed min-h-[56px]">
                     &quot;{typewriterText}&quot;
-                    <span className="inline-block w-1.5 h-4 ml-1 bg-amber-400 animate-pulse" />
+                    <span className="inline-block w-1.5 h-4 ml-1 bg-[#D4A338] animate-pulse" />
                   </div>
-                  <span className="block text-xs font-mono text-zinc-500 mt-2">
+                  <span className="block text-xs font-mono text-[#8B95A5] mt-2">
                     — {currentChapter.author} ({currentChapter.coreConcept})
                   </span>
                 </div>
@@ -191,10 +192,10 @@ export function PhilosophyLiterature() {
               {/* Handwritten Marginalia Sticky Note */}
               <motion.div
                 whileHover={{ rotate: 0 }}
-                className="p-4 rounded-xl bg-amber-950/30 border border-amber-600/30 text-amber-200 font-mono text-xs sm:text-sm transform -rotate-1 transition-transform shadow-md"
+                className="p-4 rounded-sm bg-[#0B0E14] border border-[#232A38] text-[#8B95A5] font-mono text-xs sm:text-sm transform -rotate-0.5 transition-transform shadow-md"
               >
-                <div className="text-[10px] uppercase tracking-wider text-amber-400 font-bold mb-1 flex items-center gap-1.5">
-                  <Feather className="w-3.5 h-3.5" />
+                <div className="text-[10px] uppercase tracking-wider text-[#D4A338] font-bold mb-1 flex items-center gap-1.5">
+                  <Feather className="w-3.5 h-3.5 text-[#D4A338]" />
                   Marginalia Annotation:
                 </div>
                 {currentChapter.marginalia}
@@ -202,10 +203,10 @@ export function PhilosophyLiterature() {
 
               {/* Philosophical Reflection */}
               <div className="space-y-2">
-                <h5 className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+                <h5 className="text-xs font-mono uppercase tracking-wider text-[#D4A338]">
                   Personal Reflection & Cognitive Synthesis:
                 </h5>
-                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#8B95A5] leading-relaxed">
                   {currentChapter.reflection}
                 </p>
               </div>

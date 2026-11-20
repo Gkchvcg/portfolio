@@ -63,15 +63,15 @@ export function GothamIntro() {
         >
           {/* Skip button top right */}
           <div className="flex justify-between items-center px-6 py-6 sm:px-12">
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
+            <div className="flex items-center gap-2 text-xs font-mono text-[#8B95A5]">
+              <span className="w-2 h-2 rounded-full bg-[#D4A338] animate-ping" />
               <span>GOTHAM SECTOR 04 // LAT 40.7128° N // CLEARANCE: LEVEL 5</span>
             </div>
 
             <button
               type="button"
               onClick={handleSkip}
-              className="px-3.5 py-1.5 rounded-full text-xs font-mono text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/60 backdrop-blur-md transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full text-xs font-mono text-[#8B95A5] hover:text-[#E2E8F0] border border-[#232A38] hover:border-[#8B95A5]/40 bg-[#12161F]/80 backdrop-blur-md transition-all cursor-pointer"
             >
               Skip Intro →
             </button>
@@ -87,16 +87,16 @@ export function GothamIntro() {
               className="relative flex items-center justify-center mx-auto"
             >
               {/* Cone of searchlight beam */}
-              <div className="absolute -top-32 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-sky-400/25 via-sky-600/10 to-transparent blur-3xl pointer-events-none" />
+              <div className="absolute -top-32 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-[#D4A338]/25 via-[#162238]/20 to-transparent blur-3xl pointer-events-none" />
 
               {/* Sonar / Radar pulse rings */}
-              <div className="absolute w-44 h-44 sm:w-56 sm:h-56 rounded-full border border-sky-500/20 animate-ping pointer-events-none" style={{ animationDuration: '3s' }} />
-              <div className="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-sky-400/10 pointer-events-none" />
-              <div className="absolute w-80 h-80 sm:w-96 sm:h-96 rounded-full border border-sky-400/5 pointer-events-none" />
+              <div className="absolute w-44 h-44 sm:w-56 sm:h-56 rounded-full border border-[#D4A338]/30 animate-ping pointer-events-none" style={{ animationDuration: '3s' }} />
+              <div className="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-[#D4A338]/15 pointer-events-none" />
+              <div className="absolute w-80 h-80 sm:w-96 sm:h-96 rounded-full border border-[#D4A338]/5 pointer-events-none" />
 
               {/* Glowing Searchlight Ring with Bat Emblem */}
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-sky-400/30 bg-radial from-sky-400/20 via-[#070b14]/80 to-transparent p-5 sm:p-7 shadow-[0_0_50px_rgba(56,189,248,0.25)] flex items-center justify-center backdrop-blur-md">
-                <BatIcon className="w-full h-auto text-sky-300 drop-shadow-[0_0_15px_rgba(56,189,248,0.9)]" />
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-[#D4A338]/40 bg-radial from-[#D4A338]/20 via-[#0B0E14]/90 to-transparent p-5 sm:p-7 shadow-[0_0_50px_rgba(212,163,56,0.3)] flex items-center justify-center backdrop-blur-md">
+                <BatIcon className="w-full h-auto text-[#D4A338] drop-shadow-[0_0_20px_rgba(212,163,56,0.9)]" />
               </div>
             </motion.div>
 
@@ -107,16 +107,16 @@ export function GothamIntro() {
             transition={{ duration: 1, delay: 0.4 }}
             className="space-y-4"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-widest uppercase bg-sky-950/40 text-sky-300 border border-sky-500/30">
-              <Shield className="w-3.5 h-3.5 text-sky-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-widest uppercase bg-[#162238]/60 text-[#D4A338] border border-[#D4A338]/30">
+              <Shield className="w-3.5 h-3.5 text-[#D4A338]" />
               <span>WAYNE ENTERPRISES APPLIED SCIENCES</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white uppercase font-sans">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#E2E8F0] uppercase font-display">
               Maroof Husain
             </h1>
 
-            <p className="text-sm sm:text-base font-mono text-zinc-400 max-w-xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base font-mono text-[#8B95A5] max-w-xl mx-auto leading-relaxed">
               Software Development Engineer • Algorithmic Problem Solver • Architecting Systems in the Shadows of Gotham.
             </p>
           </motion.div>
@@ -131,15 +131,15 @@ export function GothamIntro() {
             <button
               type="button"
               onClick={handleEnterGotham}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-sky-500 hover:bg-sky-400 text-zinc-950 font-bold text-base sm:text-lg tracking-wide uppercase shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_50px_rgba(56,189,248,0.7)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#D4A338] hover:bg-[#E5BE58] text-[#050608] font-bold text-base sm:text-lg tracking-wide uppercase shadow-[0_0_30px_rgba(212,163,56,0.4)] hover:shadow-[0_0_50px_rgba(212,163,56,0.7)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
-              <BatIcon className="w-5 h-auto text-zinc-950" />
+              <BatIcon className="w-5 h-auto text-[#050608]" />
               <span>Enter Gotham</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
 
-            <span className="text-[11px] font-mono text-zinc-500 flex items-center gap-1.5">
-              <Volume2 className="w-3.5 h-3.5 text-sky-400" />
+            <span className="text-[11px] font-mono text-[#8B95A5] flex items-center gap-1.5">
+              <Volume2 className="w-3.5 h-3.5 text-[#D4A338]" />
               <span>Activates Signature Gotham City Soundtrack</span>
             </span>
           </motion.div>

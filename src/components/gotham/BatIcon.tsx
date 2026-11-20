@@ -25,9 +25,9 @@ export function BatSignalEmblem({ className = 'w-16 h-16' }: { className?: strin
   return (
     <div className={`relative flex items-center justify-center ${className}`}>
       {/* Outer searchlight beam aura */}
-      <div className="absolute inset-0 rounded-full bg-sky-500/10 blur-xl animate-pulse" />
-      <div className="relative w-full h-full rounded-full border border-sky-400/40 bg-radial from-sky-400/20 via-sky-950/40 to-transparent flex items-center justify-center p-3 shadow-lg shadow-sky-500/20">
-        <BatIcon className="w-full h-auto text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.8)]" />
+      <div className="absolute inset-0 rounded-full bg-[#D4A338]/10 blur-xl animate-pulse" />
+      <div className="relative w-full h-full rounded-full border border-[#D4A338]/40 bg-radial from-[#D4A338]/20 via-[#162238]/60 to-transparent flex items-center justify-center p-3 shadow-lg shadow-[#D4A338]/20">
+        <BatIcon className="w-full h-auto text-[#D4A338] drop-shadow-[0_0_12px_rgba(212,163,56,0.8)]" />
       </div>
     </div>
   );

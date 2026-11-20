@@ -11,7 +11,6 @@ import {
   Bot,
   Coins,
   Cpu,
-  Sparkles,
   ArrowUpRight,
 } from 'lucide-react';
 import { GithubIcon } from './icons/BrandIcons';
@@ -32,26 +31,26 @@ export function FeaturedProjects() {
   );
 
   return (
-    <section id="featured-projects" className="py-20 lg:py-28 border-t border-zinc-200 dark:border-zinc-800/80">
+    <section id="featured-projects" className="py-20 lg:py-28 border-t border-[#232A38] bg-[#050608]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
-              <BatIcon className="w-3.5 h-auto text-sky-400" />
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#D4A338] uppercase tracking-wider">
+              <BatIcon className="w-3.5 h-2 text-[#D4A338]" />
               <span>02 // WAYNETECH APPLIED SCIENCES • CLASSIFIED OPERATIONS REGISTRY</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
+            <h2 className="font-display text-2xl sm:text-4xl font-bold uppercase tracking-wider text-[#E2E8F0]">
               Classified Engineering Operations
             </h2>
-            <p className="text-sm sm:text-base text-zinc-400 max-w-2xl">
+            <p className="text-sm sm:text-base text-[#8B95A5] max-w-2xl leading-relaxed">
               End-to-end full-stack architectures, neural inference pipelines, and cryptographic systems built and deployed to production.
             </p>
           </div>
 
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors group"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono uppercase tracking-wider text-[#D4A338] hover:text-[#E2E8F0] transition-colors group"
           >
             <span>View All 15 Repositories</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -61,63 +60,63 @@ export function FeaturedProjects() {
         {/* ============================================================ */}
         {/* SPOTLIGHT 1: DataKart (Flagship Decentralized Marketplace)  */}
         {/* ============================================================ */}
-        <div className="rounded-3xl border border-zinc-800 bg-[#090b12]/95 overflow-hidden shadow-2xl bat-border-glow">
+        <div className="rounded-sm border border-[#232A38] bg-[#12161F] overflow-hidden shadow-2xl batcomputer-scanlines">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-12">
             <div className="lg:col-span-7 space-y-6">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-950/60 text-sky-400 border border-sky-500/40">
+                <span className="px-3 py-1 rounded-sm text-xs font-mono font-semibold bg-[#0B0E14] text-[#D4A338] border border-[#232A38]">
                   FLAGSHIP ARCHITECTURE
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-900/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm text-xs font-mono text-[#E2E8F0] bg-[#0B0E14] border border-[#232A38]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4A338] animate-pulse" />
                   <span>Live Deployed</span>
                 </span>
               </div>
 
               <div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wider text-[#E2E8F0]">
                   DataKart — Decentralized Data Aggregation Marketplace
                 </h3>
-                <p className="text-xs sm:text-sm font-mono text-sky-400 mt-1">
+                <p className="text-xs sm:text-sm font-mono text-[#D4A338] mt-1">
                   Next.js 14 · Solidity Smart Contracts · Llama-3 AI · BLIP Vision · Polygon Amoy
                 </p>
               </div>
 
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-[#8B95A5] leading-relaxed">
                 A dual-sided decentralized marketplace designed to resolve the AI training data ownership crisis. Enables individual sellers to monetize curated datasets while preserving cryptographic privacy, verified through automated multi-modal AI moderation pipelines and rewarded via smart contracts.
               </p>
 
               {/* 4 Feature highlight badges */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-                <div className="p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/60 flex items-start gap-2.5">
-                  <Bot className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-sm border border-[#232A38] bg-[#0B0E14] flex items-start gap-2.5">
+                  <Bot className="w-4 h-4 text-[#D4A338] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold text-zinc-900 dark:text-white">Llama-3 & Karty Assistant</span>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-[11px] mt-0.5">Automated dataset valuation & qualitative assessment</p>
+                    <span className="font-semibold text-[#E2E8F0]">Llama-3 & Karty Assistant</span>
+                    <p className="text-[#8B95A5] text-[11px] mt-0.5">Automated dataset valuation & qualitative assessment</p>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/60 flex items-start gap-2.5">
-                  <Cpu className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-sm border border-[#232A38] bg-[#0B0E14] flex items-start gap-2.5">
+                  <Cpu className="w-4 h-4 text-[#D4A338] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold text-zinc-900 dark:text-white">BLIP Vision AI & pHash</span>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-[11px] mt-0.5">Automated image captioning & duplicate prevention</p>
+                    <span className="font-semibold text-[#E2E8F0]">BLIP Vision AI & pHash</span>
+                    <p className="text-[#8B95A5] text-[11px] mt-0.5">Automated image captioning & duplicate prevention</p>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/60 flex items-start gap-2.5">
-                  <ShieldAlert className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-sm border border-[#232A38] bg-[#0B0E14] flex items-start gap-2.5">
+                  <ShieldAlert className="w-4 h-4 text-[#D4A338] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold text-zinc-900 dark:text-white">NudeNet Content Guard</span>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-[11px] mt-0.5">Computer-vision NSFW filtering before dataset ingestion</p>
+                    <span className="font-semibold text-[#E2E8F0]">NudeNet Content Guard</span>
+                    <p className="text-[#8B95A5] text-[11px] mt-0.5">Computer-vision NSFW filtering before dataset ingestion</p>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/60 flex items-start gap-2.5">
-                  <Coins className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-sm border border-[#232A38] bg-[#0B0E14] flex items-start gap-2.5">
+                  <Coins className="w-4 h-4 text-[#D4A338] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold text-zinc-900 dark:text-white">Polygon Amoy Contracts</span>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-[11px] mt-0.5">Automated POL/USDC reward distributions via Wagmi</p>
+                    <span className="font-semibold text-[#E2E8F0]">Polygon Amoy Contracts</span>
+                    <p className="text-[#8B95A5] text-[11px] mt-0.5">Automated POL/USDC reward distributions via Wagmi</p>
                   </div>
                 </div>
               </div>
@@ -128,7 +127,7 @@ export function FeaturedProjects() {
                   href={dataKart.liveDemoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold transition-colors shadow-xs"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#D4A338] hover:bg-[#E5B54A] text-black text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors shadow-lg shadow-[#D4A338]/20"
                 >
                   <ExternalLink className="w-4 h-4" />
                   <span>Launch Live Marketplace Demo</span>
@@ -138,7 +137,7 @@ export function FeaturedProjects() {
                   href={dataKart.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-700 bg-zinc-100/80 dark:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm border border-[#232A38] hover:border-[#D4A338]/40 bg-[#0B0E14] text-[#E2E8F0] text-xs sm:text-sm font-mono uppercase tracking-wider transition-colors"
                 >
                   <GithubIcon className="w-4 h-4" />
                   <span>Inspect Code on GitHub</span>
@@ -147,7 +146,7 @@ export function FeaturedProjects() {
                 <button
                   type="button"
                   onClick={() => setSelectedProject(dataKart)}
-                  className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline px-2 py-1"
+                  className="text-xs sm:text-sm font-mono uppercase tracking-wider text-[#D4A338] hover:underline px-2 py-1"
                 >
                   Read System Architecture Case Study →
                 </button>
@@ -158,18 +157,18 @@ export function FeaturedProjects() {
             <div className="lg:col-span-5">
               <div
                 onClick={() => setSelectedProject(dataKart)}
-                className="cursor-pointer group relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-950 p-3 shadow-lg hover:border-indigo-500/60 transition-colors overflow-hidden"
+                className="cursor-pointer group relative rounded-sm border border-[#232A38] bg-[#0B0E14] p-3 shadow-lg hover:border-[#D4A338]/50 transition-colors overflow-hidden"
               >
-                <div className="flex items-center justify-between pb-2 px-2 text-[11px] font-mono text-zinc-400 border-b border-zinc-800 mb-2">
-                  <span className="flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-indigo-400" />
+                <div className="flex items-center justify-between pb-2 px-2 text-[11px] font-mono text-[#8B95A5] border-b border-[#232A38] mb-2">
+                  <span className="flex items-center gap-1.5 text-[#D4A338]">
+                    <Layers className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>DataKart System Architecture</span>
                   </span>
-                  <span className="text-indigo-400 group-hover:underline flex items-center gap-0.5">
+                  <span className="text-[#D4A338] group-hover:underline flex items-center gap-0.5">
                     Zoom <ArrowUpRight className="w-3 h-3" />
                   </span>
                 </div>
-                <div className="relative aspect-4/3 w-full rounded-xl overflow-hidden bg-zinc-900">
+                <div className="relative aspect-4/3 w-full rounded-sm overflow-hidden bg-[#050608]">
                   <Image
                     src="/images/datakart-architecture.png"
                     alt="DataKart Architecture Blueprint"
@@ -185,29 +184,29 @@ export function FeaturedProjects() {
         {/* ============================================================ */}
         {/* SPOTLIGHT 2: Flatmate Finder (Full Stack + Matching Engine) */}
         {/* ============================================================ */}
-        <div className="rounded-3xl border border-zinc-800 bg-[#090b12]/95 overflow-hidden shadow-2xl bat-border-glow p-6 sm:p-10 lg:p-12 tactical-bracket">
+        <div className="rounded-sm border border-[#232A38] bg-[#12161F] overflow-hidden shadow-2xl p-6 sm:p-10 lg:p-12 batcomputer-scanlines">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-5">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-950/60 text-sky-400 border border-sky-500/40">
+                <span className="px-3 py-1 rounded-sm text-xs font-mono font-semibold bg-[#0B0E14] text-[#D4A338] border border-[#232A38]">
                   FULL-STACK MONOREPO
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-900/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm text-xs font-mono text-[#E2E8F0] bg-[#0B0E14] border border-[#232A38]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4A338] animate-pulse" />
                   <span>Live Deployed</span>
                 </span>
               </div>
 
               <div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wider text-[#E2E8F0]">
                   Flatmate Finder — Roommate Matching & Property Platform
                 </h3>
-                <p className="text-xs sm:text-sm font-mono text-sky-400 mt-1">
+                <p className="text-xs sm:text-sm font-mono text-[#D4A338] mt-1">
                   React · Vite · Node.js · Express · MongoDB · JWT · Llama AI Matching
                 </p>
               </div>
 
-              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-[#8B95A5] leading-relaxed">
                 Full-stack roommate discovery and residential listing platform engineered as a clean monorepo. Features JWT-based role authentication, protected dashboards, listing creation, and roommate preference matchmaking powered by Llama-based compatibility models.
               </p>
 
@@ -215,7 +214,7 @@ export function FeaturedProjects() {
                 {flatmateFinder.technologies.slice(0, 7).map((t) => (
                   <span
                     key={t}
-                    className="px-2.5 py-1 rounded-md bg-zinc-950/80 font-mono text-zinc-300 border border-zinc-800"
+                    className="px-2.5 py-1 rounded-sm bg-[#0B0E14] font-mono text-[#8B95A5] border border-[#232A38]"
                   >
                     {t}
                   </span>
@@ -227,7 +226,7 @@ export function FeaturedProjects() {
                   href={flatmateFinder.liveDemoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-[0_0_15px_rgba(56,189,248,0.25)]"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#D4A338] hover:bg-[#E5B54A] text-black text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg shadow-[#D4A338]/20"
                 >
                   <ExternalLink className="w-4 h-4" />
                   <span>Launch Live Platform</span>
@@ -237,7 +236,7 @@ export function FeaturedProjects() {
                   href={flatmateFinder.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-zinc-200 text-xs sm:text-sm font-medium hover:border-sky-500/40 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm border border-[#232A38] bg-[#0B0E14] text-[#E2E8F0] text-xs sm:text-sm font-mono uppercase tracking-wider hover:border-[#D4A338]/40 transition-colors"
                 >
                   <GithubIcon className="w-4 h-4" />
                   <span>View Repository</span>
@@ -246,7 +245,7 @@ export function FeaturedProjects() {
                 <button
                   type="button"
                   onClick={() => setSelectedProject(flatmateFinder)}
-                  className="text-xs sm:text-sm font-semibold text-sky-400 hover:text-sky-300 hover:underline px-2 py-1"
+                  className="text-xs sm:text-sm font-mono uppercase tracking-wider text-[#D4A338] hover:underline px-2 py-1"
                 >
                   View Case Study →
                 </button>
@@ -255,26 +254,26 @@ export function FeaturedProjects() {
 
             {/* Architecture Card for Flatmate Finder */}
             <div className="lg:col-span-5">
-              <div className="p-6 rounded-2xl border border-zinc-800 bg-[#07090e]/95 font-mono text-xs space-y-4 batcomputer-scanlines">
-                <div className="text-zinc-400 text-[11px] pb-2 border-b border-zinc-800 flex justify-between">
-                  <span className="text-sky-400">monorepo-structure/</span>
-                  <span className="text-emerald-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="p-6 rounded-sm border border-[#232A38] bg-[#0B0E14] font-mono text-xs space-y-4 batcomputer-scanlines">
+                <div className="text-[#8B95A5] text-[11px] pb-2 border-b border-[#232A38] flex justify-between">
+                  <span className="text-[#D4A338]">monorepo-structure/</span>
+                  <span className="text-[#E2E8F0] flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D4A338] animate-pulse" />
                     STATUS: ACTIVE
                   </span>
                 </div>
                 <div className="space-y-2">
-                  <div className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800">
-                    <span className="text-sky-400 font-bold">frontend/</span>
-                    <p className="text-[11px] text-zinc-400 mt-1">Vite + React SPA, React Router, Tailwind CSS, Vercel Edge Hosting</p>
+                  <div className="p-3 rounded-sm bg-[#12161F] border border-[#232A38]">
+                    <span className="text-[#D4A338] font-bold">frontend/</span>
+                    <p className="text-[11px] text-[#8B95A5] mt-1">Vite + React SPA, React Router, Tailwind CSS, Vercel Edge Hosting</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800">
-                    <span className="text-sky-300 font-bold">backend/</span>
-                    <p className="text-[11px] text-zinc-400 mt-1">Express.js REST API, JWT Middleware, MongoDB Mongoose Models, Render API</p>
+                  <div className="p-3 rounded-sm bg-[#12161F] border border-[#232A38]">
+                    <span className="text-[#E2E8F0] font-bold">backend/</span>
+                    <p className="text-[11px] text-[#8B95A5] mt-1">Express.js REST API, JWT Middleware, MongoDB Mongoose Models, Render API</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800">
-                    <span className="text-sky-400 font-bold">ai-matching/</span>
-                    <p className="text-[11px] text-zinc-400 mt-1">Llama-assisted preference evaluation for roommate compatibility scores</p>
+                  <div className="p-3 rounded-sm bg-[#12161F] border border-[#232A38]">
+                    <span className="text-[#D4A338] font-bold">ai-matching/</span>
+                    <p className="text-[11px] text-[#8B95A5] mt-1">Llama-assisted preference evaluation for roommate compatibility scores</p>
                   </div>
                 </div>
               </div>
@@ -286,12 +285,12 @@ export function FeaturedProjects() {
         {/* Additional Featured Projects (SafeVault, Churn, Campus, Movie) */}
         {/* ============================================================ */}
         <div className="space-y-6">
-          <div className="border-b border-zinc-800 pb-3">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
-              <BatIcon className="w-3.5 h-auto text-sky-400" />
+          <div className="border-b border-[#232A38] pb-3">
+            <h3 className="font-display text-lg font-bold uppercase tracking-wider text-[#E2E8F0] flex items-center gap-2">
+              <BatIcon className="w-3.5 h-2 text-[#D4A338]" />
               Additional Classified Field Implementations
             </h3>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-[#8B95A5]">
               Machine learning intelligence, native mobile architecture, and analytical engines.
             </p>
           </div>

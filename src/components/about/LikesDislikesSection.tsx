@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, ThumbsDown, Sparkles, AlertCircle, CheckCircle2, XCircle } from 'lucide-react';
+import { Heart, ThumbsDown, CheckCircle2, XCircle } from 'lucide-react';
+import { BatIcon } from '../gotham/BatIcon';
 import { sound } from './soundEngine';
 
 interface PreferenceItem {
@@ -137,47 +138,37 @@ export function LikesDislikesSection() {
   const items = activeTab === 'love' ? LOVES : DISLIKES;
 
   return (
-    <div
-      className={`relative rounded-3xl overflow-hidden border transition-all duration-700 p-6 sm:p-10 shadow-2xl ${
-        activeTab === 'love'
-          ? 'border-emerald-500/30 bg-zinc-950 text-white shadow-emerald-950/20'
-          : 'border-rose-500/30 bg-zinc-950 text-white shadow-rose-950/20'
-      }`}
-    >
+    <div className="relative rounded-sm overflow-hidden border border-[#232A38] bg-[#0B0E14] text-[#E2E8F0] p-6 sm:p-10 shadow-2xl batcomputer-scanlines">
       {/* Dynamic Ambient Background Glow */}
-      <div
-        className={`absolute -top-32 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full blur-3xl transition-all duration-700 pointer-events-none ${
-          activeTab === 'love' ? 'bg-emerald-500/10' : 'bg-rose-500/10'
-        }`}
-      />
+      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full blur-3xl pointer-events-none bg-[#162238]/30" />
 
       {/* Header and Animated Sliding Toggle Pill */}
-      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-zinc-800">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-[#232A38]">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-zinc-800 border border-zinc-700 text-zinc-300 mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-mono font-medium bg-[#12161F] border border-[#232A38] text-[#D4A338] mb-3">
+            <BatIcon className="w-3.5 h-2 text-[#D4A338]" />
             <span>AUTHENTIC PERSPECTIVE • LIKES & DISLIKES</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+          <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wider text-[#E2E8F0] flex items-center gap-3">
             Things I Love & Things I Dislike
           </h3>
-          <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed">
+          <p className="text-sm text-[#8B95A5] mt-2 max-w-2xl leading-relaxed">
             Personal tastes, engineering quirks, and unvarnished opinions that define who I am when the laptop screen turns off.
           </p>
         </div>
 
         {/* Sliding Indicator Toggle */}
-        <div className="relative flex items-center p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800 self-start md:self-auto">
+        <div className="relative flex items-center p-1.5 rounded-sm bg-[#12161F] border border-[#232A38] self-start md:self-auto">
           <button
             onClick={() => {
               setActiveTab('love');
               sound.playToggle(true);
             }}
-            className={`relative z-10 flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-colors ${
-              activeTab === 'love' ? 'text-emerald-300' : 'text-zinc-400 hover:text-zinc-200'
+            className={`relative z-10 flex items-center gap-2 px-4 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-colors ${
+              activeTab === 'love' ? 'text-[#D4A338] font-bold' : 'text-[#8B95A5] hover:text-[#E2E8F0]'
             }`}
           >
-            <Heart className={`w-4 h-4 ${activeTab === 'love' ? 'fill-emerald-400' : ''}`} />
+            <Heart className={`w-3.5 h-3.5 ${activeTab === 'love' ? 'fill-[#D4A338]' : ''}`} />
             <span>Things I Love ({LOVES.length})</span>
           </button>
 
@@ -186,11 +177,11 @@ export function LikesDislikesSection() {
               setActiveTab('dislike');
               sound.playToggle(false);
             }}
-            className={`relative z-10 flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-colors ${
-              activeTab === 'dislike' ? 'text-rose-300' : 'text-zinc-400 hover:text-zinc-200'
+            className={`relative z-10 flex items-center gap-2 px-4 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-colors ${
+              activeTab === 'dislike' ? 'text-[#8E9BAE] font-bold' : 'text-[#8B95A5] hover:text-[#E2E8F0]'
             }`}
           >
-            <ThumbsDown className={`w-4 h-4 ${activeTab === 'dislike' ? 'fill-rose-400' : ''}`} />
+            <ThumbsDown className={`w-3.5 h-3.5 ${activeTab === 'dislike' ? 'fill-[#8E9BAE]' : ''}`} />
             <span>Things I Dislike ({DISLIKES.length})</span>
           </button>
 
@@ -198,10 +189,10 @@ export function LikesDislikesSection() {
           <motion.div
             layout
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className={`absolute inset-y-1.5 rounded-xl pointer-events-none ${
+            className={`absolute inset-y-1.5 rounded-sm pointer-events-none ${
               activeTab === 'love'
-                ? 'left-1.5 w-[calc(50%-6px)] bg-emerald-500/20 border border-emerald-500/40 shadow-sm'
-                : 'left-[calc(50%+3px)] w-[calc(50%-6px)] bg-rose-500/20 border border-rose-500/40 shadow-sm'
+                ? 'left-1.5 w-[calc(50%-6px)] bg-[#1E2430] border border-[#D4A338]/50 shadow-sm'
+                : 'left-[calc(50%+3px)] w-[calc(50%-6px)] bg-[#1E2430] border border-[#8E9BAE]/50 shadow-sm'
             }`}
           />
         </div>
@@ -225,43 +216,33 @@ export function LikesDislikesSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
                 whileHover={{ y: -4, scale: 1.01 }}
-                className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
-                  activeTab === 'love'
-                    ? 'bg-zinc-900/60 border-zinc-800/80 hover:border-emerald-500/40 hover:bg-zinc-900'
-                    : 'bg-zinc-900/60 border-zinc-800/80 hover:border-rose-500/40 hover:bg-zinc-900'
-                }`}
+                className="p-5 rounded-sm border border-[#232A38] bg-[#12161F] hover:border-[#D4A338]/40 hover:shadow-[0_0_15px_rgba(212,163,56,0.1)] transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-2xl">{item.icon}</span>
-                    <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
-                        activeTab === 'love'
-                          ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
-                          : 'bg-rose-500/10 text-rose-300 border-rose-500/30'
-                      }`}
-                    >
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm border border-[#232A38] bg-[#0B0E14] text-[#D4A338]">
                       {item.category}
                     </span>
                   </div>
 
-                  <h4 className="text-base font-bold text-white tracking-tight">
+                  <h4 className="font-display text-base font-bold uppercase tracking-wider text-[#E2E8F0]">
                     {item.title}
                   </h4>
 
-                  <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                  <p className="text-xs text-[#8B95A5] mt-2 leading-relaxed">
                     {item.tagline}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                <div className="mt-4 pt-3 border-t border-[#232A38] flex items-center justify-between text-[11px] font-mono text-[#8B95A5]">
                   <span>Entry #{idx + 1}</span>
                   {activeTab === 'love' ? (
-                    <span className="text-emerald-400 flex items-center gap-1">
+                    <span className="text-[#D4A338] flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5" /> Essential
                     </span>
                   ) : (
-                    <span className="text-rose-400 flex items-center gap-1">
+                    <span className="text-[#8E9BAE] flex items-center gap-1">
                       <XCircle className="w-3.5 h-3.5" /> Avoid
                     </span>
                   )}

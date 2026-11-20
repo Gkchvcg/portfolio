@@ -80,8 +80,8 @@ export function GothamAtmosphere() {
           }
 
           const grad = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, blob.radius);
-          grad.addColorStop(0, `rgba(56, 189, 248, ${blob.opacity})`);
-          grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+          grad.addColorStop(0, `rgba(22, 34, 56, ${blob.opacity})`);
+          grad.addColorStop(1, 'rgba(22, 34, 56, 0)');
           ctx.fillStyle = grad;
           ctx.beginPath();
           ctx.arc(blob.x, blob.y, blob.radius, 0, Math.PI * 2);
@@ -92,7 +92,7 @@ export function GothamAtmosphere() {
         ctx.lineWidth = 1;
         for (let i = 0; i < rainDrops.length; i++) {
           const drop = rainDrops[i];
-          ctx.strokeStyle = `rgba(142, 155, 174, ${drop.opacity})`;
+          ctx.strokeStyle = `rgba(139, 149, 165, ${drop.opacity})`;
           ctx.beginPath();
           ctx.moveTo(drop.x, drop.y);
           // Slanted rain angle
@@ -133,13 +133,13 @@ export function GothamAtmosphere() {
       />
 
       {/* Volumetric Sweeping Searchlight Cones (Nolan Era Realism) */}
-      <div className="absolute -top-40 left-1/4 w-[550px] h-[950px] bg-gradient-to-b from-sky-500/10 via-sky-600/3 to-transparent -rotate-12 blur-3xl transform origin-top animate-searchlight" />
-      <div className="absolute -top-40 right-1/4 w-[500px] h-[850px] bg-gradient-to-b from-blue-500/8 via-sky-600/2 to-transparent rotate-12 blur-3xl transform origin-top animate-searchlight-delayed" />
+      <div className="absolute -top-40 left-1/4 w-[550px] h-[950px] bg-gradient-to-b from-[#162238]/30 via-[#D4A338]/5 to-transparent -rotate-12 blur-3xl transform origin-top animate-searchlight" />
+      <div className="absolute -top-40 right-1/4 w-[500px] h-[850px] bg-gradient-to-b from-[#162238]/25 via-slate-400/5 to-transparent rotate-12 blur-3xl transform origin-top animate-searchlight-delayed" />
 
       {/* Atmospheric Bat-Signal Cloud Projection in Upper Background */}
-      <div className="absolute top-16 right-10 sm:right-28 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-sky-400/15 via-[#d4a338]/5 to-transparent blur-2xl opacity-70 flex items-center justify-center">
-        <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-sky-400/30 bg-sky-950/30 flex items-center justify-center p-6 opacity-60 shadow-[0_0_50px_rgba(56,189,248,0.25)]">
-          <BatIcon className="w-full h-auto text-sky-400/80 drop-shadow-[0_0_12px_rgba(56,189,248,0.6)]" />
+      <div className="absolute top-16 right-10 sm:right-28 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-[#D4A338]/20 via-[#162238]/20 to-transparent blur-2xl opacity-75 flex items-center justify-center">
+        <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-[#D4A338]/40 bg-[#0B0E14]/80 flex items-center justify-center p-6 opacity-80 shadow-[0_0_50px_rgba(212,163,56,0.25)]">
+          <BatIcon className="w-full h-auto text-[#D4A338] drop-shadow-[0_0_15px_rgba(212,163,56,0.8)]" />
         </div>
       </div>
 

@@ -4,14 +4,15 @@
 
 :root {
   --bg-void: #050608;
-  --bg-charcoal: #0B0D11;
-  --bg-graphite: #13171F;
-  --surface-steel: #1E2430;
-  --accent-midnight: #1B2A4A;
-  --accent-silver: #8E9BAE;
+  --bg-charcoal: #0B0E14;
+  --bg-graphite: #12161F;
+  --surface-steel: #232A38;
+  --border-titanium: rgba(148, 163, 184, 0.16);
+  --accent-midnight: #162238;
   --accent-amber: #D4A338;
-  --text-primary: #E6ECF5;
-  --text-secondary: #94A3B8;
+  --accent-silver: #8B95A5;
+  --text-primary: #E2E8F0;
+  --text-secondary: #8B95A5;
   --text-muted: #64748B;
 
   --background: var(--bg-void);
@@ -21,25 +22,26 @@
   --card-border: var(--surface-steel);
   --muted: var(--bg-graphite);
   --muted-foreground: var(--text-secondary);
-  --accent: #38bdf8;
-  --accent-light: #7dd3fc;
+  --accent: var(--accent-amber);
+  --accent-light: #E5BE58;
   --accent-foreground: var(--bg-void);
-  --accent-subtle: rgba(56, 189, 248, 0.12);
+  --accent-subtle: rgba(212, 163, 56, 0.12);
   --border: var(--surface-steel);
-  --grid-line: rgba(142, 155, 174, 0.04);
+  --grid-line: rgba(148, 163, 184, 0.04);
   --code-bg: #07090f;
 }
 
 .dark {
   --bg-void: #050608;
-  --bg-charcoal: #0B0D11;
-  --bg-graphite: #13171F;
-  --surface-steel: #1E2430;
-  --accent-midnight: #1B2A4A;
-  --accent-silver: #8E9BAE;
+  --bg-charcoal: #0B0E14;
+  --bg-graphite: #12161F;
+  --surface-steel: #232A38;
+  --border-titanium: rgba(148, 163, 184, 0.16);
+  --accent-midnight: #162238;
   --accent-amber: #D4A338;
-  --text-primary: #E6ECF5;
-  --text-secondary: #94A3B8;
+  --accent-silver: #8B95A5;
+  --text-primary: #E2E8F0;
+  --text-secondary: #8B95A5;
   --text-muted: #64748B;
 
   --background: var(--bg-void);
@@ -49,31 +51,43 @@
   --card-border: var(--surface-steel);
   --muted: var(--bg-graphite);
   --muted-foreground: var(--text-secondary);
-  --accent: #38bdf8;
-  --accent-light: #7dd3fc;
+  --accent: var(--accent-amber);
+  --accent-light: #E5BE58;
   --accent-foreground: var(--bg-void);
-  --accent-subtle: rgba(56, 189, 248, 0.12);
+  --accent-subtle: rgba(212, 163, 56, 0.12);
   --border: var(--surface-steel);
-  --grid-line: rgba(142, 155, 174, 0.04);
+  --grid-line: rgba(148, 163, 184, 0.04);
   --code-bg: #07090f;
 }
 
 @layer base {
   * {
-    border-color: var(--border);
+    border-color: rgba(148, 163, 184, 0.16);
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: light dark;
+    color-scheme: dark;
+    background-color: #050608;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--bg-void);
+    color: var(--text-primary);
+    font-family: var(--font-inter), sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     min-height: 100vh;
-    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-rajdhani), sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+
+  code, pre, .font-mono, .tactical-tag, .hud-text {
+    font-family: var(--font-jetbrains-mono), monospace;
   }
 }
 
@@ -336,12 +350,13 @@
 
 /* Brushed Titanium 1px Border & Sheen */
 .titanium-border {
-  border: 1px solid var(--surface-steel);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background-color: var(--bg-graphite);
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .titanium-border:hover {
-  border-color: rgba(142, 155, 174, 0.4);
-  box-shadow: 0 0 20px -4px rgba(27, 42, 74, 0.6);
+  border-color: rgba(212, 163, 56, 0.4);
+  box-shadow: 0 0 25px -4px rgba(22, 34, 56, 0.8), 0 0 10px rgba(212, 163, 56, 0.2);
 }
 
 /* Diagonal Sheen Reflection on Hover */
@@ -373,8 +388,8 @@
 /* Laser Scroll Progress Bar */
 .laser-progress-bar {
   height: 2px;
-  background: linear-gradient(90deg, #38bdf8 0%, #d4a338 50%, #38bdf8 100%);
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 4px rgba(212, 163, 56, 0.6);
+  background: linear-gradient(90deg, #D4A338 0%, #E2E8F0 50%, #D4A338 100%);
+  box-shadow: 0 0 10px rgba(212, 163, 56, 0.8), 0 0 4px rgba(226, 232, 240, 0.6);
 }
 
 /* Subtle Batcomputer Scanline */

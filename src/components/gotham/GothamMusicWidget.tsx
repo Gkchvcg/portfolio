@@ -10,15 +10,15 @@ export function GothamMusicWidget() {
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
 
   return (
-    <div className="relative flex items-center gap-1.5 p-1 rounded-xl bg-zinc-900/90 dark:bg-[#0c0e14]/90 border border-zinc-800/80 shadow-md backdrop-blur-md">
+    <div className="relative flex items-center gap-1.5 p-1 rounded-xl bg-[#0B0E14]/90 border border-[#232A38] shadow-md backdrop-blur-md">
       {/* Play/Pause Button */}
       <button
         type="button"
         onClick={togglePlay}
-        className={`p-1.5 rounded-lg transition-all flex items-center justify-center ${
+        className={`p-1.5 rounded-lg transition-all flex items-center justify-center cursor-pointer ${
           isPlaying
-            ? 'bg-sky-500/20 text-sky-400 border border-sky-500/40 shadow-[0_0_12px_rgba(56,189,248,0.3)]'
-            : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
+            ? 'bg-[#D4A338]/20 text-[#D4A338] border border-[#D4A338]/40 shadow-[0_0_12px_rgba(212,163,56,0.3)]'
+            : 'text-[#8B95A5] hover:text-[#E2E8F0] hover:bg-[#12161F]'
         }`}
         title={isPlaying ? 'Pause Gotham Theme' : 'Play Gotham Theme'}
         aria-label={isPlaying ? 'Pause Gotham Theme' : 'Play Gotham Theme'}
@@ -44,7 +44,7 @@ export function GothamMusicWidget() {
               ease: 'easeInOut',
             }}
             className={`w-0.5 rounded-full transition-colors ${
-              isPlaying ? 'bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]' : 'bg-zinc-600'
+              isPlaying ? 'bg-[#D4A338] shadow-[0_0_6px_rgba(212,163,56,0.8)]' : 'bg-zinc-600'
             }`}
             style={{ minHeight: '3px' }}
           />
@@ -52,7 +52,7 @@ export function GothamMusicWidget() {
       </div>
 
       {/* Track Label on Desktop */}
-      <span className="hidden xl:inline text-[10px] font-mono font-medium text-zinc-400 select-none pr-1">
+      <span className="hidden xl:inline text-[10px] font-mono font-medium text-[#8B95A5] select-none pr-1">
         GOTHAM AUDIO
       </span>
 
@@ -61,7 +61,7 @@ export function GothamMusicWidget() {
         <button
           type="button"
           onClick={() => setShowVolumeSlider(!showVolumeSlider)}
-          className={`p-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-colors ${
+          className={`p-1.5 rounded-lg text-[#8B95A5] hover:text-[#E2E8F0] transition-colors cursor-pointer ${
             isMuted ? 'text-rose-400' : ''
           }`}
           title="Soundtrack Volume"
@@ -81,9 +81,9 @@ export function GothamMusicWidget() {
               initial={{ opacity: 0, scale: 0.95, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 8 }}
-              className="absolute right-0 top-full mt-2 p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 shadow-2xl z-50 flex flex-col gap-2 w-36 backdrop-blur-xl"
+              className="absolute right-0 top-full mt-2 p-2.5 rounded-xl bg-[#0B0E14] border border-[#232A38] shadow-2xl z-50 flex flex-col gap-2 w-36 backdrop-blur-xl"
             >
-              <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[#8B95A5]">
                 <span>VOLUME</span>
                 <span>{isMuted ? '0%' : `${Math.round(volume * 100)}%`}</span>
               </div>
@@ -97,16 +97,16 @@ export function GothamMusicWidget() {
                 onChange={(e) => {
                   setVolume(parseFloat(e.target.value));
                 }}
-                className="w-full accent-sky-400 h-1 bg-zinc-800 rounded-lg cursor-pointer"
+                className="w-full accent-[#D4A338] h-1 bg-[#12161F] rounded-lg cursor-pointer"
               />
 
               <button
                 type="button"
                 onClick={toggleMute}
-                className="text-[10px] font-mono text-zinc-400 hover:text-sky-300 text-left pt-1 border-t border-zinc-800 flex items-center justify-between"
+                className="text-[10px] font-mono text-[#8B95A5] hover:text-[#D4A338] text-left pt-1 border-t border-[#232A38] flex items-center justify-between cursor-pointer"
               >
                 <span>{isMuted ? 'Unmute Audio' : 'Mute Audio'}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D4A338]" />
               </button>
             </motion.div>
           )}

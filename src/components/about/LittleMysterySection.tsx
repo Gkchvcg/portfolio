@@ -2,19 +2,19 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Sparkles, Moon } from 'lucide-react';
+import { Heart, Moon } from 'lucide-react';
+import { BatIcon } from '../gotham/BatIcon';
 
 export function LittleMysterySection() {
   return (
-    <div className="relative rounded-3xl overflow-hidden border border-blue-500/20 bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950 text-white p-8 sm:p-12 shadow-2xl">
-      {/* Subtle Ambient Blue Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="relative rounded-sm overflow-hidden border border-[#232A38] bg-[#0B0E14] text-[#E2E8F0] p-8 sm:p-12 shadow-2xl batcomputer-scanlines">
+      {/* Subtle Ambient Lighting */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#162238]/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center space-y-6">
-        {/* Tiny pulsing animated heart with subtle blue glow */}
+        {/* Pulsing animated heart with subtle amber glow */}
         <div className="flex items-center justify-center">
           <div className="relative flex items-center justify-center">
-            {/* Outer gentle ripple */}
             <motion.div
               animate={{
                 scale: [1, 1.4, 1],
@@ -25,10 +25,9 @@ export function LittleMysterySection() {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="absolute w-12 h-12 rounded-full bg-blue-500/20 blur-sm pointer-events-none"
+              className="absolute w-12 h-12 rounded-full bg-[#D4A338]/20 blur-sm pointer-events-none"
             />
 
-            {/* Inner Heart */}
             <motion.div
               animate={{
                 scale: [1, 1.15, 1],
@@ -38,16 +37,16 @@ export function LittleMysterySection() {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative p-3 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-400 shadow-lg shadow-blue-500/20"
+              className="relative p-3 rounded-full bg-[#12161F] border border-[#232A38] text-[#D4A338] shadow-lg shadow-[#D4A338]/10"
             >
-              <Heart className="w-5 h-5 fill-blue-400 text-blue-300" />
+              <Heart className="w-5 h-5 fill-[#D4A338] text-[#D4A338]" />
             </motion.div>
           </div>
         </div>
 
         {/* Section Pill */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono tracking-widest uppercase bg-blue-500/10 border border-blue-500/20 text-blue-300">
-          <Moon className="w-3 h-3 text-blue-400" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-[11px] font-mono tracking-widest uppercase bg-[#12161F] border border-[#232A38] text-[#D4A338]">
+          <Moon className="w-3 h-3 text-[#D4A338]" />
           <span>A QUIET PAGE • UNSPOKEN MEMORY</span>
         </div>
 
@@ -59,20 +58,20 @@ export function LittleMysterySection() {
           transition={{ duration: 1.2, ease: 'easeOut' }}
           className="space-y-4"
         >
-          <p className="text-base sm:text-lg text-zinc-300 font-serif italic leading-relaxed">
+          <p className="text-base sm:text-lg text-[#E2E8F0] font-serif italic leading-relaxed">
             &quot;In a world of constant noise and infinite lines of code, some memories remain whispered like gentle rain on quiet evenings. A quiet presence that gently anchors the heart, unspoken yet ever remembered.&quot;
           </p>
 
-          <p className="text-xs font-mono text-zinc-500 tracking-wider">
+          <p className="text-xs font-mono text-[#8B95A5] tracking-wider">
             [ Preserved in quiet reverie • Between the margins of time ]
           </p>
         </motion.div>
 
         {/* Delicate decorative divider */}
-        <div className="pt-2 flex items-center justify-center gap-2 text-blue-400/30">
-          <span className="w-8 h-px bg-blue-500/20" />
-          <Sparkles className="w-3 h-3" />
-          <span className="w-8 h-px bg-blue-500/20" />
+        <div className="pt-2 flex items-center justify-center gap-2 text-[#232A38]">
+          <span className="w-8 h-px bg-[#232A38]" />
+          <BatIcon className="w-3.5 h-2 text-[#D4A338]" />
+          <span className="w-8 h-px bg-[#232A38]" />
         </div>
       </div>
     </div>

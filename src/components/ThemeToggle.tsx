@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTheme } from './ThemeProvider';
-import { Sun, Moon, Laptop } from 'lucide-react';
+import { Moon } from 'lucide-react';
+import { BatIcon } from './gotham/BatIcon';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -14,60 +15,22 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-24 h-9 rounded-lg bg-zinc-800/40 animate-pulse" />
+      <div className="w-28 h-8 rounded-sm bg-[#12161F] border border-[#232A38] animate-pulse" />
     );
   }
 
   return (
     <div
       role="group"
-      aria-label="Theme selector"
-      className="flex items-center p-1 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-900/80 backdrop-blur-sm"
+      aria-label="Gotham Night Vision HUD"
+      className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm border border-[#232A38] bg-[#12161F] text-xs font-mono text-[#D4A338] shadow-sm select-none"
+      title="Gotham Night Vision // Locked"
     >
-      <button
-        type="button"
-        onClick={() => setTheme('light')}
-        aria-label="Light mode"
-        aria-pressed={theme === 'light'}
-        className={`p-1.5 rounded-md transition-all duration-150 ${
-          theme === 'light'
-            ? 'bg-white text-zinc-900 shadow-xs dark:bg-zinc-800 dark:text-zinc-100'
-            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
-        }`}
-        title="Light theme"
-      >
-        <Sun className="w-4 h-4" />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => setTheme('dark')}
-        aria-label="Dark mode"
-        aria-pressed={theme === 'dark'}
-        className={`p-1.5 rounded-md transition-all duration-150 ${
-          theme === 'dark'
-            ? 'bg-zinc-800 text-zinc-100 shadow-xs'
-            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
-        }`}
-        title="Dark theme"
-      >
-        <Moon className="w-4 h-4" />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => setTheme('system')}
-        aria-label="System mode"
-        aria-pressed={theme === 'system'}
-        className={`p-1.5 rounded-md transition-all duration-150 ${
-          theme === 'system'
-            ? 'bg-white text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100 shadow-xs'
-            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
-        }`}
-        title="System default theme"
-      >
-        <Laptop className="w-4 h-4" />
-      </button>
+      <BatIcon className="w-3.5 h-2 text-[#D4A338]" />
+      <span className="text-[10px] uppercase font-bold tracking-wider">
+        NIGHT VISION
+      </span>
+      <span className="w-1.5 h-1.5 rounded-full bg-[#D4A338] animate-pulse" />
     </div>
   );
 }

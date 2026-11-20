@@ -71,25 +71,25 @@ export function About() {
   return (
     <section
       id="about"
-      className="relative py-24 sm:py-32 border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/60 dark:bg-zinc-950/70 overflow-hidden"
+      className="relative py-24 sm:py-32 border-t border-[#232A38] bg-[#0B0E14] overflow-hidden"
     >
       {/* Background Subtle Gradient Glow */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-blue-500/5 dark:bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[#162238]/40 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
         {/* Section Header */}
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-sky-500/10 border border-sky-500/20 text-sky-400">
-            <BatIcon className="w-4 h-2 text-sky-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#162238] border border-[#D4A338]/30 text-[#D4A338]">
+            <BatIcon className="w-4 h-2 text-[#D4A338]" />
             <span>01 // GOTHAM ARCHIVES • DIGITAL JOURNAL & DOSSIER</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#E2E8F0] font-display">
                 About Maroof
               </h2>
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl mt-2 leading-relaxed">
+              <p className="text-sm sm:text-base text-[#8B95A5] max-w-2xl mt-2 leading-relaxed">
                 An interactive editorial journal bridging Computer Science rigor, football geometry, analog vinyl rhythms, Japanese spring aesthetics, and literary contemplation.
               </p>
             </div>
@@ -99,19 +99,19 @@ export function About() {
               <button
                 type="button"
                 onClick={toggleSound}
-                className={`flex items-center gap-2 text-xs font-mono px-3.5 py-2 rounded-2xl border transition-all ${
+                className={`flex items-center gap-2 text-xs font-mono px-3.5 py-2 rounded-2xl border transition-all cursor-pointer ${
                   isAudioMuted
-                    ? 'bg-rose-500/10 text-rose-500 border-rose-500/30'
-                    : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                    ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                    : 'bg-[#12161F] text-[#D4A338] border-[#232A38]'
                 }`}
                 title={isAudioMuted ? 'Unmute Sound Effects' : 'Mute Sound Effects'}
               >
-                {isAudioMuted ? <VolumeX className="w-3.5 h-3.5 text-rose-500" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-500" />}
+                {isAudioMuted ? <VolumeX className="w-3.5 h-3.5 text-rose-400" /> : <Volume2 className="w-3.5 h-3.5 text-[#D4A338]" />}
                 <span>{isAudioMuted ? 'Audio Muted' : 'Audio Active'}</span>
               </button>
 
-              <div className="flex items-center gap-2 text-xs font-mono text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900/90 px-4 py-2 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              <div className="flex items-center gap-2 text-xs font-mono text-[#8B95A5] bg-[#12161F] px-4 py-2 rounded-2xl border border-[#232A38] shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#D4A338] animate-pulse" />
                 <span>Interactive 60 FPS Digital Scrapbook</span>
               </div>
             </div>
@@ -119,7 +119,7 @@ export function About() {
         </div>
 
         {/* Interactive Journal Chapter Sub-Navigation */}
-        <div className="relative border-b border-zinc-200 dark:border-zinc-800/80 pb-3">
+        <div className="relative border-b border-[#232A38] pb-3">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -132,20 +132,20 @@ export function About() {
                     sound.playUiClick();
                     setActiveTab(item.id);
                   }}
-                  className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
+                  className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-zinc-950 font-bold shadow-[0_0_15px_rgba(56,189,248,0.35)]'
-                      : 'bg-[#07090e]/90 text-zinc-400 hover:text-white hover:bg-zinc-850 border border-zinc-800 hover:border-sky-500/40'
+                      ? 'bg-[#D4A338] text-[#050608] font-bold shadow-[0_0_15px_rgba(212,163,56,0.35)]'
+                      : 'bg-[#12161F] text-[#8B95A5] hover:text-[#E2E8F0] hover:bg-[#1A202C] border border-[#232A38] hover:border-[#D4A338]/40'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-zinc-950 font-bold' : 'text-zinc-400 group-hover:text-sky-400'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#050608] font-bold' : 'text-[#8B95A5] group-hover:text-[#D4A338]'}`} />
                   <span>{item.label}</span>
                   {item.badge && (
                     <span
                       className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
                         isActive
-                          ? 'bg-zinc-950/30 text-zinc-950 font-bold'
-                          : 'bg-zinc-800 text-zinc-400'
+                          ? 'bg-[#050608]/20 text-[#050608] font-bold'
+                          : 'bg-[#0B0E14] text-[#8B95A5]'
                       }`}
                     >
                       {item.badge}
@@ -174,8 +174,8 @@ export function About() {
 
                 {/* 2. Interactive 3D Tilt Favourite Cards (13 required items) */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400 font-semibold">
-                    <Heart className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Heart className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 01 // 13 ESSENTIAL FAVOURITES</span>
                   </div>
                   <FavoriteCards />
@@ -183,8 +183,8 @@ export function About() {
 
                 {/* 3. Football Subsection: 3D Depth, Stadium Lighting & Tactical Geometry */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
-                    <Trophy className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Trophy className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 02 // FOOTBALL, STADIUM LIGHTS & TACTICAL GEOMETRY</span>
                   </div>
                   <FootballSection />
@@ -192,8 +192,8 @@ export function About() {
 
                 {/* 4. Music Player-Inspired Interface: The Vinyl Lounge */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400 font-semibold">
-                    <Disc3 className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Disc3 className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 03 // THE VINYL LOUNGE (ANALOG FREQUENCIES)</span>
                   </div>
                   <VinylLounge />
@@ -201,8 +201,8 @@ export function About() {
 
                 {/* 5. Anime and Cinema Animations */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold">
-                    <Film className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Film className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 04 // CINEMA, YOUR LIE IN APRIL & POETIC NOIR</span>
                   </div>
                   <AnimeCinemaSection />
@@ -210,8 +210,8 @@ export function About() {
 
                 {/* 6. Philosophy & Literature Reading Desk */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-amber-600 dark:text-amber-400 font-semibold">
-                    <Feather className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Feather className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 05 // PHILOSOPHY, MARGINALIA & INQUIRIES</span>
                   </div>
                   <PhilosophyLiterature />
@@ -219,8 +219,8 @@ export function About() {
 
                 {/* 7. Likes & Dislikes Interactive Toggle */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
-                    <Sparkles className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Sparkles className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 06 // PERSONAL TASTE: LIKES & DISLIKES</span>
                   </div>
                   <LikesDislikesSection />
@@ -228,8 +228,8 @@ export function About() {
 
                 {/* 8. Osaka & Spring Atmospheric Portal */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-pink-600 dark:text-pink-400 font-semibold">
-                    <Flower2 className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Flower2 className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 07 // OSAKA & THE POETRY OF SPRING</span>
                   </div>
                   <OsakaSpringSection />
@@ -237,8 +237,8 @@ export function About() {
 
                 {/* 9. The Little Mystery: A Quiet Page */}
                 <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400 font-semibold">
-                    <Moon className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D4A338] font-semibold">
+                    <Moon className="w-3.5 h-3.5 text-[#D4A338]" />
                     <span>CHAPTER 08 // A QUIET PAGE</span>
                   </div>
                   <LittleMysterySection />

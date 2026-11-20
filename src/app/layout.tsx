@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Rajdhani, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Navbar } from '@/components/Navbar';
@@ -8,23 +8,27 @@ import { GothamSoundtrackProvider } from '@/components/gotham/GothamSoundtrackCo
 import { GothamIntro } from '@/components/gotham/GothamIntro';
 import { GothamAtmosphere } from '@/components/gotham/GothamAtmosphere';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const rajdhani = Rajdhani({
+  variable: '--font-rajdhani',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains-mono',
   subsets: ['latin'],
   display: 'swap',
 });
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f8fafc' },
-    { media: '(prefers-color-scheme: dark)', color: '#08090d' },
-  ],
+  themeColor: '#050608',
   width: 'device-width',
   initialScale: 1,
 };
@@ -84,9 +88,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
+      className={`${inter.variable} ${rajdhani.variable} ${jetbrainsMono.variable} antialiased dark`}
     >
-      <body className="min-h-screen flex flex-col bg-[#040507] text-zinc-100 transition-colors duration-200 selection:bg-sky-500 selection:text-black">
+      <body className="min-h-screen flex flex-col bg-[#050608] text-[#E2E8F0] font-sans selection:bg-[#D4A338] selection:text-black">
         <ThemeProvider>
           <GothamSoundtrackProvider>
             <GothamAtmosphere />
