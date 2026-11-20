@@ -25,13 +25,13 @@ export function GothamIntro() {
   }, [isDismissed]);
 
   const handleEnterGotham = async () => {
+    startSoundtrackFromIntro();
     setIsDismissed(true);
-    await startSoundtrackFromIntro();
   };
 
   const handleSkip = async () => {
+    startSoundtrackFromIntro();
     setIsDismissed(true);
-    await startSoundtrackFromIntro();
   };
 
   // Keyboard shortcut: pressing Enter or Space enters Gotham

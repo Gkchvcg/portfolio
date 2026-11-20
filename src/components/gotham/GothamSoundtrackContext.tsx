@@ -21,35 +21,31 @@ const SOUNDTRACK_SRC = '/audio/sajan-sajan.mp3';
 export function GothamSoundtrackProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolumeState] = useState(0.7);
+  const [volume, setVolumeState] = useState(0.75);
   const [isMuted, setIsMuted] = useState(false);
   const hasStartedRef = useRef(false);
 
   const play = useCallback(async () => {
-    let audio = audioRef.current;
-    if (!audio && typeof window !== 'undefined') {
-      audio = new Audio(SOUNDTRACK_SRC);
-      audio.loop = true;
-      audio.preload = 'auto';
-      audio.setAttribute('playsinline', 'true');
-      audioRef.current = audio;
-    }
+    const audio = audioRef.current;
     if (!audio) return;
     try {
       audio.muted = isMuted;
       audio.volume = isMuted ? 0 : volume;
-      await audio.play();
+      if (audio.paused) {
+        await audio.play();
+      }
       setIsPlaying(true);
       hasStartedRef.current = true;
     } catch (err) {
-      console.warn('Playback blocked or pending user interaction:', err);
+      console.warn('Soundtrack play blocked or waiting for user interaction:', err);
       setIsPlaying(false);
     }
   }, [isMuted, volume]);
 
   const pause = useCallback(() => {
-    if (!audioRef.current) return;
-    audioRef.current.pause();
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.pause();
     setIsPlaying(false);
   }, []);
 
@@ -61,13 +57,16 @@ export function GothamSoundtrackProvider({ children }: { children: React.ReactNo
     }
   }, [isPlaying, pause, play]);
 
-  const setVolume = useCallback((val: number) => {
-    const clamped = Math.max(0, Math.min(1, val));
-    setVolumeState(clamped);
-    if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 0 : clamped;
-    }
-  }, [isMuted]);
+  const setVolume = useCallback(
+    (val: number) => {
+      const clamped = Math.max(0, Math.min(1, val));
+      setVolumeState(clamped);
+      if (audioRef.current) {
+        audioRef.current.volume = isMuted ? 0 : clamped;
+      }
+    },
+    [isMuted]
+  );
 
   const toggleMute = useCallback(() => {
     setIsMuted((prev) => {
@@ -81,102 +80,96 @@ export function GothamSoundtrackProvider({ children }: { children: React.ReactNo
   }, [volume]);
 
   const startSoundtrackFromIntro = useCallback(async () => {
-    let audio = audioRef.current;
-    if (!audio && typeof window !== 'undefined') {
-      audio = new Audio(SOUNDTRACK_SRC);
-      audio.loop = true;
-      audio.preload = 'auto';
-      audio.setAttribute('playsinline', 'true');
-      audioRef.current = audio;
-    }
+    const audio = audioRef.current;
     if (!audio) return;
     try {
       audio.muted = false;
+      audio.volume = isMuted ? 0 : (volume || 0.75);
       if (audio.paused) {
-        audio.volume = 0;
         await audio.play();
       }
       setIsPlaying(true);
       hasStartedRef.current = true;
-
-      // Smooth 1.5-second volume ramp up to target volume
-      const targetVolume = isMuted ? 0 : (volume || 0.7);
-      const durationMs = 1500;
-      const startTime = performance.now();
-
-      const ramp = (currentTime: number) => {
-        if (!audioRef.current || audioRef.current.paused) return;
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(1, elapsed / durationMs);
-        audioRef.current.volume = progress * targetVolume;
-        if (progress < 1) {
-          requestAnimationFrame(ramp);
-        }
-      };
-      requestAnimationFrame(ramp);
     } catch (err) {
-      console.warn('Autoplay blocked:', err);
+      console.warn('Intro soundtrack start notice:', err);
     }
   }, [isMuted, volume]);
 
+  // Aggressive auto-play on initial load with instant unlock on first interaction
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    const audio = new Audio(SOUNDTRACK_SRC);
-    audio.loop = true;
     audio.volume = volume;
-    audio.preload = 'auto';
-    audio.setAttribute('playsinline', 'true');
+    audio.muted = false;
 
-    audio.onplay = () => setIsPlaying(true);
-    audio.onpause = () => setIsPlaying(false);
-    audio.onended = () => setIsPlaying(false);
+    let cleanupListeners: (() => void) | null = null;
 
-    audioRef.current = audio;
-
-    // Attempt auto-play immediately when anyone enters the website
-    const attemptAutoStart = async () => {
+    const startAudio = async () => {
       try {
+        // Attempt 1: Direct unmuted playback on load
+        audio.muted = false;
+        audio.volume = volume;
         await audio.play();
         setIsPlaying(true);
         hasStartedRef.current = true;
       } catch {
-        // Autoplay policy prevented immediate playback without user gesture.
-        // Listen for the very first interaction anywhere on the document.
-        const handleFirstInteraction = async () => {
-          if (hasStartedRef.current || !audioRef.current) return;
+        // Attempt 2: If browser blocked unmuted autoplay without gesture, start muted
+        // so it buffers and streams in sync immediately
+        try {
+          audio.muted = true;
+          await audio.play();
+          setIsPlaying(true);
+        } catch {
+          // Both blocked until user gesture
+        }
+
+        // Capture-phase listener for ANY user interaction across the entire viewport
+        const unlock = async () => {
+          if (!audioRef.current) return;
           try {
             audioRef.current.muted = false;
             audioRef.current.volume = volume;
-            await audioRef.current.play();
+            if (audioRef.current.paused) {
+              await audioRef.current.play();
+            }
             setIsPlaying(true);
             hasStartedRef.current = true;
           } catch (e) {
-            console.warn('Interaction play attempt:', e);
+            console.warn('Gesture soundtrack unlock error:', e);
           } finally {
-            cleanupInteractionListeners();
+            if (cleanupListeners) cleanupListeners();
           }
         };
 
-        const cleanupInteractionListeners = () => {
-          window.removeEventListener('pointerdown', handleFirstInteraction);
-          window.removeEventListener('click', handleFirstInteraction);
-          window.removeEventListener('keydown', handleFirstInteraction);
-          window.removeEventListener('touchstart', handleFirstInteraction);
+        const events = [
+          'click',
+          'pointerdown',
+          'touchstart',
+          'touchend',
+          'keydown',
+          'scroll',
+          'wheel',
+        ];
+
+        cleanupListeners = () => {
+          events.forEach((ev) => {
+            window.removeEventListener(ev, unlock, { capture: true });
+            document.removeEventListener(ev, unlock, { capture: true });
+          });
         };
 
-        window.addEventListener('pointerdown', handleFirstInteraction, { passive: true, once: true });
-        window.addEventListener('click', handleFirstInteraction, { passive: true, once: true });
-        window.addEventListener('keydown', handleFirstInteraction, { passive: true, once: true });
-        window.addEventListener('touchstart', handleFirstInteraction, { passive: true, once: true });
+        events.forEach((ev) => {
+          window.addEventListener(ev, unlock, { capture: true, passive: true });
+          document.addEventListener(ev, unlock, { capture: true, passive: true });
+        });
       }
     };
 
-    attemptAutoStart();
+    startAudio();
 
     return () => {
-      audio.pause();
-      audio.src = '';
+      if (cleanupListeners) cleanupListeners();
     };
   }, []);
 
@@ -194,6 +187,18 @@ export function GothamSoundtrackProvider({ children }: { children: React.ReactNo
         startSoundtrackFromIntro,
       }}
     >
+      {/* Permanent, first-class DOM audio element with high privileges */}
+      <audio
+        ref={audioRef}
+        src={SOUNDTRACK_SRC}
+        loop
+        preload="auto"
+        playsInline
+        className="hidden pointer-events-none"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => setIsPlaying(false)}
+      />
       {children}
     </GothamSoundtrackContext.Provider>
   );
