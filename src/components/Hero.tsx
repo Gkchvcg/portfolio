@@ -143,19 +143,20 @@ export function Hero() {
 
           {/* Right Column: Gotham Technical Workspace & Batcomputer Architecture */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-2xl border border-zinc-800 bg-[#090c14]/90 p-6 backdrop-blur-xl shadow-2xl bat-border-glow">
+            <div className="relative rounded-2xl border border-zinc-800 bg-[#07090e]/95 p-6 backdrop-blur-xl shadow-2xl bat-border-glow tactical-bracket batcomputer-scanlines overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 blur-3xl pointer-events-none" />
               {/* Terminal / Batcomputer Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+              <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block animate-pulse" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
-                  <span className="ml-2 font-mono text-xs text-sky-400/90 flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
+                  <span className="ml-2 font-mono text-xs text-sky-400 font-semibold flex items-center gap-1.5 tracking-tight">
                     <BatIcon className="w-3.5 h-auto text-sky-400" />
                     batcomputer@gotham-r&d:~$
                   </span>
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[11px] font-mono">
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/30 text-[10px] font-mono tracking-wider">
                   <CheckCircle2 className="w-3 h-3 text-sky-400" />
                   <span>WAYNE-SYS-ARMED</span>
                 </div>

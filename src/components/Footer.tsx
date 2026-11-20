@@ -130,20 +130,25 @@ export function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div className="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-400">
-          <p>© {currentYear} Maroof Husain. All rights reserved. Crafted with Next.js, TypeScript & Tailwind CSS.</p>
+        <div className="mt-12 pt-8 border-t border-zinc-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
+          <div className="space-y-1 text-center md:text-left">
+            <p>© {currentYear} Maroof Husain. All rights reserved. Crafted with Next.js, TypeScript & Tailwind CSS.</p>
+            <p className="text-[11px] font-mono text-zinc-500 italic">
+              &quot;It&apos;s not who I am underneath, but what I do that defines me.&quot; — Wayne Enterprises Applied Sciences
+            </p>
+          </div>
 
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <BatIcon className="w-3.5 h-2 text-sky-400 inline" />
-              Wayne R&D Inspired Architecture
+            <span className="flex items-center gap-2 font-mono text-xs text-sky-400 bg-sky-950/60 px-3 py-1 rounded-full border border-sky-500/30">
+              <BatIcon className="w-4 h-2 text-sky-400 inline" />
+              <span>GOTHAM SECTOR 04 // OPERATIONAL</span>
             </span>
             <button
               type="button"
               onClick={scrollToTop}
-              className="p-2 rounded-lg bg-zinc-100 dark:bg-[#090b12] hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-transparent dark:border-zinc-800 hover:border-sky-500/40 transition-all"
+              className="p-2.5 rounded-xl bg-[#090b12] hover:bg-zinc-800 text-sky-400 border border-zinc-800 hover:border-sky-500/50 hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all"
               aria-label="Scroll back to top"
-              title="Back to top"
+              title="Return to top"
             >
               <ArrowUp className="w-4 h-4" />
             </button>

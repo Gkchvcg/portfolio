@@ -152,14 +152,14 @@ export function ProjectDirectoryClient() {
             {ALL_PROJECTS.length} repositories
           </span>
 
-          <div className="flex items-center p-1 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
+          <div className="flex items-center p-1 rounded-lg border border-zinc-800 bg-[#07090e]">
             <button
               type="button"
               onClick={() => setCompactView(false)}
               className={`p-1.5 rounded-md ${
                 !compactView
-                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-2xs'
-                  : 'text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200'
+                  ? 'bg-zinc-800 text-sky-400 shadow-2xs'
+                  : 'text-zinc-400 hover:text-white'
               }`}
               title="Standard Grid View"
               aria-label="Grid View"
@@ -172,8 +172,8 @@ export function ProjectDirectoryClient() {
               onClick={() => setCompactView(true)}
               className={`p-1.5 rounded-md ${
                 compactView
-                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-2xs'
-                  : 'text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200'
+                  ? 'bg-zinc-800 text-sky-400 shadow-2xs'
+                  : 'text-zinc-400 hover:text-white'
               }`}
               title="Compact View"
               aria-label="Compact View"

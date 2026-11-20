@@ -20,13 +20,13 @@ export function EducationCertifications() {
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
             <BatIcon className="w-3.5 h-auto text-sky-400" />
-            <span>05 // ACADEMICS & CREDENTIALS</span>
+            <span>05 // GOTHAM INTELLIGENCE ARCHIVE • ACADEMIC & MISSION TIMELINE</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
-            Education & Certifications
+            Academic Timeline & WayneTech Credentials
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 max-w-2xl">
-            Formal university engineering training supplemented by industry-recognized simulations and specialized certifications.
+            Formal university engineering training at Dr. A.P.J. Abdul Kalam Technical University (7.9 CGPA) supplemented by Wayne Enterprises validated operational credentials.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export function EducationCertifications() {
               </h3>
             </div>
 
-            <div className="p-6 rounded-2xl border border-zinc-800 bg-[#090b12]/90 shadow-md space-y-5 bat-border-glow">
+            <div className="p-6 rounded-2xl border border-zinc-800 bg-[#07090e]/95 shadow-md space-y-5 bat-border-glow tactical-bracket">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
                   <h4 className="text-lg font-bold text-white">
@@ -58,25 +58,25 @@ export function EducationCertifications() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400 font-mono">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-400 font-mono">
                 <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5" />
+                  <Calendar className="w-3.5 h-3.5 text-sky-400" />
                   <span>{EDUCATION_DATA.period}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5" />
+                  <MapPin className="w-3.5 h-3.5 text-sky-400" />
                   <span>{EDUCATION_DATA.location}</span>
                 </span>
               </div>
 
-              <div className="space-y-2 pt-4 border-t border-zinc-100 dark:border-zinc-800">
-                <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              <div className="space-y-2 pt-4 border-t border-zinc-800">
+                <div className="text-xs font-mono uppercase tracking-wider text-sky-400">
                   Coursework & Core Focus
                 </div>
-                <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-300">
+                <ul className="space-y-2 text-xs text-zinc-300">
                   {EDUCATION_DATA.highlights.map((h, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </li>
                   ))}
@@ -89,9 +89,9 @@ export function EducationCertifications() {
           {/* Certifications Column */}
           {/* ======================================================== */}
           <div id="certifications" className="lg:col-span-6 space-y-6">
-            <div className="flex items-center gap-2 pb-2 border-b border-zinc-200 dark:border-zinc-800">
-              <Award className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+            <div className="flex items-center gap-2 pb-2 border-b border-zinc-800">
+              <Award className="w-5 h-5 text-sky-400" />
+              <h3 className="text-lg font-bold text-white">
                 Industry Certifications & Credentials
               </h3>
             </div>
@@ -100,24 +100,24 @@ export function EducationCertifications() {
               {CERTIFICATIONS_DATA.map((cert) => (
                 <div
                   key={cert.title}
-                  className="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 shadow-sm space-y-2.5"
+                  className="p-5 rounded-2xl border border-zinc-800 bg-[#07090e]/95 hover:border-sky-500/40 hover:shadow-[0_0_15px_rgba(56,189,248,0.15)] transition-all shadow-sm space-y-2.5 tactical-bracket"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h4 className="text-base font-bold text-zinc-900 dark:text-white">
+                      <h4 className="text-base font-bold text-white">
                         {cert.title}
                       </h4>
-                      <div className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                      <div className="text-xs font-medium text-sky-400 font-mono">
                         {cert.issuer}
                       </div>
                     </div>
 
-                    <span className="px-2.5 py-0.5 rounded text-[11px] font-mono text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+                    <span className="px-2.5 py-0.5 rounded text-[11px] font-mono text-sky-300 bg-sky-950/60 border border-sky-500/30">
                       {cert.year}
                     </span>
                   </div>
 
-                  <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                  <p className="text-xs text-zinc-300 leading-relaxed">
                     {cert.description}
                   </p>
                 </div>

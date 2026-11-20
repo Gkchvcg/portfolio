@@ -21,7 +21,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl h-[88vh] flex flex-col bg-[#090b12] border border-zinc-800 rounded-2xl shadow-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-hidden"
+        className="relative w-full max-w-4xl h-[88vh] flex flex-col bg-[#090b12] border border-zinc-800 rounded-2xl shadow-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-hidden tactical-bracket"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

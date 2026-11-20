@@ -76,15 +76,15 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Section Header */}
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-600 dark:text-sky-400 uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
             <BatIcon className="w-4 h-2 text-sky-400" />
-            <span>06 // SECURE COMMUNICATIONS • ENCRYPTED TRANSMISSION</span>
+            <span>06 // BATCAVE SECURE TRANSMISSION TERMINAL • FREQUENCY 2027-MH</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
-            Get In Touch
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
+            Encrypted Comms & Contact
           </h2>
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            Open to Software Development Engineer (SDE) opportunities, technical discussions, and full-stack engineering collaborations.
+          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl">
+            Open to Software Development Engineer (SDE) opportunities, systems architecture discussions, and full-stack engineering collaborations.
           </p>
         </div>
 
@@ -92,19 +92,19 @@ export function ContactSection() {
           {/* Direct Contact Cards */}
           <div className="lg:col-span-5 space-y-4">
             {/* Email Card */}
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-[#090b12]/90 shadow-sm hover:border-sky-500/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.12)] transition-all space-y-3">
+            <div className="p-6 rounded-2xl border border-zinc-800 bg-[#07090e]/95 shadow-md hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all space-y-3 tactical-bracket">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                  <div className="p-2.5 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                      Direct Email
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+                      Direct Email Transmission
                     </h3>
                     <a
                       href={`mailto:${PERSONAL_INFO.email}`}
-                      className="text-sm sm:text-base font-semibold text-zinc-900 dark:text-white hover:text-sky-400 transition-colors"
+                      className="text-sm sm:text-base font-semibold text-white hover:text-sky-400 transition-colors"
                       id="contact-email-link"
                     >
                       {PERSONAL_INFO.email}
@@ -115,37 +115,37 @@ export function ContactSection() {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="p-2 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
                   title="Copy email to clipboard"
                   aria-label="Copy email address"
                 >
                   {copied ? (
-                    <Check className="w-4 h-4 text-emerald-500" />
+                    <Check className="w-4 h-4 text-emerald-400" />
                   ) : (
                     <Copy className="w-4 h-4" />
                   )}
                 </button>
               </div>
               {copied && (
-                <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-mono">
+                <p className="text-[11px] text-emerald-400 font-mono">
                   ✓ Email copied to clipboard
                 </p>
               )}
             </div>
 
             {/* Phone Card */}
-            <div className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-[#090b12]/90 shadow-sm hover:border-emerald-500/40 transition-all">
+            <div className="p-6 rounded-2xl border border-zinc-800 bg-[#07090e]/95 shadow-md hover:border-emerald-500/50 transition-all tactical-bracket">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">
+                <div className="p-2.5 rounded-xl bg-emerald-950/60 text-emerald-400 border border-emerald-900/60">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                    Phone Contact
+                  <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+                    Direct Phone Line
                   </h3>
                   <a
                     href={`tel:${PERSONAL_INFO.phone}`}
-                    className="text-sm sm:text-base font-semibold text-zinc-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                    className="text-sm sm:text-base font-semibold text-white hover:text-emerald-400 transition-colors"
                     id="contact-phone-link"
                   >
                     {PERSONAL_INFO.phone}
@@ -155,16 +155,16 @@ export function ContactSection() {
             </div>
 
             {/* Resume Download Direct Card */}
-            <div className="p-6 rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-950/20 via-[#090b12] to-zinc-900 shadow-[0_0_20px_rgba(56,189,248,0.08)] space-y-4">
+            <div className="p-6 rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-950/30 via-[#07090e] to-zinc-950 shadow-[0_0_20px_rgba(56,189,248,0.12)] space-y-4 tactical-bracket">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-zinc-900 dark:text-white">
-                    Download Verified Resume
+                  <h3 className="text-base font-bold text-white">
+                    WayneTech Verified Dossier (Resume)
                   </h3>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <p className="text-xs text-zinc-400">
                     Updated PDF formatted for technical recruiters
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export function ContactSection() {
                 <a
                   href={PERSONAL_INFO.resumePath}
                   download={PERSONAL_INFO.resumeFilename}
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-semibold transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-zinc-950 font-bold text-xs transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                   id="contact-download-resume-btn"
                 >
                   <Download className="w-4 h-4" />
@@ -184,7 +184,7 @@ export function ContactSection() {
                 <button
                   type="button"
                   onClick={() => setResumeModalOpen(true)}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-sky-500/40 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-850 text-zinc-200 text-xs font-medium hover:border-sky-500/40 hover:text-white transition-colors"
                 >
                   <span>Preview</span>
                 </button>
@@ -192,36 +192,36 @@ export function ContactSection() {
             </div>
 
             {/* Verified Social Connects */}
-            <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-[#07090e]/80 flex items-center justify-around">
+            <div className="p-4 rounded-xl border border-zinc-800 bg-[#07090e]/80 flex items-center justify-around">
               <a
                 href="https://github.com/Gkchvcg"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub</span>
               </a>
 
-              <span className="text-zinc-300 dark:text-zinc-700">•</span>
+              <span className="text-zinc-700">•</span>
 
               <a
                 href="https://www.linkedin.com/in/maroof-husain-arima/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-sky-400 transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-sky-400 transition-colors"
               >
                 <LinkedinIcon className="w-4 h-4 text-sky-400" />
                 <span>LinkedIn</span>
               </a>
 
-              <span className="text-zinc-300 dark:text-zinc-700">•</span>
+              <span className="text-zinc-700">•</span>
 
               <a
                 href="https://leetcode.com/u/MaroofHusain/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-amber-400 transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-amber-400 transition-colors"
               >
                 <span>LeetCode</span>
               </a>
@@ -230,13 +230,21 @@ export function ContactSection() {
 
           {/* Contact Message Form */}
           <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-[#090b12]/90 shadow-sm relative overflow-hidden">
+            <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800 bg-[#07090e]/95 shadow-2xl relative overflow-hidden tactical-bracket batcomputer-scanlines">
               <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 blur-2xl pointer-events-none" />
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-1">
-                Send a Direct Message
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800 text-[10px] font-mono text-zinc-400">
+                <span className="text-sky-400 flex items-center gap-1.5 font-semibold">
+                  <BatIcon className="w-3 h-auto text-sky-400" />
+                  ENCRYPTION: AES-256 GCM
+                </span>
+                <span>COMMS RELAY: WAYNE SATELLITE</span>
+              </div>
+
+              <h3 className="text-lg font-bold text-white mb-1">
+                Send an Encrypted Message
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-6">
-                Fill out the form below to initiate an email directly to {PERSONAL_INFO.email}.
+              <p className="text-xs text-zinc-400 mb-6">
+                Fill out the form below to dispatch an email transmission directly to {PERSONAL_INFO.email}.
               </p>
 
               {submitted && (

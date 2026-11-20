@@ -20,13 +20,13 @@ export function CodingProfiles() {
         <div className="space-y-2 mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
             <BatIcon className="w-3.5 h-auto text-sky-400" />
-            <span>04 // GOTHAM NETWORK • VERIFIED PROFILES</span>
+            <span>04 // GOTHAM INTELLIGENCE NETWORK • VERIFIED CREDENTIALS</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
-            Coding & Technical Profiles
+            Verified Intelligence Profiles & Metrics
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 max-w-2xl">
-            Live profiles across competitive programming, open-source repositories, and professional networks.
+            Live telemetry across competitive algorithmic problem solving (500+ LeetCode), open-source repositories, and professional networks.
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export function CodingProfiles() {
               href={profile.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-6 rounded-2xl border border-zinc-800 bg-[#090b12]/90 hover:border-sky-500/50 transition-all duration-200 shadow-md hover:shadow-[0_0_20px_rgba(56,189,248,0.2)] hover:-translate-y-1 flex flex-col justify-between"
+              className="group p-6 rounded-2xl border border-zinc-800 bg-[#07090e]/95 hover:border-sky-500/50 transition-all duration-200 shadow-md hover:shadow-[0_0_20px_rgba(56,189,248,0.2)] hover:-translate-y-1 flex flex-col justify-between tactical-bracket"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">

@@ -46,12 +46,12 @@ export default function ProjectsPage() {
         <div className="space-y-4 max-w-3xl">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-sky-400 uppercase tracking-wider">
             <BatIcon className="w-4 h-2 text-sky-400" />
-            <span>WAYNE R&D // COMPLETE REPOSITORY INVENTORY</span>
+            <span>WAYNETECH APPLIED SCIENCES // CLASSIFIED OPERATIONS REGISTRY</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
             Engineering Projects Directory
           </h1>
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
+          <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
             Every eligible public repository in my GitHub portfolio is enumerated below. Each project is documented with its verified purpose, actual technologies, system architecture, and repository links.
           </p>
         </div>

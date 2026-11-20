@@ -3,37 +3,37 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f8fafc;
-  --foreground: #090d16;
-  --card: #ffffff;
-  --card-foreground: #090d16;
-  --card-border: #e2e8f0;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #0284c7;
-  --accent-light: #38bdf8;
-  --accent-foreground: #ffffff;
-  --accent-subtle: #f0f9ff;
-  --border: #e2e8f0;
-  --grid-line: rgba(56, 189, 248, 0.06);
-  --code-bg: #f1f5f9;
-}
-
-.dark {
-  --background: #040507;
+  --background: #030407;
   --foreground: #f1f5f9;
-  --card: #090b10;
+  --card: #080a0f;
   --card-foreground: #f8fafc;
-  --card-border: #151a24;
-  --muted: #0d1017;
+  --card-border: #141a26;
+  --muted: #0d121c;
   --muted-foreground: #94a3b8;
   --accent: #38bdf8;
   --accent-light: #60a5fa;
-  --accent-foreground: #040507;
+  --accent-foreground: #020305;
   --accent-subtle: rgba(56, 189, 248, 0.12);
-  --border: #151a24;
+  --border: #141a26;
   --grid-line: rgba(56, 189, 248, 0.035);
-  --code-bg: #07090e;
+  --code-bg: #06080d;
+}
+
+.dark {
+  --background: #020305;
+  --foreground: #f1f5f9;
+  --card: #080a0f;
+  --card-foreground: #f8fafc;
+  --card-border: #141a26;
+  --muted: #0d121c;
+  --muted-foreground: #94a3b8;
+  --accent: #38bdf8;
+  --accent-light: #60a5fa;
+  --accent-foreground: #020305;
+  --accent-subtle: rgba(56, 189, 248, 0.12);
+  --border: #141a26;
+  --grid-line: rgba(56, 189, 248, 0.035);
+  --code-bg: #06080d;
 }
 
 @layer base {
@@ -240,6 +240,49 @@
 .bat-border-glow:hover {
   border-color: rgba(56, 189, 248, 0.5);
   box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.25);
+}
+
+/* Tactical Corner Brackets */
+.tactical-bracket {
+  position: relative;
+}
+.tactical-bracket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid rgba(56, 189, 248, 0.6);
+  border-left: 2px solid rgba(56, 189, 248, 0.6);
+  pointer-events: none;
+  z-index: 10;
+}
+.tactical-bracket::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.6);
+  border-right: 2px solid rgba(56, 189, 248, 0.6);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Subtle Batcomputer Scanline */
+.batcomputer-scanlines {
+  background: linear-gradient(
+    rgba(18, 24, 38, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.01),
+    rgba(0, 255, 0, 0.005),
+    rgba(0, 0, 255, 0.01)
+  );
+  background-size: 100% 4px, 6px 100%;
 }
 
 /* Reduced motion support */

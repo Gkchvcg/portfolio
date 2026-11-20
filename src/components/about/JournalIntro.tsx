@@ -3,8 +3,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { MapPin, Sparkles, Terminal, Code2, Cpu, Layers } from 'lucide-react';
+import { MapPin, Sparkles, Terminal, Code2, Cpu, Layers, ShieldCheck } from 'lucide-react';
 import { PERSONAL_INFO, EDUCATION_DATA } from '@/data/portfolioData';
+import { BatIcon } from '../gotham/BatIcon';
 
 interface JournalIntroProps {
   onOpenMystery?: () => void;
@@ -26,10 +27,10 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900/60 shadow-2xs"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-sky-400 bg-sky-950/60 border border-sky-500/30 shadow-[0_0_15px_rgba(56,189,248,0.2)]"
         >
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
-          <span>CHAPTER 01 // DIGITAL JOURNAL & ARCHITECTURE</span>
+          <BatIcon className="w-4 h-2 text-sky-400" />
+          <span>WAYNE ENTERPRISES // CLASSIFIED PERSONNEL DOSSIER MH-2027</span>
         </motion.div>
 
         <motion.h2
@@ -37,10 +38,10 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 dark:text-white"
+          className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white"
         >
-          About{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-sky-400 dark:from-blue-400 dark:via-indigo-300 dark:to-sky-300">
+          Personnel Dossier:{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-blue-500 drop-shadow-[0_0_25px_rgba(56,189,248,0.35)]">
             Maroof Husain
           </span>
         </motion.h2>
@@ -57,7 +58,7 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
               transition: { staggerChildren: 0.035, delayChildren: 0.2 },
             },
           }}
-          className="text-base sm:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal"
+          className="text-base sm:text-xl text-zinc-300 leading-relaxed font-normal"
         >
           {words.map((word, idx) => (
             <motion.span
@@ -77,7 +78,7 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
 
       {/* Main Intro Grid: Profile Snapshot + Progressive Narrative */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        {/* Left Column: Portrait & Snapshot Card with 3D Depth */}
+        {/* Left Column: Portrait & Snapshot Card with Tactical 3D Depth */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -85,12 +86,21 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="lg:col-span-4 space-y-6"
         >
-          <div className="group relative p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md shadow-lg hover:border-blue-500/50 dark:hover:border-blue-500/40 transition-all duration-300 card-hover-border">
+          <div className="group relative p-6 rounded-2xl border border-zinc-800 bg-[#07090e]/95 backdrop-blur-xl shadow-2xl hover:border-sky-500/50 transition-all duration-300 tactical-bracket batcomputer-scanlines overflow-hidden">
             {/* Subtle blue accent glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-indigo-500/5 rounded-2xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 blur-2xl pointer-events-none" />
+
+            {/* Dossier ID Stamp */}
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800 text-[10px] font-mono text-zinc-400">
+              <span className="text-sky-400 flex items-center gap-1 font-semibold">
+                <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
+                SECURITY CLEARANCE: LEVEL 09
+              </span>
+              <span>FILE: #MH-AKTU</span>
+            </div>
 
             <div className="flex items-center gap-4 relative">
-              <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 shadow-sm group-hover:scale-105 transition-transform duration-300">
+              <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-zinc-700 bg-zinc-800 shadow-sm group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src={PERSONAL_INFO.avatarUrl}
                   alt={PERSONAL_INFO.name}
@@ -101,39 +111,39 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
                 />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight">
+                <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-1.5">
                   {PERSONAL_INFO.name}
                 </h3>
-                <p className="text-xs text-blue-600 dark:text-blue-400 font-mono font-medium">
+                <p className="text-xs text-sky-400 font-mono font-medium">
                   CS & Engineering (2023–2027)
                 </p>
-                <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  <MapPin className="w-3.5 h-3.5 text-zinc-400" />
+                <div className="flex items-center gap-1.5 text-xs text-zinc-400 mt-1">
+                  <MapPin className="w-3.5 h-3.5 text-zinc-500" />
                   <span>{PERSONAL_INFO.location}</span>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-3 pt-5 mt-5 border-t border-zinc-100 dark:border-zinc-800/80 text-xs">
+            <div className="space-y-3 pt-5 mt-5 border-t border-zinc-800 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-zinc-500 dark:text-zinc-400">Academic Degree</span>
-                <span className="font-semibold text-zinc-900 dark:text-zinc-200">B.Tech CSE</span>
+                <span className="text-zinc-400">Academic Degree</span>
+                <span className="font-semibold text-zinc-200">B.Tech CSE</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-zinc-500 dark:text-zinc-400">University</span>
-                <span className="font-semibold text-zinc-900 dark:text-zinc-200 text-right truncate max-w-[200px]" title={EDUCATION_DATA.institution}>
+                <span className="text-zinc-400">University</span>
+                <span className="font-semibold text-zinc-200 text-right truncate max-w-[200px]" title={EDUCATION_DATA.institution}>
                   AKTU, Lucknow
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-zinc-500 dark:text-zinc-400">Academic CGPA</span>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400 font-mono">
+                <span className="text-zinc-400">Academic CGPA</span>
+                <span className="font-semibold text-emerald-400 font-mono">
                   {EDUCATION_DATA.cgpa}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-zinc-500 dark:text-zinc-400">LeetCode Solved</span>
-                <span className="font-semibold text-amber-600 dark:text-amber-400 font-mono">
+                <span className="text-zinc-400">LeetCode Solved</span>
+                <span className="font-semibold text-amber-400 font-mono">
                   500+ Problems
                 </span>
               </div>
@@ -143,10 +153,10 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
           {/* Core Philosophy Quote Card */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="p-5 rounded-2xl border border-blue-200/60 dark:border-blue-900/40 bg-gradient-to-br from-blue-50/60 via-white dark:via-zinc-900 to-indigo-50/40 dark:from-blue-950/30 dark:to-indigo-950/20 text-xs text-blue-950 dark:text-blue-200 shadow-xs relative overflow-hidden"
+            className="p-5 rounded-2xl border border-sky-500/30 bg-[#07090e]/95 text-xs text-sky-200 shadow-md relative overflow-hidden batcomputer-scanlines"
           >
-            <div className="text-2xl font-serif text-blue-300 dark:text-blue-700/60 absolute -top-1 left-3 select-none leading-none">“</div>
-            <p className="relative italic leading-relaxed pt-2 pl-4">
+            <div className="text-2xl font-serif text-sky-500/40 absolute -top-1 left-3 select-none leading-none">“</div>
+            <p className="relative italic leading-relaxed pt-2 pl-4 text-zinc-300">
               I prefer understanding why things work under the hood rather than simply memorizing how to invoke them.
             </p>
           </motion.div>
@@ -179,13 +189,13 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
             <motion.div
               whileHover={{ y: -3, scale: 1.01 }}
               transition={{ duration: 0.2 }}
-              className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm space-y-2 hover:border-blue-500/40"
+              className="p-4 rounded-xl border border-zinc-800 bg-[#07090e]/95 backdrop-blur-sm space-y-2 hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all"
             >
-              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold text-sm">
+              <div className="flex items-center gap-2 text-sky-400 font-semibold text-sm">
                 <Code2 className="w-4 h-4" />
                 <span>Full-Stack Engineering</span>
               </div>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
+              <p className="text-xs text-zinc-400 leading-normal">
                 Building responsive web apps, stateful clients, and REST APIs with React, Next.js, Express, MongoDB, and FastAPI.
               </p>
             </motion.div>
@@ -193,13 +203,13 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
             <motion.div
               whileHover={{ y: -3, scale: 1.01 }}
               transition={{ duration: 0.2 }}
-              className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm space-y-2 hover:border-indigo-500/40"
+              className="p-4 rounded-xl border border-zinc-800 bg-[#07090e]/95 backdrop-blur-sm space-y-2 hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all"
             >
-              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
+              <div className="flex items-center gap-2 text-sky-300 font-semibold text-sm">
                 <Cpu className="w-4 h-4" />
                 <span>AI & Applied Machine Learning</span>
               </div>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
+              <p className="text-xs text-zinc-400 leading-normal">
                 Deploying LLMs, computer vision (BLIP), XGBoost classification, and time-series models into interactive applications.
               </p>
             </motion.div>
@@ -207,13 +217,13 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
             <motion.div
               whileHover={{ y: -3, scale: 1.01 }}
               transition={{ duration: 0.2 }}
-              className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm space-y-2 hover:border-sky-500/40"
+              className="p-4 rounded-xl border border-zinc-800 bg-[#07090e]/95 backdrop-blur-sm space-y-2 hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all"
             >
-              <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400 font-semibold text-sm">
+              <div className="flex items-center gap-2 text-sky-400 font-semibold text-sm">
                 <Layers className="w-4 h-4" />
                 <span>Blockchain & Web3</span>
               </div>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
+              <p className="text-xs text-zinc-400 leading-normal">
                 Designing Solidity smart contracts on Polygon Amoy with Wagmi and RainbowKit for escrow and tokenized reward flows.
               </p>
             </motion.div>
@@ -221,13 +231,13 @@ export function JournalIntro({ onOpenMystery }: JournalIntroProps) {
             <motion.div
               whileHover={{ y: -3, scale: 1.01 }}
               transition={{ duration: 0.2 }}
-              className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm space-y-2 hover:border-emerald-500/40"
+              className="p-4 rounded-xl border border-zinc-800 bg-[#07090e]/95 backdrop-blur-sm space-y-2 hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all"
             >
-              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
+              <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm">
                 <Terminal className="w-4 h-4" />
                 <span>Algorithms & Core CS</span>
               </div>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
+              <p className="text-xs text-zinc-400 leading-normal">
                 500+ LeetCode problems solved with in-depth knowledge of OS concepts, DBMS normalization, and OOP system design.
               </p>
             </motion.div>

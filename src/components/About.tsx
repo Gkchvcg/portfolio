@@ -134,18 +134,18 @@ export function About() {
                   }}
                   className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                      : 'bg-white/80 dark:bg-zinc-900/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-200/80 dark:border-zinc-800'
+                      ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-zinc-950 font-bold shadow-[0_0_15px_rgba(56,189,248,0.35)]'
+                      : 'bg-[#07090e]/90 text-zinc-400 hover:text-white hover:bg-zinc-850 border border-zinc-800 hover:border-sky-500/40'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-zinc-400 group-hover:text-blue-500'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-zinc-950 font-bold' : 'text-zinc-400 group-hover:text-sky-400'}`} />
                   <span>{item.label}</span>
                   {item.badge && (
                     <span
                       className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
                         isActive
-                          ? 'bg-white/20 text-white'
-                          : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
+                          ? 'bg-zinc-950/30 text-zinc-950 font-bold'
+                          : 'bg-zinc-800 text-zinc-400'
                       }`}
                     >
                       {item.badge}

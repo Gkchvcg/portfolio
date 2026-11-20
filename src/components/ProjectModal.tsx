@@ -31,11 +31,11 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] flex flex-col bg-white dark:bg-[#090b12] border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl dark:shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-hidden my-auto"
+        className="relative w-full max-w-3xl max-h-[90vh] flex flex-col bg-[#090b12] border border-zinc-800 rounded-2xl shadow-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-hidden my-auto tactical-bracket"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-6 py-5 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#07090e]">
+        <div className="flex items-start justify-between px-6 py-5 border-b border-zinc-800 bg-[#07090e]">
           <div className="space-y-1 pr-6">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-medium bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30">
